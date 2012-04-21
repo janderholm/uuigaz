@@ -1,4 +1,4 @@
-package mechanics;
+package com.github.uuigaz.mechanics;
 
 public abstract class Ship{
 	private short length;
