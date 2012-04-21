@@ -1,4 +1,4 @@
-public interface Ship{
+public abstract class Ship{
 
 
 
