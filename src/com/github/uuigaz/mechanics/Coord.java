@@ -1,4 +1,4 @@
-package mechanics;
+package com.github.uuigaz.mechanics;
 public class Coord{
 	public final short X;
 	public final char Y;
