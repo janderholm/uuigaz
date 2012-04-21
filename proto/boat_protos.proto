@@ -1,0 +1,28 @@
+package messages;
+
+option java_package	= "com.github.uuigaz.messages";
+
+message Coordinate {
+	required uint32 x = 1;
+	required uint32 y = 2;
+}
+
+message Boat {
+	required Coordinate co = 1;
+	
+	enum BoatType {
+		CARRIER = 5;
+		BATTLESHIP = 4;
+		CRUISER = 3;
+		DESTROYER = 2;
+		SUBMARINE = 1;
+	}
+}
+
+message Shot {
+	required Coordinate co = 1;
+}
+
+message StatusReport {
+	required bool hit = 1;
+}
