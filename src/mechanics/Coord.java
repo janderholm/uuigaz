@@ -1,4 +1,4 @@
-package mechanics
+package mechanics;
 public class Coord{
 	public final short X;
 	public final char Y;
@@ -10,7 +10,8 @@ public class Coord{
 	
 	public boolean equals(Object o){
 		if (o instanceof Coord){
-			return (o.X == this.X && o.Y == this.Y)
+			Coord tmp = (Coord) o;
+			return (tmp.X == this.X && tmp.Y == this.Y);
 		}
 		return false;
 	}
