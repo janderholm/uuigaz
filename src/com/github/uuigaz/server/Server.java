@@ -4,24 +4,9 @@ import com.github.uuigaz.messages.BoatProtos.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.concurrent.LinkedBlockingQueue;
-
-/*
- private BufferedReader in;
- private OutputStreamWriter out;
- private Participant parent;
-
- public Sentry(Participant parent, Socket connection) throws IOException {
- this.parent = parent;
- this.in = new BufferedReader(new InputStreamReader(
- connection.getInputStream()));
- this.out = new OutputStreamWriter(connection.getOutputStream());
- }
- */
+import java.util.LinkedList;
 
 class Player implements Runnable {
-	// private LinkedBlockingQueue<String> mailbox;
 	private Socket connection;
 	public final String name;
 	private Session session;
@@ -29,25 +14,26 @@ class Player implements Runnable {
 	public Player(Init init, Socket connection) throws IOException {
 		this.name = init.getName();
 		this.connection = connection;
-		// this.mailbox = new LinkedBlockingQueue<String>();
 	}
 
 	public void run() {
+		try {
+			this.session = Controller.getInstance().getSession(this);
+		} catch (InterruptedException e) {
+			// TODO:
+			// Here we were interrupted when waiting for someone to connect.
+			// We probably want to kill ourselves now.
+			e.printStackTrace();
+			return;
+		}
+
 		while (true) {
-			try {
-				this.session = Controller.getInstance().getSession(this);
-			} catch (InterruptedException e) {
-				// TODO: Here we were interrupted when waiting for someone to
-				// connect. We probably want to break now.
-				e.printStackTrace();
-				break;
-			}
+			break;
 		}
 	}
 }
 
 class Session {
-	// private ArrayList<String> names;
 	final Player players[];
 
 	public Session(Player player1, Player player2) {
@@ -65,11 +51,11 @@ class Session {
 class Controller {
 
 	private static Controller instance;
-	private ArrayList<Player> participants;
-	private ArrayList<Session> sessions;
+	private LinkedList<Player> participants;
+	private LinkedList<Session> sessions;
 
 	private Controller() {
-		this.participants = new ArrayList<Player>();
+		this.participants = new LinkedList<Player>();
 	}
 
 	public synchronized Session getSession(Player p)
@@ -88,17 +74,23 @@ class Controller {
 				wait();
 			} else {
 				// TODO: Maybe add return here.
-				sessions.add(new Session(p, participants.remove(0)));
-				notifyAll();
+				session = new Session(p, participants.removeFirst());
+				sessions.addFirst(session);
+
+				// TODO:
+				// Change this to notify() if we don't lock on anything else.
+				notify();
 			}
 		}
 
 		return session;
 	}
 
-	public static synchronized Controller getInstance() {
-		if (instance == null) {
-			instance = new Controller();
+	public static Controller getInstance() {
+		synchronized (instance) {
+			if (instance == null) {
+				instance = new Controller();
+			}
 		}
 		return instance;
 	}
@@ -107,21 +99,22 @@ class Controller {
 public class Server {
 
 	public static void main(String[] args) {
-		
+
 		int port = 30000;
-		
+
 		if (args.length > 0) {
-			try {			
+			try {
 				port = Integer.parseInt(args[0]);
 			} catch (NumberFormatException e) {
-				System.out.println("Argument not a proper port");
+				System.out.println("Port argument not a number");
 				System.exit(1);
 			}
 		}
-		
+
 		ServerSocket listen = null;
 		try {
 			listen = new ServerSocket(port);
+			System.out.println("Listening on port: " + port);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -136,8 +129,9 @@ public class Server {
 				Init init = Init.parseFrom(socket.getInputStream());
 				new Thread(new Player(init, socket)).start();
 			} catch (IOException e) {
-				// TODO: A connection failed. Not sure what to do here but
-				//       just leave it with a stack trace for now.       
+				// TODO:
+				// A connection failed. Not sure what to do here but just leave
+				// it with a stack trace for now.
 				e.printStackTrace();
 			}
 		}

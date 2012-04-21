@@ -4,7 +4,7 @@ uuigaz
 Battleships inspired game.
 
 Build instructions
-==================
+------------------
 
 This project uses [protobuf](https://developers.google.com/protocol-buffers/) in order to serialize messages. It should be available in most repositories (in Debian/Ubuntu as **libprotobuf-java**) or at https://developers.google.com/protocol-buffers/.
 
