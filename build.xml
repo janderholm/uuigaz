@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!-- Build file for our first application -->
-<project name="BattleShips" default="build" basedir=".">
+<project name="uuigaz" default="build" basedir=".">
 
   <target name="build" >
     <javac srcdir="src" destdir="bin" debug="true" includes="src/*.java"/>
