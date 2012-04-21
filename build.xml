@@ -2,19 +2,25 @@
 <!-- Build file for our first application -->
 <project name="uuigaz" default="build" basedir=".">
 
-  <target name="build" >
-    <javac srcdir="src" destdir="bin" debug="true" includes="src/*.java"/>
-  </target>
+	<property name="protobuf.dir" value="/usr/share/java" />
 	
-  <target name="clean">
-    <delete dir="build"/>
-  </target>
+	<path id="classpath">
+	<fileset dir="${protobuf.dir}" includes="protobuf.jar"/>
+	</path>
 
-  <target name="proto_build">
-  	<exec executable="protoc">
-  	<arg value="proto/boat_protos.proto"/>
-  	<arg value="--java_out=src/"/>
-  	</exec>
-  </target>
-  
+	<target name="build">
+		<javac srcdir="src" destdir="bin" debug="true" includes="src/*.java" />
+	</target>
+
+	<target name="clean">
+		<delete dir="build" />
+	</target>
+
+	<target name="proto_build">
+		<exec executable="protoc">
+			<arg value="proto/boat_protos.proto" />
+			<arg value="--java_out=src/" />
+		</exec>
+	</target>
+
 </project>
