@@ -1058,6 +1058,386 @@ public final class BoatProtos {
     // @@protoc_insertion_point(class_scope:messages.Shot)
   }
   
+  public interface BoardOrBuilder
+      extends com.google.protobuf.MessageLiteOrBuilder {
+    
+    // repeated .messages.Boat boats = 1;
+    java.util.List<com.github.uuigaz.messages.BoatProtos.Boat> 
+        getBoatsList();
+    com.github.uuigaz.messages.BoatProtos.Boat getBoats(int index);
+    int getBoatsCount();
+  }
+  public static final class Board extends
+      com.google.protobuf.GeneratedMessageLite
+      implements BoardOrBuilder {
+    // Use Board.newBuilder() to construct.
+    private Board(Builder builder) {
+      super(builder);
+    }
+    private Board(boolean noInit) {}
+    
+    private static final Board defaultInstance;
+    public static Board getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public Board getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    // repeated .messages.Boat boats = 1;
+    public static final int BOATS_FIELD_NUMBER = 1;
+    private java.util.List<com.github.uuigaz.messages.BoatProtos.Boat> boats_;
+    public java.util.List<com.github.uuigaz.messages.BoatProtos.Boat> getBoatsList() {
+      return boats_;
+    }
+    public java.util.List<? extends com.github.uuigaz.messages.BoatProtos.BoatOrBuilder> 
+        getBoatsOrBuilderList() {
+      return boats_;
+    }
+    public int getBoatsCount() {
+      return boats_.size();
+    }
+    public com.github.uuigaz.messages.BoatProtos.Boat getBoats(int index) {
+      return boats_.get(index);
+    }
+    public com.github.uuigaz.messages.BoatProtos.BoatOrBuilder getBoatsOrBuilder(
+        int index) {
+      return boats_.get(index);
+    }
+    
+    private void initFields() {
+      boats_ = java.util.Collections.emptyList();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      for (int i = 0; i < getBoatsCount(); i++) {
+        if (!getBoats(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      for (int i = 0; i < boats_.size(); i++) {
+        output.writeMessage(1, boats_.get(i));
+      }
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      for (int i = 0; i < boats_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, boats_.get(i));
+      }
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    @java.lang.Override
+    protected Object writeReplace() throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.github.uuigaz.messages.BoatProtos.Board parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Board parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Board parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Board parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Board parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Board parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Board parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Board parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Board parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Board parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.github.uuigaz.messages.BoatProtos.Board prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          com.github.uuigaz.messages.BoatProtos.Board, Builder>
+        implements com.github.uuigaz.messages.BoatProtos.BoardOrBuilder {
+      // Construct using com.github.uuigaz.messages.BoatProtos.Board.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private void maybeForceBuilderInitialization() {
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        boats_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.github.uuigaz.messages.BoatProtos.Board getDefaultInstanceForType() {
+        return com.github.uuigaz.messages.BoatProtos.Board.getDefaultInstance();
+      }
+      
+      public com.github.uuigaz.messages.BoatProtos.Board build() {
+        com.github.uuigaz.messages.BoatProtos.Board result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.github.uuigaz.messages.BoatProtos.Board buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.github.uuigaz.messages.BoatProtos.Board result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.github.uuigaz.messages.BoatProtos.Board buildPartial() {
+        com.github.uuigaz.messages.BoatProtos.Board result = new com.github.uuigaz.messages.BoatProtos.Board(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          boats_ = java.util.Collections.unmodifiableList(boats_);
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.boats_ = boats_;
+        return result;
+      }
+      
+      public Builder mergeFrom(com.github.uuigaz.messages.BoatProtos.Board other) {
+        if (other == com.github.uuigaz.messages.BoatProtos.Board.getDefaultInstance()) return this;
+        if (!other.boats_.isEmpty()) {
+          if (boats_.isEmpty()) {
+            boats_ = other.boats_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureBoatsIsMutable();
+            boats_.addAll(other.boats_);
+          }
+          
+        }
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        for (int i = 0; i < getBoatsCount(); i++) {
+          if (!getBoats(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              
+              return this;
+            default: {
+              if (!parseUnknownField(input, extensionRegistry, tag)) {
+                
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              com.github.uuigaz.messages.BoatProtos.Boat.Builder subBuilder = com.github.uuigaz.messages.BoatProtos.Boat.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addBoats(subBuilder.buildPartial());
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // repeated .messages.Boat boats = 1;
+      private java.util.List<com.github.uuigaz.messages.BoatProtos.Boat> boats_ =
+        java.util.Collections.emptyList();
+      private void ensureBoatsIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          boats_ = new java.util.ArrayList<com.github.uuigaz.messages.BoatProtos.Boat>(boats_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      
+      public java.util.List<com.github.uuigaz.messages.BoatProtos.Boat> getBoatsList() {
+        return java.util.Collections.unmodifiableList(boats_);
+      }
+      public int getBoatsCount() {
+        return boats_.size();
+      }
+      public com.github.uuigaz.messages.BoatProtos.Boat getBoats(int index) {
+        return boats_.get(index);
+      }
+      public Builder setBoats(
+          int index, com.github.uuigaz.messages.BoatProtos.Boat value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureBoatsIsMutable();
+        boats_.set(index, value);
+        
+        return this;
+      }
+      public Builder setBoats(
+          int index, com.github.uuigaz.messages.BoatProtos.Boat.Builder builderForValue) {
+        ensureBoatsIsMutable();
+        boats_.set(index, builderForValue.build());
+        
+        return this;
+      }
+      public Builder addBoats(com.github.uuigaz.messages.BoatProtos.Boat value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureBoatsIsMutable();
+        boats_.add(value);
+        
+        return this;
+      }
+      public Builder addBoats(
+          int index, com.github.uuigaz.messages.BoatProtos.Boat value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureBoatsIsMutable();
+        boats_.add(index, value);
+        
+        return this;
+      }
+      public Builder addBoats(
+          com.github.uuigaz.messages.BoatProtos.Boat.Builder builderForValue) {
+        ensureBoatsIsMutable();
+        boats_.add(builderForValue.build());
+        
+        return this;
+      }
+      public Builder addBoats(
+          int index, com.github.uuigaz.messages.BoatProtos.Boat.Builder builderForValue) {
+        ensureBoatsIsMutable();
+        boats_.add(index, builderForValue.build());
+        
+        return this;
+      }
+      public Builder addAllBoats(
+          java.lang.Iterable<? extends com.github.uuigaz.messages.BoatProtos.Boat> values) {
+        ensureBoatsIsMutable();
+        super.addAll(values, boats_);
+        
+        return this;
+      }
+      public Builder clearBoats() {
+        boats_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        
+        return this;
+      }
+      public Builder removeBoats(int index) {
+        ensureBoatsIsMutable();
+        boats_.remove(index);
+        
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:messages.Board)
+    }
+    
+    static {
+      defaultInstance = new Board(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:messages.Board)
+  }
+  
   public interface StatusReportOrBuilder
       extends com.google.protobuf.MessageLiteOrBuilder {
     
@@ -1347,28 +1727,28 @@ public final class BoatProtos {
     // @@protoc_insertion_point(class_scope:messages.StatusReport)
   }
   
-  public interface InitOrBuilder
+  public interface IdentOrBuilder
       extends com.google.protobuf.MessageLiteOrBuilder {
     
     // required string name = 1;
     boolean hasName();
     String getName();
   }
-  public static final class Init extends
+  public static final class Ident extends
       com.google.protobuf.GeneratedMessageLite
-      implements InitOrBuilder {
-    // Use Init.newBuilder() to construct.
-    private Init(Builder builder) {
+      implements IdentOrBuilder {
+    // Use Ident.newBuilder() to construct.
+    private Ident(Builder builder) {
       super(builder);
     }
-    private Init(boolean noInit) {}
+    private Ident(boolean noInit) {}
     
-    private static final Init defaultInstance;
-    public static Init getDefaultInstance() {
+    private static final Ident defaultInstance;
+    public static Ident getDefaultInstance() {
       return defaultInstance;
     }
     
-    public Init getDefaultInstanceForType() {
+    public Ident getDefaultInstanceForType() {
       return defaultInstance;
     }
     
@@ -1448,41 +1828,41 @@ public final class BoatProtos {
       return super.writeReplace();
     }
     
-    public static com.github.uuigaz.messages.BoatProtos.Init parseFrom(
+    public static com.github.uuigaz.messages.BoatProtos.Ident parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.github.uuigaz.messages.BoatProtos.Init parseFrom(
+    public static com.github.uuigaz.messages.BoatProtos.Ident parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.github.uuigaz.messages.BoatProtos.Init parseFrom(byte[] data)
+    public static com.github.uuigaz.messages.BoatProtos.Ident parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.github.uuigaz.messages.BoatProtos.Init parseFrom(
+    public static com.github.uuigaz.messages.BoatProtos.Ident parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.github.uuigaz.messages.BoatProtos.Init parseFrom(java.io.InputStream input)
+    public static com.github.uuigaz.messages.BoatProtos.Ident parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.github.uuigaz.messages.BoatProtos.Init parseFrom(
+    public static com.github.uuigaz.messages.BoatProtos.Ident parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.github.uuigaz.messages.BoatProtos.Init parseDelimitedFrom(java.io.InputStream input)
+    public static com.github.uuigaz.messages.BoatProtos.Ident parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -1491,7 +1871,7 @@ public final class BoatProtos {
         return null;
       }
     }
-    public static com.github.uuigaz.messages.BoatProtos.Init parseDelimitedFrom(
+    public static com.github.uuigaz.messages.BoatProtos.Ident parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1502,12 +1882,12 @@ public final class BoatProtos {
         return null;
       }
     }
-    public static com.github.uuigaz.messages.BoatProtos.Init parseFrom(
+    public static com.github.uuigaz.messages.BoatProtos.Ident parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.github.uuigaz.messages.BoatProtos.Init parseFrom(
+    public static com.github.uuigaz.messages.BoatProtos.Ident parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1517,16 +1897,16 @@ public final class BoatProtos {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.github.uuigaz.messages.BoatProtos.Init prototype) {
+    public static Builder newBuilder(com.github.uuigaz.messages.BoatProtos.Ident prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
     
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageLite.Builder<
-          com.github.uuigaz.messages.BoatProtos.Init, Builder>
-        implements com.github.uuigaz.messages.BoatProtos.InitOrBuilder {
-      // Construct using com.github.uuigaz.messages.BoatProtos.Init.newBuilder()
+          com.github.uuigaz.messages.BoatProtos.Ident, Builder>
+        implements com.github.uuigaz.messages.BoatProtos.IdentOrBuilder {
+      // Construct using com.github.uuigaz.messages.BoatProtos.Ident.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1548,21 +1928,21 @@ public final class BoatProtos {
         return create().mergeFrom(buildPartial());
       }
       
-      public com.github.uuigaz.messages.BoatProtos.Init getDefaultInstanceForType() {
-        return com.github.uuigaz.messages.BoatProtos.Init.getDefaultInstance();
+      public com.github.uuigaz.messages.BoatProtos.Ident getDefaultInstanceForType() {
+        return com.github.uuigaz.messages.BoatProtos.Ident.getDefaultInstance();
       }
       
-      public com.github.uuigaz.messages.BoatProtos.Init build() {
-        com.github.uuigaz.messages.BoatProtos.Init result = buildPartial();
+      public com.github.uuigaz.messages.BoatProtos.Ident build() {
+        com.github.uuigaz.messages.BoatProtos.Ident result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
       
-      private com.github.uuigaz.messages.BoatProtos.Init buildParsed()
+      private com.github.uuigaz.messages.BoatProtos.Ident buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
-        com.github.uuigaz.messages.BoatProtos.Init result = buildPartial();
+        com.github.uuigaz.messages.BoatProtos.Ident result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(
             result).asInvalidProtocolBufferException();
@@ -1570,8 +1950,8 @@ public final class BoatProtos {
         return result;
       }
       
-      public com.github.uuigaz.messages.BoatProtos.Init buildPartial() {
-        com.github.uuigaz.messages.BoatProtos.Init result = new com.github.uuigaz.messages.BoatProtos.Init(this);
+      public com.github.uuigaz.messages.BoatProtos.Ident buildPartial() {
+        com.github.uuigaz.messages.BoatProtos.Ident result = new com.github.uuigaz.messages.BoatProtos.Ident(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -1582,8 +1962,8 @@ public final class BoatProtos {
         return result;
       }
       
-      public Builder mergeFrom(com.github.uuigaz.messages.BoatProtos.Init other) {
-        if (other == com.github.uuigaz.messages.BoatProtos.Init.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.github.uuigaz.messages.BoatProtos.Ident other) {
+        if (other == com.github.uuigaz.messages.BoatProtos.Ident.getDefaultInstance()) return this;
         if (other.hasName()) {
           setName(other.getName());
         }
@@ -1662,15 +2042,15 @@ public final class BoatProtos {
         
       }
       
-      // @@protoc_insertion_point(builder_scope:messages.Init)
+      // @@protoc_insertion_point(builder_scope:messages.Ident)
     }
     
     static {
-      defaultInstance = new Init(true);
+      defaultInstance = new Ident(true);
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:messages.Init)
+    // @@protoc_insertion_point(class_scope:messages.Ident)
   }
   
   public interface CTSOrBuilder

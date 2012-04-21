@@ -1,19 +1,22 @@
 package com.github.uuigaz.server;
 
+import com.github.uuigaz.mechanics.Coord;
+import com.github.uuigaz.mechanics.Ship;
 import com.github.uuigaz.messages.BoatProtos.*;
 import com.google.protobuf.MessageLite;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 class Player implements Runnable {
 	private Socket connection;
-	public final String name;
+	public final Ident ident;
 	private Session session;
 
-	public Player(Init init, Socket connection) throws IOException {
-		this.name = init.getName();
+	public Player(Ident ident, Socket connection) throws IOException {
+		this.ident = ident;
 		this.connection = connection;
 	}
 
@@ -45,22 +48,26 @@ class Player implements Runnable {
 }
 
 class Session {
-	Player player[];
-
+	final Player player[];
+	final HashMap<Coord, Ship> board;
+	
 	public Session(Player player1, Player player2) {
 		player = new Player[2];
 		player[0] = player1;
 		player[1] = player2;
+		board = new HashMap<Coord, Ship>();
 	}
 
-	boolean checkName(String name) {
-		return player[0].name.equals(name) || player[1].name.equals(name);
+	boolean belongsTo(Ident ident) {
+		return player[0].ident.equals(ident) || player[1].ident.equals(ident);
 	}
 
-	void sendMessage(Player sender, MessageLite msg) {
+	synchronized void sendMessage(Player sender, MessageLite msg) {
 		Player to = player[0].equals(sender) ? player[1] : player[2];
 
-		// TODO: Send msg to player indicated by "to"
+		// TODO:
+		// Send msg to player indicated by "to"
+		
 	}
 
 }
@@ -80,17 +87,18 @@ class Controller {
 		Session session = null;
 		while (session == null) {
 			for (Session s : sessions) {
-				if (s.checkName(p.name)) {
+				if (s.belongsTo(p.ident)) {
 					session = s;
 					return session;
 				}
 			}
 
 			if (participants.isEmpty()) {
+				// No session and no one to play against means we must
+				// wait for someone.
 				participants.add(p);
 				wait();
 			} else {
-				// TODO: Maybe add return here.
 				session = new Session(p, participants.removeFirst());
 				sessions.addFirst(session);
 
@@ -143,8 +151,8 @@ public class Server {
 			try {
 				socket = listen.accept();
 				System.out.println("Connection from" + socket.getInetAddress());
-				Init init = Init.parseFrom(socket.getInputStream());
-				new Thread(new Player(init, socket)).start();
+				Ident ident = Ident.parseFrom(socket.getInputStream());
+				new Thread(new Player(ident, socket)).start();
 			} catch (IOException e) {
 				// TODO:
 				// A connection failed. Not sure what to do here but just leave

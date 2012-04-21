@@ -25,11 +25,15 @@ message Shot {
 	required Coordinate co = 1;
 }
 
+message Board {
+	repeated Boat boats = 1;
+}
+
 message StatusReport {
 	required bool hit = 1;
 }
 
-message Init {
+message Ident {
 	required string name = 1;
 }
 
