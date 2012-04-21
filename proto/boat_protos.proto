@@ -1,6 +1,8 @@
 package messages;
 
-option java_package	= "com.github.uuigaz.messages";
+option java_package = "com.github.uuigaz.messages";
+option optimize_for = LITE_RUNTIME;
+
 
 message Coordinate {
 	required uint32 x = 1;

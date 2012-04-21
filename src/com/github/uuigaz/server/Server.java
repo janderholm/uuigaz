@@ -1,6 +1,7 @@
 package com.github.uuigaz.server;
 
 import com.github.uuigaz.messages.BoatProtos.*;
+import com.google.protobuf.MessageLite;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -27,23 +28,39 @@ class Player implements Runnable {
 			return;
 		}
 
+		// TODO:
+		// Session was just started here. This means we need to replay all
+		// previous messages if there are any, or initalize a new game if
+		// there weren't.
+
 		while (true) {
+			// TODO:
+			// Probably no need for a listening sentry. When a game is properly
+			// initialized any packages should just be relayed through the
+			// session. Which could be made a thread.
+
 			break;
 		}
 	}
 }
 
 class Session {
-	final Player players[];
+	Player player[];
 
 	public Session(Player player1, Player player2) {
-		players = new Player[2];
-		players[0] = player1;
-		players[1] = player2;
+		player = new Player[2];
+		player[0] = player1;
+		player[1] = player2;
 	}
 
 	boolean checkName(String name) {
-		return players[0].name.equals(name) || players[1].name.equals(name);
+		return player[0].name.equals(name) || player[1].name.equals(name);
+	}
+
+	void sendMessage(Player sender, MessageLite msg) {
+		Player to = player[0].equals(sender) ? player[1] : player[2];
+
+		// TODO: Send msg to player indicated by "to"
 	}
 
 }
@@ -79,7 +96,7 @@ class Controller {
 
 				// TODO:
 				// Change this to notify() if we don't lock on anything else.
-				notify();
+				notifyAll();
 			}
 		}
 

@@ -6,10 +6,10 @@ package com.github.uuigaz.messages;
 public final class BoatProtos {
   private BoatProtos() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
+      com.google.protobuf.ExtensionRegistryLite registry) {
   }
   public interface CoordinateOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+      extends com.google.protobuf.MessageLiteOrBuilder {
     
     // required uint32 x = 1;
     boolean hasX();
@@ -20,7 +20,7 @@ public final class BoatProtos {
     int getY();
   }
   public static final class Coordinate extends
-      com.google.protobuf.GeneratedMessage
+      com.google.protobuf.GeneratedMessageLite
       implements CoordinateOrBuilder {
     // Use Coordinate.newBuilder() to construct.
     private Coordinate(Builder builder) {
@@ -35,16 +35,6 @@ public final class BoatProtos {
     
     public Coordinate getDefaultInstanceForType() {
       return defaultInstance;
-    }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.github.uuigaz.messages.BoatProtos.internal_static_messages_Coordinate_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.github.uuigaz.messages.BoatProtos.internal_static_messages_Coordinate_fieldAccessorTable;
     }
     
     private int bitField0_;
@@ -98,7 +88,6 @@ public final class BoatProtos {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeUInt32(2, y_);
       }
-      getUnknownFields().writeTo(output);
     }
     
     private int memoizedSerializedSize = -1;
@@ -115,15 +104,12 @@ public final class BoatProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(2, y_);
       }
-      size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
     
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
+    protected Object writeReplace() throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
     
@@ -201,37 +187,16 @@ public final class BoatProtos {
     }
     public Builder toBuilder() { return newBuilder(this); }
     
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.github.uuigaz.messages.BoatProtos.internal_static_messages_Coordinate_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.github.uuigaz.messages.BoatProtos.internal_static_messages_Coordinate_fieldAccessorTable;
-      }
-      
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          com.github.uuigaz.messages.BoatProtos.Coordinate, Builder>
+        implements com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder {
       // Construct using com.github.uuigaz.messages.BoatProtos.Coordinate.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
       
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
       }
       private static Builder create() {
         return new Builder();
@@ -248,11 +213,6 @@ public final class BoatProtos {
       
       public Builder clone() {
         return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.github.uuigaz.messages.BoatProtos.Coordinate.getDescriptor();
       }
       
       public com.github.uuigaz.messages.BoatProtos.Coordinate getDefaultInstanceForType() {
@@ -290,17 +250,7 @@ public final class BoatProtos {
         }
         result.y_ = y_;
         result.bitField0_ = to_bitField0_;
-        onBuilt();
         return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.github.uuigaz.messages.BoatProtos.Coordinate) {
-          return mergeFrom((com.github.uuigaz.messages.BoatProtos.Coordinate)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
       }
       
       public Builder mergeFrom(com.github.uuigaz.messages.BoatProtos.Coordinate other) {
@@ -311,7 +261,6 @@ public final class BoatProtos {
         if (other.hasY()) {
           setY(other.getY());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
@@ -331,21 +280,15 @@ public final class BoatProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
         while (true) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
+              
               return this;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
+              if (!parseUnknownField(input, extensionRegistry, tag)) {
+                
                 return this;
               }
               break;
@@ -377,13 +320,13 @@ public final class BoatProtos {
       public Builder setX(int value) {
         bitField0_ |= 0x00000001;
         x_ = value;
-        onChanged();
+        
         return this;
       }
       public Builder clearX() {
         bitField0_ = (bitField0_ & ~0x00000001);
         x_ = 0;
-        onChanged();
+        
         return this;
       }
       
@@ -398,13 +341,13 @@ public final class BoatProtos {
       public Builder setY(int value) {
         bitField0_ |= 0x00000002;
         y_ = value;
-        onChanged();
+        
         return this;
       }
       public Builder clearY() {
         bitField0_ = (bitField0_ & ~0x00000002);
         y_ = 0;
-        onChanged();
+        
         return this;
       }
       
@@ -420,15 +363,14 @@ public final class BoatProtos {
   }
   
   public interface BoatOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+      extends com.google.protobuf.MessageLiteOrBuilder {
     
     // required .messages.Coordinate co = 1;
     boolean hasCo();
     com.github.uuigaz.messages.BoatProtos.Coordinate getCo();
-    com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder getCoOrBuilder();
   }
   public static final class Boat extends
-      com.google.protobuf.GeneratedMessage
+      com.google.protobuf.GeneratedMessageLite
       implements BoatOrBuilder {
     // Use Boat.newBuilder() to construct.
     private Boat(Builder builder) {
@@ -445,18 +387,8 @@ public final class BoatProtos {
       return defaultInstance;
     }
     
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.github.uuigaz.messages.BoatProtos.internal_static_messages_Boat_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.github.uuigaz.messages.BoatProtos.internal_static_messages_Boat_fieldAccessorTable;
-    }
-    
     public enum BoatType
-        implements com.google.protobuf.ProtocolMessageEnum {
+        implements com.google.protobuf.Internal.EnumLite {
       CARRIER(0, 5),
       BATTLESHIP(1, 4),
       CRUISER(2, 3),
@@ -496,37 +428,9 @@ public final class BoatProtos {
               }
             };
       
-      public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
-        return getDescriptor().getValues().get(index);
-      }
-      public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
-        return getDescriptor();
-      }
-      public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
-        return com.github.uuigaz.messages.BoatProtos.Boat.getDescriptor().getEnumTypes().get(0);
-      }
-      
-      private static final BoatType[] VALUES = {
-        CARRIER, BATTLESHIP, CRUISER, DESTROYER, SUBMARINE, 
-      };
-      
-      public static BoatType valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-        if (desc.getType() != getDescriptor()) {
-          throw new java.lang.IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
-        }
-        return VALUES[desc.getIndex()];
-      }
-      
-      private final int index;
       private final int value;
       
       private BoatType(int index, int value) {
-        this.index = index;
         this.value = value;
       }
       
@@ -541,9 +445,6 @@ public final class BoatProtos {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     public com.github.uuigaz.messages.BoatProtos.Coordinate getCo() {
-      return co_;
-    }
-    public com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder getCoOrBuilder() {
       return co_;
     }
     
@@ -573,7 +474,6 @@ public final class BoatProtos {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeMessage(1, co_);
       }
-      getUnknownFields().writeTo(output);
     }
     
     private int memoizedSerializedSize = -1;
@@ -586,15 +486,12 @@ public final class BoatProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, co_);
       }
-      size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
     
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
+    protected Object writeReplace() throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
     
@@ -672,38 +569,16 @@ public final class BoatProtos {
     }
     public Builder toBuilder() { return newBuilder(this); }
     
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.github.uuigaz.messages.BoatProtos.BoatOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.github.uuigaz.messages.BoatProtos.internal_static_messages_Boat_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.github.uuigaz.messages.BoatProtos.internal_static_messages_Boat_fieldAccessorTable;
-      }
-      
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          com.github.uuigaz.messages.BoatProtos.Boat, Builder>
+        implements com.github.uuigaz.messages.BoatProtos.BoatOrBuilder {
       // Construct using com.github.uuigaz.messages.BoatProtos.Boat.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
       
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getCoFieldBuilder();
-        }
       }
       private static Builder create() {
         return new Builder();
@@ -711,22 +586,13 @@ public final class BoatProtos {
       
       public Builder clear() {
         super.clear();
-        if (coBuilder_ == null) {
-          co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
-        } else {
-          coBuilder_.clear();
-        }
+        co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
       
       public Builder clone() {
         return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.github.uuigaz.messages.BoatProtos.Boat.getDescriptor();
       }
       
       public com.github.uuigaz.messages.BoatProtos.Boat getDefaultInstanceForType() {
@@ -758,23 +624,9 @@ public final class BoatProtos {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        if (coBuilder_ == null) {
-          result.co_ = co_;
-        } else {
-          result.co_ = coBuilder_.build();
-        }
+        result.co_ = co_;
         result.bitField0_ = to_bitField0_;
-        onBuilt();
         return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.github.uuigaz.messages.BoatProtos.Boat) {
-          return mergeFrom((com.github.uuigaz.messages.BoatProtos.Boat)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
       }
       
       public Builder mergeFrom(com.github.uuigaz.messages.BoatProtos.Boat other) {
@@ -782,7 +634,6 @@ public final class BoatProtos {
         if (other.hasCo()) {
           mergeCo(other.getCo());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
@@ -802,21 +653,15 @@ public final class BoatProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
         while (true) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
+              
               return this;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
+              if (!parseUnknownField(input, extensionRegistry, tag)) {
+                
                 return this;
               }
               break;
@@ -838,92 +683,45 @@ public final class BoatProtos {
       
       // required .messages.Coordinate co = 1;
       private com.github.uuigaz.messages.BoatProtos.Coordinate co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          com.github.uuigaz.messages.BoatProtos.Coordinate, com.github.uuigaz.messages.BoatProtos.Coordinate.Builder, com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder> coBuilder_;
       public boolean hasCo() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       public com.github.uuigaz.messages.BoatProtos.Coordinate getCo() {
-        if (coBuilder_ == null) {
-          return co_;
-        } else {
-          return coBuilder_.getMessage();
-        }
+        return co_;
       }
       public Builder setCo(com.github.uuigaz.messages.BoatProtos.Coordinate value) {
-        if (coBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          co_ = value;
-          onChanged();
-        } else {
-          coBuilder_.setMessage(value);
+        if (value == null) {
+          throw new NullPointerException();
         }
+        co_ = value;
+        
         bitField0_ |= 0x00000001;
         return this;
       }
       public Builder setCo(
           com.github.uuigaz.messages.BoatProtos.Coordinate.Builder builderForValue) {
-        if (coBuilder_ == null) {
-          co_ = builderForValue.build();
-          onChanged();
-        } else {
-          coBuilder_.setMessage(builderForValue.build());
-        }
+        co_ = builderForValue.build();
+        
         bitField0_ |= 0x00000001;
         return this;
       }
       public Builder mergeCo(com.github.uuigaz.messages.BoatProtos.Coordinate value) {
-        if (coBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
-              co_ != com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance()) {
-            co_ =
-              com.github.uuigaz.messages.BoatProtos.Coordinate.newBuilder(co_).mergeFrom(value).buildPartial();
-          } else {
-            co_ = value;
-          }
-          onChanged();
+        if (((bitField0_ & 0x00000001) == 0x00000001) &&
+            co_ != com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance()) {
+          co_ =
+            com.github.uuigaz.messages.BoatProtos.Coordinate.newBuilder(co_).mergeFrom(value).buildPartial();
         } else {
-          coBuilder_.mergeFrom(value);
+          co_ = value;
         }
+        
         bitField0_ |= 0x00000001;
         return this;
       }
       public Builder clearCo() {
-        if (coBuilder_ == null) {
-          co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
-          onChanged();
-        } else {
-          coBuilder_.clear();
-        }
+        co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
+        
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
-      }
-      public com.github.uuigaz.messages.BoatProtos.Coordinate.Builder getCoBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getCoFieldBuilder().getBuilder();
-      }
-      public com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder getCoOrBuilder() {
-        if (coBuilder_ != null) {
-          return coBuilder_.getMessageOrBuilder();
-        } else {
-          return co_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          com.github.uuigaz.messages.BoatProtos.Coordinate, com.github.uuigaz.messages.BoatProtos.Coordinate.Builder, com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder> 
-          getCoFieldBuilder() {
-        if (coBuilder_ == null) {
-          coBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.github.uuigaz.messages.BoatProtos.Coordinate, com.github.uuigaz.messages.BoatProtos.Coordinate.Builder, com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder>(
-                  co_,
-                  getParentForChildren(),
-                  isClean());
-          co_ = null;
-        }
-        return coBuilder_;
       }
       
       // @@protoc_insertion_point(builder_scope:messages.Boat)
@@ -938,15 +736,14 @@ public final class BoatProtos {
   }
   
   public interface ShotOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+      extends com.google.protobuf.MessageLiteOrBuilder {
     
     // required .messages.Coordinate co = 1;
     boolean hasCo();
     com.github.uuigaz.messages.BoatProtos.Coordinate getCo();
-    com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder getCoOrBuilder();
   }
   public static final class Shot extends
-      com.google.protobuf.GeneratedMessage
+      com.google.protobuf.GeneratedMessageLite
       implements ShotOrBuilder {
     // Use Shot.newBuilder() to construct.
     private Shot(Builder builder) {
@@ -963,16 +760,6 @@ public final class BoatProtos {
       return defaultInstance;
     }
     
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.github.uuigaz.messages.BoatProtos.internal_static_messages_Shot_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.github.uuigaz.messages.BoatProtos.internal_static_messages_Shot_fieldAccessorTable;
-    }
-    
     private int bitField0_;
     // required .messages.Coordinate co = 1;
     public static final int CO_FIELD_NUMBER = 1;
@@ -981,9 +768,6 @@ public final class BoatProtos {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     public com.github.uuigaz.messages.BoatProtos.Coordinate getCo() {
-      return co_;
-    }
-    public com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder getCoOrBuilder() {
       return co_;
     }
     
@@ -1013,7 +797,6 @@ public final class BoatProtos {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeMessage(1, co_);
       }
-      getUnknownFields().writeTo(output);
     }
     
     private int memoizedSerializedSize = -1;
@@ -1026,15 +809,12 @@ public final class BoatProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, co_);
       }
-      size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
     
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
+    protected Object writeReplace() throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
     
@@ -1112,38 +892,16 @@ public final class BoatProtos {
     }
     public Builder toBuilder() { return newBuilder(this); }
     
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.github.uuigaz.messages.BoatProtos.ShotOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.github.uuigaz.messages.BoatProtos.internal_static_messages_Shot_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.github.uuigaz.messages.BoatProtos.internal_static_messages_Shot_fieldAccessorTable;
-      }
-      
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          com.github.uuigaz.messages.BoatProtos.Shot, Builder>
+        implements com.github.uuigaz.messages.BoatProtos.ShotOrBuilder {
       // Construct using com.github.uuigaz.messages.BoatProtos.Shot.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
       
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getCoFieldBuilder();
-        }
       }
       private static Builder create() {
         return new Builder();
@@ -1151,22 +909,13 @@ public final class BoatProtos {
       
       public Builder clear() {
         super.clear();
-        if (coBuilder_ == null) {
-          co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
-        } else {
-          coBuilder_.clear();
-        }
+        co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
       
       public Builder clone() {
         return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.github.uuigaz.messages.BoatProtos.Shot.getDescriptor();
       }
       
       public com.github.uuigaz.messages.BoatProtos.Shot getDefaultInstanceForType() {
@@ -1198,23 +947,9 @@ public final class BoatProtos {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        if (coBuilder_ == null) {
-          result.co_ = co_;
-        } else {
-          result.co_ = coBuilder_.build();
-        }
+        result.co_ = co_;
         result.bitField0_ = to_bitField0_;
-        onBuilt();
         return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.github.uuigaz.messages.BoatProtos.Shot) {
-          return mergeFrom((com.github.uuigaz.messages.BoatProtos.Shot)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
       }
       
       public Builder mergeFrom(com.github.uuigaz.messages.BoatProtos.Shot other) {
@@ -1222,7 +957,6 @@ public final class BoatProtos {
         if (other.hasCo()) {
           mergeCo(other.getCo());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
@@ -1242,21 +976,15 @@ public final class BoatProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
         while (true) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
+              
               return this;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
+              if (!parseUnknownField(input, extensionRegistry, tag)) {
+                
                 return this;
               }
               break;
@@ -1278,92 +1006,45 @@ public final class BoatProtos {
       
       // required .messages.Coordinate co = 1;
       private com.github.uuigaz.messages.BoatProtos.Coordinate co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          com.github.uuigaz.messages.BoatProtos.Coordinate, com.github.uuigaz.messages.BoatProtos.Coordinate.Builder, com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder> coBuilder_;
       public boolean hasCo() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       public com.github.uuigaz.messages.BoatProtos.Coordinate getCo() {
-        if (coBuilder_ == null) {
-          return co_;
-        } else {
-          return coBuilder_.getMessage();
-        }
+        return co_;
       }
       public Builder setCo(com.github.uuigaz.messages.BoatProtos.Coordinate value) {
-        if (coBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          co_ = value;
-          onChanged();
-        } else {
-          coBuilder_.setMessage(value);
+        if (value == null) {
+          throw new NullPointerException();
         }
+        co_ = value;
+        
         bitField0_ |= 0x00000001;
         return this;
       }
       public Builder setCo(
           com.github.uuigaz.messages.BoatProtos.Coordinate.Builder builderForValue) {
-        if (coBuilder_ == null) {
-          co_ = builderForValue.build();
-          onChanged();
-        } else {
-          coBuilder_.setMessage(builderForValue.build());
-        }
+        co_ = builderForValue.build();
+        
         bitField0_ |= 0x00000001;
         return this;
       }
       public Builder mergeCo(com.github.uuigaz.messages.BoatProtos.Coordinate value) {
-        if (coBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
-              co_ != com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance()) {
-            co_ =
-              com.github.uuigaz.messages.BoatProtos.Coordinate.newBuilder(co_).mergeFrom(value).buildPartial();
-          } else {
-            co_ = value;
-          }
-          onChanged();
+        if (((bitField0_ & 0x00000001) == 0x00000001) &&
+            co_ != com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance()) {
+          co_ =
+            com.github.uuigaz.messages.BoatProtos.Coordinate.newBuilder(co_).mergeFrom(value).buildPartial();
         } else {
-          coBuilder_.mergeFrom(value);
+          co_ = value;
         }
+        
         bitField0_ |= 0x00000001;
         return this;
       }
       public Builder clearCo() {
-        if (coBuilder_ == null) {
-          co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
-          onChanged();
-        } else {
-          coBuilder_.clear();
-        }
+        co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
+        
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
-      }
-      public com.github.uuigaz.messages.BoatProtos.Coordinate.Builder getCoBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getCoFieldBuilder().getBuilder();
-      }
-      public com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder getCoOrBuilder() {
-        if (coBuilder_ != null) {
-          return coBuilder_.getMessageOrBuilder();
-        } else {
-          return co_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          com.github.uuigaz.messages.BoatProtos.Coordinate, com.github.uuigaz.messages.BoatProtos.Coordinate.Builder, com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder> 
-          getCoFieldBuilder() {
-        if (coBuilder_ == null) {
-          coBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.github.uuigaz.messages.BoatProtos.Coordinate, com.github.uuigaz.messages.BoatProtos.Coordinate.Builder, com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder>(
-                  co_,
-                  getParentForChildren(),
-                  isClean());
-          co_ = null;
-        }
-        return coBuilder_;
       }
       
       // @@protoc_insertion_point(builder_scope:messages.Shot)
@@ -1378,14 +1059,14 @@ public final class BoatProtos {
   }
   
   public interface StatusReportOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+      extends com.google.protobuf.MessageLiteOrBuilder {
     
     // required bool hit = 1;
     boolean hasHit();
     boolean getHit();
   }
   public static final class StatusReport extends
-      com.google.protobuf.GeneratedMessage
+      com.google.protobuf.GeneratedMessageLite
       implements StatusReportOrBuilder {
     // Use StatusReport.newBuilder() to construct.
     private StatusReport(Builder builder) {
@@ -1400,16 +1081,6 @@ public final class BoatProtos {
     
     public StatusReport getDefaultInstanceForType() {
       return defaultInstance;
-    }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.github.uuigaz.messages.BoatProtos.internal_static_messages_StatusReport_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.github.uuigaz.messages.BoatProtos.internal_static_messages_StatusReport_fieldAccessorTable;
     }
     
     private int bitField0_;
@@ -1445,7 +1116,6 @@ public final class BoatProtos {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBool(1, hit_);
       }
-      getUnknownFields().writeTo(output);
     }
     
     private int memoizedSerializedSize = -1;
@@ -1458,15 +1128,12 @@ public final class BoatProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, hit_);
       }
-      size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
     
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
+    protected Object writeReplace() throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
     
@@ -1544,37 +1211,16 @@ public final class BoatProtos {
     }
     public Builder toBuilder() { return newBuilder(this); }
     
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.github.uuigaz.messages.BoatProtos.StatusReportOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.github.uuigaz.messages.BoatProtos.internal_static_messages_StatusReport_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.github.uuigaz.messages.BoatProtos.internal_static_messages_StatusReport_fieldAccessorTable;
-      }
-      
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          com.github.uuigaz.messages.BoatProtos.StatusReport, Builder>
+        implements com.github.uuigaz.messages.BoatProtos.StatusReportOrBuilder {
       // Construct using com.github.uuigaz.messages.BoatProtos.StatusReport.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
       
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
       }
       private static Builder create() {
         return new Builder();
@@ -1589,11 +1235,6 @@ public final class BoatProtos {
       
       public Builder clone() {
         return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.github.uuigaz.messages.BoatProtos.StatusReport.getDescriptor();
       }
       
       public com.github.uuigaz.messages.BoatProtos.StatusReport getDefaultInstanceForType() {
@@ -1627,17 +1268,7 @@ public final class BoatProtos {
         }
         result.hit_ = hit_;
         result.bitField0_ = to_bitField0_;
-        onBuilt();
         return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.github.uuigaz.messages.BoatProtos.StatusReport) {
-          return mergeFrom((com.github.uuigaz.messages.BoatProtos.StatusReport)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
       }
       
       public Builder mergeFrom(com.github.uuigaz.messages.BoatProtos.StatusReport other) {
@@ -1645,7 +1276,6 @@ public final class BoatProtos {
         if (other.hasHit()) {
           setHit(other.getHit());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
@@ -1661,21 +1291,15 @@ public final class BoatProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
         while (true) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
+              
               return this;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
+              if (!parseUnknownField(input, extensionRegistry, tag)) {
+                
                 return this;
               }
               break;
@@ -1702,13 +1326,13 @@ public final class BoatProtos {
       public Builder setHit(boolean value) {
         bitField0_ |= 0x00000001;
         hit_ = value;
-        onChanged();
+        
         return this;
       }
       public Builder clearHit() {
         bitField0_ = (bitField0_ & ~0x00000001);
         hit_ = false;
-        onChanged();
+        
         return this;
       }
       
@@ -1724,14 +1348,14 @@ public final class BoatProtos {
   }
   
   public interface InitOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+      extends com.google.protobuf.MessageLiteOrBuilder {
     
     // required string name = 1;
     boolean hasName();
     String getName();
   }
   public static final class Init extends
-      com.google.protobuf.GeneratedMessage
+      com.google.protobuf.GeneratedMessageLite
       implements InitOrBuilder {
     // Use Init.newBuilder() to construct.
     private Init(Builder builder) {
@@ -1748,25 +1372,15 @@ public final class BoatProtos {
       return defaultInstance;
     }
     
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.github.uuigaz.messages.BoatProtos.internal_static_messages_Init_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.github.uuigaz.messages.BoatProtos.internal_static_messages_Init_fieldAccessorTable;
-    }
-    
     private int bitField0_;
     // required string name = 1;
     public static final int NAME_FIELD_NUMBER = 1;
-    private java.lang.Object name_;
+    private Object name_;
     public boolean hasName() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     public String getName() {
-      java.lang.Object ref = name_;
+      Object ref = name_;
       if (ref instanceof String) {
         return (String) ref;
       } else {
@@ -1780,7 +1394,7 @@ public final class BoatProtos {
       }
     }
     private com.google.protobuf.ByteString getNameBytes() {
-      java.lang.Object ref = name_;
+      Object ref = name_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8((String) ref);
@@ -1813,7 +1427,6 @@ public final class BoatProtos {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, getNameBytes());
       }
-      getUnknownFields().writeTo(output);
     }
     
     private int memoizedSerializedSize = -1;
@@ -1826,15 +1439,12 @@ public final class BoatProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, getNameBytes());
       }
-      size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
     
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
+    protected Object writeReplace() throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
     
@@ -1912,37 +1522,16 @@ public final class BoatProtos {
     }
     public Builder toBuilder() { return newBuilder(this); }
     
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.github.uuigaz.messages.BoatProtos.InitOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.github.uuigaz.messages.BoatProtos.internal_static_messages_Init_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.github.uuigaz.messages.BoatProtos.internal_static_messages_Init_fieldAccessorTable;
-      }
-      
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          com.github.uuigaz.messages.BoatProtos.Init, Builder>
+        implements com.github.uuigaz.messages.BoatProtos.InitOrBuilder {
       // Construct using com.github.uuigaz.messages.BoatProtos.Init.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
       
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
       }
       private static Builder create() {
         return new Builder();
@@ -1957,11 +1546,6 @@ public final class BoatProtos {
       
       public Builder clone() {
         return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.github.uuigaz.messages.BoatProtos.Init.getDescriptor();
       }
       
       public com.github.uuigaz.messages.BoatProtos.Init getDefaultInstanceForType() {
@@ -1995,17 +1579,7 @@ public final class BoatProtos {
         }
         result.name_ = name_;
         result.bitField0_ = to_bitField0_;
-        onBuilt();
         return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.github.uuigaz.messages.BoatProtos.Init) {
-          return mergeFrom((com.github.uuigaz.messages.BoatProtos.Init)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
       }
       
       public Builder mergeFrom(com.github.uuigaz.messages.BoatProtos.Init other) {
@@ -2013,7 +1587,6 @@ public final class BoatProtos {
         if (other.hasName()) {
           setName(other.getName());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
@@ -2029,21 +1602,15 @@ public final class BoatProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
         while (true) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
+              
               return this;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
+              if (!parseUnknownField(input, extensionRegistry, tag)) {
+                
                 return this;
               }
               break;
@@ -2060,12 +1627,12 @@ public final class BoatProtos {
       private int bitField0_;
       
       // required string name = 1;
-      private java.lang.Object name_ = "";
+      private Object name_ = "";
       public boolean hasName() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       public String getName() {
-        java.lang.Object ref = name_;
+        Object ref = name_;
         if (!(ref instanceof String)) {
           String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
           name_ = s;
@@ -2080,19 +1647,19 @@ public final class BoatProtos {
   }
   bitField0_ |= 0x00000001;
         name_ = value;
-        onChanged();
+        
         return this;
       }
       public Builder clearName() {
         bitField0_ = (bitField0_ & ~0x00000001);
         name_ = getDefaultInstance().getName();
-        onChanged();
+        
         return this;
       }
       void setName(com.google.protobuf.ByteString value) {
         bitField0_ |= 0x00000001;
         name_ = value;
-        onChanged();
+        
       }
       
       // @@protoc_insertion_point(builder_scope:messages.Init)
@@ -2106,35 +1673,25 @@ public final class BoatProtos {
     // @@protoc_insertion_point(class_scope:messages.Init)
   }
   
-  public interface ClearToSendOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface CTSOrBuilder
+      extends com.google.protobuf.MessageLiteOrBuilder {
   }
-  public static final class ClearToSend extends
-      com.google.protobuf.GeneratedMessage
-      implements ClearToSendOrBuilder {
-    // Use ClearToSend.newBuilder() to construct.
-    private ClearToSend(Builder builder) {
+  public static final class CTS extends
+      com.google.protobuf.GeneratedMessageLite
+      implements CTSOrBuilder {
+    // Use CTS.newBuilder() to construct.
+    private CTS(Builder builder) {
       super(builder);
     }
-    private ClearToSend(boolean noInit) {}
+    private CTS(boolean noInit) {}
     
-    private static final ClearToSend defaultInstance;
-    public static ClearToSend getDefaultInstance() {
+    private static final CTS defaultInstance;
+    public static CTS getDefaultInstance() {
       return defaultInstance;
     }
     
-    public ClearToSend getDefaultInstanceForType() {
+    public CTS getDefaultInstanceForType() {
       return defaultInstance;
-    }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.github.uuigaz.messages.BoatProtos.internal_static_messages_ClearToSend_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.github.uuigaz.messages.BoatProtos.internal_static_messages_ClearToSend_fieldAccessorTable;
     }
     
     private void initFields() {
@@ -2151,7 +1708,6 @@ public final class BoatProtos {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
-      getUnknownFields().writeTo(output);
     }
     
     private int memoizedSerializedSize = -1;
@@ -2160,53 +1716,50 @@ public final class BoatProtos {
       if (size != -1) return size;
     
       size = 0;
-      size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
     
-    private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
+    protected Object writeReplace() throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
     
-    public static com.github.uuigaz.messages.BoatProtos.ClearToSend parseFrom(
+    public static com.github.uuigaz.messages.BoatProtos.CTS parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.github.uuigaz.messages.BoatProtos.ClearToSend parseFrom(
+    public static com.github.uuigaz.messages.BoatProtos.CTS parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.github.uuigaz.messages.BoatProtos.ClearToSend parseFrom(byte[] data)
+    public static com.github.uuigaz.messages.BoatProtos.CTS parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.github.uuigaz.messages.BoatProtos.ClearToSend parseFrom(
+    public static com.github.uuigaz.messages.BoatProtos.CTS parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.github.uuigaz.messages.BoatProtos.ClearToSend parseFrom(java.io.InputStream input)
+    public static com.github.uuigaz.messages.BoatProtos.CTS parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.github.uuigaz.messages.BoatProtos.ClearToSend parseFrom(
+    public static com.github.uuigaz.messages.BoatProtos.CTS parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.github.uuigaz.messages.BoatProtos.ClearToSend parseDelimitedFrom(java.io.InputStream input)
+    public static com.github.uuigaz.messages.BoatProtos.CTS parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -2215,7 +1768,7 @@ public final class BoatProtos {
         return null;
       }
     }
-    public static com.github.uuigaz.messages.BoatProtos.ClearToSend parseDelimitedFrom(
+    public static com.github.uuigaz.messages.BoatProtos.CTS parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2226,12 +1779,12 @@ public final class BoatProtos {
         return null;
       }
     }
-    public static com.github.uuigaz.messages.BoatProtos.ClearToSend parseFrom(
+    public static com.github.uuigaz.messages.BoatProtos.CTS parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.github.uuigaz.messages.BoatProtos.ClearToSend parseFrom(
+    public static com.github.uuigaz.messages.BoatProtos.CTS parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2241,42 +1794,21 @@ public final class BoatProtos {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.github.uuigaz.messages.BoatProtos.ClearToSend prototype) {
+    public static Builder newBuilder(com.github.uuigaz.messages.BoatProtos.CTS prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
     
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.github.uuigaz.messages.BoatProtos.ClearToSendOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.github.uuigaz.messages.BoatProtos.internal_static_messages_ClearToSend_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.github.uuigaz.messages.BoatProtos.internal_static_messages_ClearToSend_fieldAccessorTable;
-      }
-      
-      // Construct using com.github.uuigaz.messages.BoatProtos.ClearToSend.newBuilder()
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          com.github.uuigaz.messages.BoatProtos.CTS, Builder>
+        implements com.github.uuigaz.messages.BoatProtos.CTSOrBuilder {
+      // Construct using com.github.uuigaz.messages.BoatProtos.CTS.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
       
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
       }
       private static Builder create() {
         return new Builder();
@@ -2291,26 +1823,21 @@ public final class BoatProtos {
         return create().mergeFrom(buildPartial());
       }
       
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.github.uuigaz.messages.BoatProtos.ClearToSend.getDescriptor();
+      public com.github.uuigaz.messages.BoatProtos.CTS getDefaultInstanceForType() {
+        return com.github.uuigaz.messages.BoatProtos.CTS.getDefaultInstance();
       }
       
-      public com.github.uuigaz.messages.BoatProtos.ClearToSend getDefaultInstanceForType() {
-        return com.github.uuigaz.messages.BoatProtos.ClearToSend.getDefaultInstance();
-      }
-      
-      public com.github.uuigaz.messages.BoatProtos.ClearToSend build() {
-        com.github.uuigaz.messages.BoatProtos.ClearToSend result = buildPartial();
+      public com.github.uuigaz.messages.BoatProtos.CTS build() {
+        com.github.uuigaz.messages.BoatProtos.CTS result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
       
-      private com.github.uuigaz.messages.BoatProtos.ClearToSend buildParsed()
+      private com.github.uuigaz.messages.BoatProtos.CTS buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
-        com.github.uuigaz.messages.BoatProtos.ClearToSend result = buildPartial();
+        com.github.uuigaz.messages.BoatProtos.CTS result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(
             result).asInvalidProtocolBufferException();
@@ -2318,24 +1845,13 @@ public final class BoatProtos {
         return result;
       }
       
-      public com.github.uuigaz.messages.BoatProtos.ClearToSend buildPartial() {
-        com.github.uuigaz.messages.BoatProtos.ClearToSend result = new com.github.uuigaz.messages.BoatProtos.ClearToSend(this);
-        onBuilt();
+      public com.github.uuigaz.messages.BoatProtos.CTS buildPartial() {
+        com.github.uuigaz.messages.BoatProtos.CTS result = new com.github.uuigaz.messages.BoatProtos.CTS(this);
         return result;
       }
       
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.github.uuigaz.messages.BoatProtos.ClearToSend) {
-          return mergeFrom((com.github.uuigaz.messages.BoatProtos.ClearToSend)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-      
-      public Builder mergeFrom(com.github.uuigaz.messages.BoatProtos.ClearToSend other) {
-        if (other == com.github.uuigaz.messages.BoatProtos.ClearToSend.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.getUnknownFields());
+      public Builder mergeFrom(com.github.uuigaz.messages.BoatProtos.CTS other) {
+        if (other == com.github.uuigaz.messages.BoatProtos.CTS.getDefaultInstance()) return this;
         return this;
       }
       
@@ -2347,21 +1863,15 @@ public final class BoatProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
         while (true) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
+              
               return this;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
+              if (!parseUnknownField(input, extensionRegistry, tag)) {
+                
                 return this;
               }
               break;
@@ -2371,126 +1881,19 @@ public final class BoatProtos {
       }
       
       
-      // @@protoc_insertion_point(builder_scope:messages.ClearToSend)
+      // @@protoc_insertion_point(builder_scope:messages.CTS)
     }
     
     static {
-      defaultInstance = new ClearToSend(true);
+      defaultInstance = new CTS(true);
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:messages.ClearToSend)
+    // @@protoc_insertion_point(class_scope:messages.CTS)
   }
   
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_messages_Coordinate_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_messages_Coordinate_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_messages_Boat_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_messages_Boat_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_messages_Shot_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_messages_Shot_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_messages_StatusReport_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_messages_StatusReport_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_messages_Init_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_messages_Init_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_messages_ClearToSend_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_messages_ClearToSend_fieldAccessorTable;
   
-  public static com.google.protobuf.Descriptors.FileDescriptor
-      getDescriptor() {
-    return descriptor;
-  }
-  private static com.google.protobuf.Descriptors.FileDescriptor
-      descriptor;
   static {
-    java.lang.String[] descriptorData = {
-      "\n\027proto/boat_protos.proto\022\010messages\"\"\n\nC" +
-      "oordinate\022\t\n\001x\030\001 \002(\r\022\t\n\001y\030\002 \002(\r\"|\n\004Boat\022" +
-      " \n\002co\030\001 \002(\0132\024.messages.Coordinate\"R\n\010Boa" +
-      "tType\022\013\n\007CARRIER\020\005\022\016\n\nBATTLESHIP\020\004\022\013\n\007CR" +
-      "UISER\020\003\022\r\n\tDESTROYER\020\002\022\r\n\tSUBMARINE\020\001\"(\n" +
-      "\004Shot\022 \n\002co\030\001 \002(\0132\024.messages.Coordinate\"" +
-      "\033\n\014StatusReport\022\013\n\003hit\030\001 \002(\010\"\024\n\004Init\022\014\n\004" +
-      "name\030\001 \002(\t\"\r\n\013ClearToSendB\034\n\032com.github." +
-      "uuigaz.messages"
-    };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_messages_Coordinate_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_messages_Coordinate_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_messages_Coordinate_descriptor,
-              new java.lang.String[] { "X", "Y", },
-              com.github.uuigaz.messages.BoatProtos.Coordinate.class,
-              com.github.uuigaz.messages.BoatProtos.Coordinate.Builder.class);
-          internal_static_messages_Boat_descriptor =
-            getDescriptor().getMessageTypes().get(1);
-          internal_static_messages_Boat_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_messages_Boat_descriptor,
-              new java.lang.String[] { "Co", },
-              com.github.uuigaz.messages.BoatProtos.Boat.class,
-              com.github.uuigaz.messages.BoatProtos.Boat.Builder.class);
-          internal_static_messages_Shot_descriptor =
-            getDescriptor().getMessageTypes().get(2);
-          internal_static_messages_Shot_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_messages_Shot_descriptor,
-              new java.lang.String[] { "Co", },
-              com.github.uuigaz.messages.BoatProtos.Shot.class,
-              com.github.uuigaz.messages.BoatProtos.Shot.Builder.class);
-          internal_static_messages_StatusReport_descriptor =
-            getDescriptor().getMessageTypes().get(3);
-          internal_static_messages_StatusReport_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_messages_StatusReport_descriptor,
-              new java.lang.String[] { "Hit", },
-              com.github.uuigaz.messages.BoatProtos.StatusReport.class,
-              com.github.uuigaz.messages.BoatProtos.StatusReport.Builder.class);
-          internal_static_messages_Init_descriptor =
-            getDescriptor().getMessageTypes().get(4);
-          internal_static_messages_Init_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_messages_Init_descriptor,
-              new java.lang.String[] { "Name", },
-              com.github.uuigaz.messages.BoatProtos.Init.class,
-              com.github.uuigaz.messages.BoatProtos.Init.Builder.class);
-          internal_static_messages_ClearToSend_descriptor =
-            getDescriptor().getMessageTypes().get(5);
-          internal_static_messages_ClearToSend_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_messages_ClearToSend_descriptor,
-              new java.lang.String[] { },
-              com.github.uuigaz.messages.BoatProtos.ClearToSend.class,
-              com.github.uuigaz.messages.BoatProtos.ClearToSend.Builder.class);
-          return null;
-        }
-      };
-    com.google.protobuf.Descriptors.FileDescriptor
-      .internalBuildGeneratedFileFrom(descriptorData,
-        new com.google.protobuf.Descriptors.FileDescriptor[] {
-        }, assigner);
   }
   
   // @@protoc_insertion_point(outer_class_scope)
