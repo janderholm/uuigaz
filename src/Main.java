@@ -1,7 +1,6 @@
 import java.net.ServerSocket;
 import java.io.IOException;
 
-
 public class Main {
     public static void main(String[] args) {
 	    int port = 30000;    
