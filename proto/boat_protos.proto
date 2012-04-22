@@ -5,9 +5,11 @@ option optimize_for = LITE_RUNTIME;
 
 
 message BaseMessage {
-	optional bool yourturn = 1;
+	optional bool yourTurn = 1;
 	optional Fire fire = 2;
-	repeated Boat boat = 3;
+	optional StatusReport report = 3;
+	optional Board board = 4;
+	optional bool newGame = 5;
 
 }
 
@@ -16,21 +18,29 @@ message Coordinate {
 	required uint32 y = 2;
 }
 
-message Boat {
-	required Coordinate co = 1;
-	
-	enum BoatType {
-		CARRIER = 5;
-		BATTLESHIP = 4;
-		CRUISER = 3;
-		DESTROYER = 2;
-		SUBMARINE = 1;
+message Board {
+	message Boat {
+		required Coordinate co = 1;
+		required BoatType type = 2;
+
+		enum BoatType {
+			CARRIER = 5;
+			BATTLESHIP = 4;
+			CRUISER = 3;
+			DESTROYER = 2;
+			SUBMARINE = 1;
+		}
 	}
+	
+	repeated Boat boats = 1;
 }
 
 message Fire {
 	required Coordinate co = 1;
-	optional bool hit = 2;
+}
+
+message StatusReport {
+	optional bool hit = 1;
 }
 
 message Ident {

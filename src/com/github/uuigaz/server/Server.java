@@ -1,25 +1,25 @@
 package com.github.uuigaz.server;
 
-import com.github.uuigaz.mechanics.Coord;
-import com.github.uuigaz.mechanics.Ship;
-import com.github.uuigaz.messages.BoatProtos.*;
-import com.google.protobuf.MessageLite;
+import com.github.uuigaz.mechanics.Board;
+import com.github.uuigaz.messages.BoatProtos;
+import com.github.uuigaz.messages.BoatProtos.BaseMessage;
+import com.github.uuigaz.messages.BoatProtos.Coordinate;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 class Player implements Runnable {
 	private Socket connection;
 	private InputStream is;
 	private OutputStream os;
-	public final Ident ident;
+	public final BoatProtos.Ident ident;
 	private Session session;
 
-	public Player(Ident ident, Socket connection) throws IOException {
+	public Player(BoatProtos.Ident ident, Socket connection) throws IOException {
 		this.ident = ident;
 		this.connection = connection;
 		this.is = connection.getInputStream();
@@ -39,57 +39,98 @@ class Player implements Runnable {
 
 		// TODO:
 		// Session was just started here. This means we need to replay all
-		// previous messages if there are any, or initalize a new game if
+		// previous messages if there are any, or initialize a new game if
 		// there weren't.
 
-		while (true) {
-			// TODO:
-			// Probably no need for a listening sentry. When a game is properly
-			// initialized any packages should just be relayed through the
-			// session. Which could be made a thread.
+		try {
+			BaseMessage m;
+			BaseMessage.Builder send;
 
-			try {
-				BaseMessage m = BaseMessage.parseDelimitedFrom(is);
-
-				if(m.getBoatCount() > 0) {
-					// TODO: Got a new game board.
+			if (session.isInitialized(this)) {
+				send = BaseMessage.newBuilder();
+				send.setBoard(session.getBoardMsg(this));
+				send.build().writeDelimitedTo(os);
+				
+				// TODO: Replay packages.
+			} else {
+				send = BaseMessage.newBuilder();
+				send.setNewGame(true);
+				send.build().writeDelimitedTo(os);
+				m = BaseMessage.parseDelimitedFrom(is);
+				
+				if (m.hasBoard()) {
+					session.initialize(this, m.getBoard());
+					
+					// TODO: Figure out who's to start.
+				} else {
+					System.err.println("Client did not respond a new game with a board.");
 				}
+			}
+
+			while (true) {
+				// TODO:
+				// Probably no need for a listening sentry. When a game is
+				// properly initialized any packages should just be relayed
+				// through the session. Which could be made a thread.
+
+				m = BaseMessage.parseDelimitedFrom(is);
+
+				// Clean the basemessagebuilder.
+				send = BaseMessage.newBuilder();
 				
 				if (m.hasFire()) {
-					// TODO: A shot was fired. Respond with Fire->hit = true/false;
+					// TODO: A shot was fired. Respond with StatusReport
+					BoatProtos.StatusReport hit = session.fire(this, m.getFire().getCo());
+					send.setReport(hit);
 				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				break;
+				
+				send.build().writeDelimitedTo(os);
 			}
+		} catch (IOException e) {
+
 		}
 	}
 }
 
 class Session {
-	final Player player[];
-	final HashMap<Coord, Ship> board;
-	
+	private final Player player[];
+	private Board board[];
+
 	public Session(Player player1, Player player2) {
 		player = new Player[2];
+		board = new Board[2];
+		
 		player[0] = player1;
 		player[1] = player2;
-		board = new HashMap<Coord, Ship>();
 	}
 
-	boolean belongsTo(Ident ident) {
+	public void initialize(Player p, BoatProtos.Board boardmsg) {
+		int i = p.ident.equals(player[0]) ? 0 : 1;
+		board[i] = Board.build(boardmsg);
+	}
+
+	public boolean isInitialized(Player p) {
+		return p.ident.equals(player[0]) ? board[0] != null : board[1] != null; 
+	}
+
+	public boolean belongsTo(BoatProtos.Ident ident) {
 		return player[0].ident.equals(ident) || player[1].ident.equals(ident);
 	}
-
-	synchronized void sendMessage(Player sender, MessageLite msg) {
-		Player to = player[0].equals(sender) ? player[1] : player[2];
-
-		// TODO:
-		// Send msg to player indicated by "to"
-		
+	
+	public BoatProtos.Board getBoardMsg(Player p) {
+		return p.ident.equals(player[0]) ? board[0].getMsg() : board[1].getMsg(); 
 	}
 
+	public BoatProtos.StatusReport fire(Player sender, Coordinate co) {
+		Board b = player[0].ident.equals(sender) ? board[1] : board[0];
+		
+		// TODO: Send to other player.
+		
+		BoatProtos.StatusReport.Builder msg = BoatProtos.StatusReport.newBuilder();
+		
+		msg.setHit(b.isHit(co));
+		return msg.build();
+	}	
 }
 
 class Controller {
@@ -171,7 +212,7 @@ public class Server {
 			try {
 				socket = listen.accept();
 				System.out.println("Connection from" + socket.getInetAddress());
-				Ident ident = Ident.parseFrom(socket.getInputStream());
+				BoatProtos.Ident ident = BoatProtos.Ident.parseDelimitedFrom(socket.getInputStream());
 				new Thread(new Player(ident, socket)).start();
 			} catch (IOException e) {
 				// TODO:
@@ -182,5 +223,4 @@ public class Server {
 		}
 
 	}
-
 }

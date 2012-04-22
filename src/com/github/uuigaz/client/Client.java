@@ -1,6 +1,8 @@
 package com.github.uuigaz.client;
 
-import com.github.uuigaz.mechanics.*;
+import com.github.uuigaz.mechanics.Ident;
+import com.github.uuigaz.messages.BoatProtos.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -38,13 +40,7 @@ public class Client {
 		OutputStream os = socket.getOutputStream();
 		InputStream is = socket.getInputStream();
 		
-		ident.getMsg().writeTo(os);
-		
-		while(true) {
-			break;
-		}
-		
-
+		ident.getMsg().writeDelimitedTo(os);
 	}
 
 }
