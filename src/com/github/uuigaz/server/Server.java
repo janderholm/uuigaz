@@ -3,6 +3,7 @@ package com.github.uuigaz.server;
 import com.github.uuigaz.mechanics.Board;
 import com.github.uuigaz.messages.BoatProtos;
 import com.github.uuigaz.messages.BoatProtos.BaseMessage;
+import com.github.uuigaz.messages.BoatProtos.Init;
 import com.github.uuigaz.messages.BoatProtos.Coordinate;
 
 import java.io.IOException;
@@ -10,7 +11,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
 import java.util.LinkedList;
+import java.util.Collections;
 
 class Player implements Runnable {
 	private Socket connection;
@@ -43,30 +46,32 @@ class Player implements Runnable {
 		// there weren't.
 
 		try {
-			BaseMessage m;
-			BaseMessage.Builder send;
-
+			Init.Builder init;
+			Init iinit;
+			
 			if (session.isInitialized(this)) {
-				send = BaseMessage.newBuilder();
-				send.setBoard(session.getBoardMsg(this));
-				send.build().writeDelimitedTo(os);
-				
-				// TODO: Replay packages.
+				// If session already running replay any messages.
+				init = Init.newBuilder();
+				init.setBoard(session.getBoardMsg(this));
+				init.build().writeDelimitedTo(os);				
 			} else {
-				send = BaseMessage.newBuilder();
-				send.setNewGame(true);
-				send.build().writeDelimitedTo(os);
-				m = BaseMessage.parseDelimitedFrom(is);
+				// Ask client to create a board.
+				init = Init.newBuilder();
+				init.setNewGame(true);
+				init.build().writeDelimitedTo(os);
+				iinit = Init.parseDelimitedFrom(is);
 				
-				if (m.hasBoard()) {
-					session.initialize(this, m.getBoard());
-					
+				if (iinit.hasBoard()) {
+					session.initialize(this, iinit.getBoard());
 					// TODO: Figure out who's to start.
 				} else {
 					System.err.println("Client did not respond a new game with a board.");
 				}
 			}
 
+			
+			BaseMessage m;
+			BaseMessage.Builder send;
 			while (true) {
 				// TODO:
 				// Probably no need for a listening sentry. When a game is
@@ -84,7 +89,8 @@ class Player implements Runnable {
 					send.setReport(hit);
 				}
 				
-				send.build().writeDelimitedTo(os);
+				BaseMessage s = send.build();
+				s.writeDelimitedTo(os);
 			}
 		} catch (IOException e) {
 
@@ -94,7 +100,7 @@ class Player implements Runnable {
 
 class Session {
 	private final Player player[];
-	private Board board[];
+	private final Board board[];
 
 	public Session(Player player1, Player player2) {
 		player = new Player[2];

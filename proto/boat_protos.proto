@@ -8,9 +8,11 @@ message BaseMessage {
 	optional bool yourTurn = 1;
 	optional Fire fire = 2;
 	optional StatusReport report = 3;
-	optional Board board = 4;
-	optional bool newGame = 5;
+}
 
+message Init {
+	optional bool newGame = 1;
+	optional Board board = 2;
 }
 
 message Coordinate {
@@ -22,6 +24,15 @@ message Board {
 	message Boat {
 		required Coordinate co = 1;
 		required BoatType type = 2;
+		required Direction direction = 3;
+		optional uint32 hits = 4;
+
+		enum Direction {
+			DOWN = 1;
+			RIGHT = 2;
+			UP = 3;
+			LEFT = 4;
+		}
 
 		enum BoatType {
 			CARRIER = 5;

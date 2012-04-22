@@ -22,14 +22,6 @@ public final class BoatProtos {
     // optional .messages.StatusReport report = 3;
     boolean hasReport();
     com.github.uuigaz.messages.BoatProtos.StatusReport getReport();
-    
-    // optional .messages.Board board = 4;
-    boolean hasBoard();
-    com.github.uuigaz.messages.BoatProtos.Board getBoard();
-    
-    // optional bool newGame = 5;
-    boolean hasNewGame();
-    boolean getNewGame();
   }
   public static final class BaseMessage extends
       com.google.protobuf.GeneratedMessageLite
@@ -80,32 +72,10 @@ public final class BoatProtos {
       return report_;
     }
     
-    // optional .messages.Board board = 4;
-    public static final int BOARD_FIELD_NUMBER = 4;
-    private com.github.uuigaz.messages.BoatProtos.Board board_;
-    public boolean hasBoard() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    public com.github.uuigaz.messages.BoatProtos.Board getBoard() {
-      return board_;
-    }
-    
-    // optional bool newGame = 5;
-    public static final int NEWGAME_FIELD_NUMBER = 5;
-    private boolean newGame_;
-    public boolean hasNewGame() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
-    }
-    public boolean getNewGame() {
-      return newGame_;
-    }
-    
     private void initFields() {
       yourTurn_ = false;
       fire_ = com.github.uuigaz.messages.BoatProtos.Fire.getDefaultInstance();
       report_ = com.github.uuigaz.messages.BoatProtos.StatusReport.getDefaultInstance();
-      board_ = com.github.uuigaz.messages.BoatProtos.Board.getDefaultInstance();
-      newGame_ = false;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -114,12 +84,6 @@ public final class BoatProtos {
       
       if (hasFire()) {
         if (!getFire().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (hasBoard()) {
-        if (!getBoard().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -140,12 +104,6 @@ public final class BoatProtos {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeMessage(3, report_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeMessage(4, board_);
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeBool(5, newGame_);
-      }
     }
     
     private int memoizedSerializedSize = -1;
@@ -165,14 +123,6 @@ public final class BoatProtos {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, report_);
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, board_);
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(5, newGame_);
       }
       memoizedSerializedSize = size;
       return size;
@@ -280,10 +230,6 @@ public final class BoatProtos {
         bitField0_ = (bitField0_ & ~0x00000002);
         report_ = com.github.uuigaz.messages.BoatProtos.StatusReport.getDefaultInstance();
         bitField0_ = (bitField0_ & ~0x00000004);
-        board_ = com.github.uuigaz.messages.BoatProtos.Board.getDefaultInstance();
-        bitField0_ = (bitField0_ & ~0x00000008);
-        newGame_ = false;
-        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
       
@@ -329,14 +275,6 @@ public final class BoatProtos {
           to_bitField0_ |= 0x00000004;
         }
         result.report_ = report_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
-        }
-        result.board_ = board_;
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-          to_bitField0_ |= 0x00000010;
-        }
-        result.newGame_ = newGame_;
         result.bitField0_ = to_bitField0_;
         return result;
       }
@@ -352,24 +290,12 @@ public final class BoatProtos {
         if (other.hasReport()) {
           mergeReport(other.getReport());
         }
-        if (other.hasBoard()) {
-          mergeBoard(other.getBoard());
-        }
-        if (other.hasNewGame()) {
-          setNewGame(other.getNewGame());
-        }
         return this;
       }
       
       public final boolean isInitialized() {
         if (hasFire()) {
           if (!getFire().isInitialized()) {
-            
-            return false;
-          }
-        }
-        if (hasBoard()) {
-          if (!getBoard().isInitialized()) {
             
             return false;
           }
@@ -415,20 +341,6 @@ public final class BoatProtos {
               }
               input.readMessage(subBuilder, extensionRegistry);
               setReport(subBuilder.buildPartial());
-              break;
-            }
-            case 34: {
-              com.github.uuigaz.messages.BoatProtos.Board.Builder subBuilder = com.github.uuigaz.messages.BoatProtos.Board.newBuilder();
-              if (hasBoard()) {
-                subBuilder.mergeFrom(getBoard());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setBoard(subBuilder.buildPartial());
-              break;
-            }
-            case 40: {
-              bitField0_ |= 0x00000010;
-              newGame_ = input.readBool();
               break;
             }
           }
@@ -544,10 +456,343 @@ public final class BoatProtos {
         return this;
       }
       
-      // optional .messages.Board board = 4;
+      // @@protoc_insertion_point(builder_scope:messages.BaseMessage)
+    }
+    
+    static {
+      defaultInstance = new BaseMessage(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:messages.BaseMessage)
+  }
+  
+  public interface InitOrBuilder
+      extends com.google.protobuf.MessageLiteOrBuilder {
+    
+    // optional bool newGame = 1;
+    boolean hasNewGame();
+    boolean getNewGame();
+    
+    // optional .messages.Board board = 2;
+    boolean hasBoard();
+    com.github.uuigaz.messages.BoatProtos.Board getBoard();
+  }
+  public static final class Init extends
+      com.google.protobuf.GeneratedMessageLite
+      implements InitOrBuilder {
+    // Use Init.newBuilder() to construct.
+    private Init(Builder builder) {
+      super(builder);
+    }
+    private Init(boolean noInit) {}
+    
+    private static final Init defaultInstance;
+    public static Init getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public Init getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    private int bitField0_;
+    // optional bool newGame = 1;
+    public static final int NEWGAME_FIELD_NUMBER = 1;
+    private boolean newGame_;
+    public boolean hasNewGame() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public boolean getNewGame() {
+      return newGame_;
+    }
+    
+    // optional .messages.Board board = 2;
+    public static final int BOARD_FIELD_NUMBER = 2;
+    private com.github.uuigaz.messages.BoatProtos.Board board_;
+    public boolean hasBoard() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public com.github.uuigaz.messages.BoatProtos.Board getBoard() {
+      return board_;
+    }
+    
+    private void initFields() {
+      newGame_ = false;
+      board_ = com.github.uuigaz.messages.BoatProtos.Board.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      if (hasBoard()) {
+        if (!getBoard().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBool(1, newGame_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeMessage(2, board_);
+      }
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(1, newGame_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, board_);
+      }
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    @java.lang.Override
+    protected Object writeReplace() throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.github.uuigaz.messages.BoatProtos.Init parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Init parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Init parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Init parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Init parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Init parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Init parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Init parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Init parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Init parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.github.uuigaz.messages.BoatProtos.Init prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          com.github.uuigaz.messages.BoatProtos.Init, Builder>
+        implements com.github.uuigaz.messages.BoatProtos.InitOrBuilder {
+      // Construct using com.github.uuigaz.messages.BoatProtos.Init.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private void maybeForceBuilderInitialization() {
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        newGame_ = false;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        board_ = com.github.uuigaz.messages.BoatProtos.Board.getDefaultInstance();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.github.uuigaz.messages.BoatProtos.Init getDefaultInstanceForType() {
+        return com.github.uuigaz.messages.BoatProtos.Init.getDefaultInstance();
+      }
+      
+      public com.github.uuigaz.messages.BoatProtos.Init build() {
+        com.github.uuigaz.messages.BoatProtos.Init result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.github.uuigaz.messages.BoatProtos.Init buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.github.uuigaz.messages.BoatProtos.Init result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.github.uuigaz.messages.BoatProtos.Init buildPartial() {
+        com.github.uuigaz.messages.BoatProtos.Init result = new com.github.uuigaz.messages.BoatProtos.Init(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.newGame_ = newGame_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.board_ = board_;
+        result.bitField0_ = to_bitField0_;
+        return result;
+      }
+      
+      public Builder mergeFrom(com.github.uuigaz.messages.BoatProtos.Init other) {
+        if (other == com.github.uuigaz.messages.BoatProtos.Init.getDefaultInstance()) return this;
+        if (other.hasNewGame()) {
+          setNewGame(other.getNewGame());
+        }
+        if (other.hasBoard()) {
+          mergeBoard(other.getBoard());
+        }
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        if (hasBoard()) {
+          if (!getBoard().isInitialized()) {
+            
+            return false;
+          }
+        }
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              
+              return this;
+            default: {
+              if (!parseUnknownField(input, extensionRegistry, tag)) {
+                
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              newGame_ = input.readBool();
+              break;
+            }
+            case 18: {
+              com.github.uuigaz.messages.BoatProtos.Board.Builder subBuilder = com.github.uuigaz.messages.BoatProtos.Board.newBuilder();
+              if (hasBoard()) {
+                subBuilder.mergeFrom(getBoard());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setBoard(subBuilder.buildPartial());
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // optional bool newGame = 1;
+      private boolean newGame_ ;
+      public boolean hasNewGame() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public boolean getNewGame() {
+        return newGame_;
+      }
+      public Builder setNewGame(boolean value) {
+        bitField0_ |= 0x00000001;
+        newGame_ = value;
+        
+        return this;
+      }
+      public Builder clearNewGame() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        newGame_ = false;
+        
+        return this;
+      }
+      
+      // optional .messages.Board board = 2;
       private com.github.uuigaz.messages.BoatProtos.Board board_ = com.github.uuigaz.messages.BoatProtos.Board.getDefaultInstance();
       public boolean hasBoard() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       public com.github.uuigaz.messages.BoatProtos.Board getBoard() {
         return board_;
@@ -558,18 +803,18 @@ public final class BoatProtos {
         }
         board_ = value;
         
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000002;
         return this;
       }
       public Builder setBoard(
           com.github.uuigaz.messages.BoatProtos.Board.Builder builderForValue) {
         board_ = builderForValue.build();
         
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000002;
         return this;
       }
       public Builder mergeBoard(com.github.uuigaz.messages.BoatProtos.Board value) {
-        if (((bitField0_ & 0x00000008) == 0x00000008) &&
+        if (((bitField0_ & 0x00000002) == 0x00000002) &&
             board_ != com.github.uuigaz.messages.BoatProtos.Board.getDefaultInstance()) {
           board_ =
             com.github.uuigaz.messages.BoatProtos.Board.newBuilder(board_).mergeFrom(value).buildPartial();
@@ -577,46 +822,25 @@ public final class BoatProtos {
           board_ = value;
         }
         
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000002;
         return this;
       }
       public Builder clearBoard() {
         board_ = com.github.uuigaz.messages.BoatProtos.Board.getDefaultInstance();
         
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
       
-      // optional bool newGame = 5;
-      private boolean newGame_ ;
-      public boolean hasNewGame() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
-      }
-      public boolean getNewGame() {
-        return newGame_;
-      }
-      public Builder setNewGame(boolean value) {
-        bitField0_ |= 0x00000010;
-        newGame_ = value;
-        
-        return this;
-      }
-      public Builder clearNewGame() {
-        bitField0_ = (bitField0_ & ~0x00000010);
-        newGame_ = false;
-        
-        return this;
-      }
-      
-      // @@protoc_insertion_point(builder_scope:messages.BaseMessage)
+      // @@protoc_insertion_point(builder_scope:messages.Init)
     }
     
     static {
-      defaultInstance = new BaseMessage(true);
+      defaultInstance = new Init(true);
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:messages.BaseMessage)
+    // @@protoc_insertion_point(class_scope:messages.Init)
   }
   
   public interface CoordinateOrBuilder
@@ -1010,6 +1234,14 @@ public final class BoatProtos {
       // required .messages.Board.Boat.BoatType type = 2;
       boolean hasType();
       com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType getType();
+      
+      // required .messages.Board.Boat.Direction direction = 3;
+      boolean hasDirection();
+      com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction getDirection();
+      
+      // optional uint32 hits = 4;
+      boolean hasHits();
+      int getHits();
     }
     public static final class Boat extends
         com.google.protobuf.GeneratedMessageLite
@@ -1027,6 +1259,53 @@ public final class BoatProtos {
       
       public Boat getDefaultInstanceForType() {
         return defaultInstance;
+      }
+      
+      public enum Direction
+          implements com.google.protobuf.Internal.EnumLite {
+        DOWN(0, 1),
+        RIGHT(1, 2),
+        UP(2, 3),
+        LEFT(3, 4),
+        ;
+        
+        public static final int DOWN_VALUE = 1;
+        public static final int RIGHT_VALUE = 2;
+        public static final int UP_VALUE = 3;
+        public static final int LEFT_VALUE = 4;
+        
+        
+        public final int getNumber() { return value; }
+        
+        public static Direction valueOf(int value) {
+          switch (value) {
+            case 1: return DOWN;
+            case 2: return RIGHT;
+            case 3: return UP;
+            case 4: return LEFT;
+            default: return null;
+          }
+        }
+        
+        public static com.google.protobuf.Internal.EnumLiteMap<Direction>
+            internalGetValueMap() {
+          return internalValueMap;
+        }
+        private static com.google.protobuf.Internal.EnumLiteMap<Direction>
+            internalValueMap =
+              new com.google.protobuf.Internal.EnumLiteMap<Direction>() {
+                public Direction findValueByNumber(int number) {
+                  return Direction.valueOf(number);
+                }
+              };
+        
+        private final int value;
+        
+        private Direction(int index, int value) {
+          this.value = value;
+        }
+        
+        // @@protoc_insertion_point(enum_scope:messages.Board.Boat.Direction)
       }
       
       public enum BoatType
@@ -1100,9 +1379,31 @@ public final class BoatProtos {
         return type_;
       }
       
+      // required .messages.Board.Boat.Direction direction = 3;
+      public static final int DIRECTION_FIELD_NUMBER = 3;
+      private com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction direction_;
+      public boolean hasDirection() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction getDirection() {
+        return direction_;
+      }
+      
+      // optional uint32 hits = 4;
+      public static final int HITS_FIELD_NUMBER = 4;
+      private int hits_;
+      public boolean hasHits() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public int getHits() {
+        return hits_;
+      }
+      
       private void initFields() {
         co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
         type_ = com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType.CARRIER;
+        direction_ = com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction.DOWN;
+        hits_ = 0;
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
@@ -1114,6 +1415,10 @@ public final class BoatProtos {
           return false;
         }
         if (!hasType()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasDirection()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -1134,6 +1439,12 @@ public final class BoatProtos {
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
           output.writeEnum(2, type_.getNumber());
         }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          output.writeEnum(3, direction_.getNumber());
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          output.writeUInt32(4, hits_);
+        }
       }
       
       private int memoizedSerializedSize = -1;
@@ -1149,6 +1460,14 @@ public final class BoatProtos {
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
           size += com.google.protobuf.CodedOutputStream
             .computeEnumSize(2, type_.getNumber());
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeEnumSize(3, direction_.getNumber());
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32Size(4, hits_);
         }
         memoizedSerializedSize = size;
         return size;
@@ -1254,6 +1573,10 @@ public final class BoatProtos {
           bitField0_ = (bitField0_ & ~0x00000001);
           type_ = com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType.CARRIER;
           bitField0_ = (bitField0_ & ~0x00000002);
+          direction_ = com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction.DOWN;
+          bitField0_ = (bitField0_ & ~0x00000004);
+          hits_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000008);
           return this;
         }
         
@@ -1295,6 +1618,14 @@ public final class BoatProtos {
             to_bitField0_ |= 0x00000002;
           }
           result.type_ = type_;
+          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+            to_bitField0_ |= 0x00000004;
+          }
+          result.direction_ = direction_;
+          if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+            to_bitField0_ |= 0x00000008;
+          }
+          result.hits_ = hits_;
           result.bitField0_ = to_bitField0_;
           return result;
         }
@@ -1307,6 +1638,12 @@ public final class BoatProtos {
           if (other.hasType()) {
             setType(other.getType());
           }
+          if (other.hasDirection()) {
+            setDirection(other.getDirection());
+          }
+          if (other.hasHits()) {
+            setHits(other.getHits());
+          }
           return this;
         }
         
@@ -1316,6 +1653,10 @@ public final class BoatProtos {
             return false;
           }
           if (!hasType()) {
+            
+            return false;
+          }
+          if (!hasDirection()) {
             
             return false;
           }
@@ -1359,6 +1700,20 @@ public final class BoatProtos {
                   bitField0_ |= 0x00000002;
                   type_ = value;
                 }
+                break;
+              }
+              case 24: {
+                int rawValue = input.readEnum();
+                com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction value = com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction.valueOf(rawValue);
+                if (value != null) {
+                  bitField0_ |= 0x00000004;
+                  direction_ = value;
+                }
+                break;
+              }
+              case 32: {
+                bitField0_ |= 0x00000008;
+                hits_ = input.readUInt32();
                 break;
               }
             }
@@ -1430,6 +1785,51 @@ public final class BoatProtos {
         public Builder clearType() {
           bitField0_ = (bitField0_ & ~0x00000002);
           type_ = com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType.CARRIER;
+          
+          return this;
+        }
+        
+        // required .messages.Board.Boat.Direction direction = 3;
+        private com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction direction_ = com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction.DOWN;
+        public boolean hasDirection() {
+          return ((bitField0_ & 0x00000004) == 0x00000004);
+        }
+        public com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction getDirection() {
+          return direction_;
+        }
+        public Builder setDirection(com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction value) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          bitField0_ |= 0x00000004;
+          direction_ = value;
+          
+          return this;
+        }
+        public Builder clearDirection() {
+          bitField0_ = (bitField0_ & ~0x00000004);
+          direction_ = com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction.DOWN;
+          
+          return this;
+        }
+        
+        // optional uint32 hits = 4;
+        private int hits_ ;
+        public boolean hasHits() {
+          return ((bitField0_ & 0x00000008) == 0x00000008);
+        }
+        public int getHits() {
+          return hits_;
+        }
+        public Builder setHits(int value) {
+          bitField0_ |= 0x00000008;
+          hits_ = value;
+          
+          return this;
+        }
+        public Builder clearHits() {
+          bitField0_ = (bitField0_ & ~0x00000008);
+          hits_ = 0;
           
           return this;
         }
