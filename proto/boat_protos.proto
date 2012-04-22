@@ -4,6 +4,13 @@ option java_package = "com.github.uuigaz.messages";
 option optimize_for = LITE_RUNTIME;
 
 
+message BaseMessage {
+	optional bool yourturn = 1;
+	optional Fire fire = 2;
+	repeated Boat boat = 3;
+
+}
+
 message Coordinate {
 	required uint32 x = 1;
 	required uint32 y = 2;
@@ -21,21 +28,12 @@ message Boat {
 	}
 }
 
-message Shot {
+message Fire {
 	required Coordinate co = 1;
-}
-
-message Board {
-	repeated Boat boats = 1;
-}
-
-message StatusReport {
-	required bool hit = 1;
+	optional bool hit = 2;
 }
 
 message Ident {
 	required string name = 1;
 }
 
-message CTS {
-}

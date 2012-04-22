@@ -5,6 +5,8 @@ import com.github.uuigaz.mechanics.Ship;
 import com.github.uuigaz.messages.BoatProtos.*;
 import com.google.protobuf.MessageLite;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
@@ -12,12 +14,16 @@ import java.util.LinkedList;
 
 class Player implements Runnable {
 	private Socket connection;
+	private InputStream is;
+	private OutputStream os;
 	public final Ident ident;
 	private Session session;
 
 	public Player(Ident ident, Socket connection) throws IOException {
 		this.ident = ident;
 		this.connection = connection;
+		this.is = connection.getInputStream();
+		this.os = connection.getOutputStream();
 	}
 
 	public void run() {
@@ -42,7 +48,21 @@ class Player implements Runnable {
 			// initialized any packages should just be relayed through the
 			// session. Which could be made a thread.
 
-			break;
+			try {
+				BaseMessage m = BaseMessage.parseDelimitedFrom(is);
+
+				if(m.getBoatCount() > 0) {
+					// TODO: Got a new game board.
+				}
+				
+				if (m.hasFire()) {
+					// TODO: A shot was fired. Respond with Fire->hit = true/false;
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				break;
+			}
 		}
 	}
 }
