@@ -2,6 +2,8 @@ package com.github.uuigaz.test;
 
 import com.github.uuigaz.mechanics.Ident;
 import com.github.uuigaz.mechanics.Board;
+import com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType;
+import com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction;
 import com.github.uuigaz.messages.BoatProtos.*;
 
 import java.io.IOException;
@@ -10,6 +12,10 @@ import java.io.OutputStream;
 import java.lang.management.ManagementFactory;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class ServerTest {
 
@@ -56,16 +62,43 @@ public class ServerTest {
 		ident.getMsg().writeDelimitedTo(os);
 		
 		Init init = Init.parseDelimitedFrom(is);
+		Init.Builder initresponse = Init.newBuilder(); 
 		
 		Board board;
+		Random rand = new Random();
 		
 		if (init.hasNewGame() && init.getNewGame()) {
 			// TODO: Create board.
+			board = Board.build();
+			List<BoatType> boats = Arrays.asList(
+					BoatType.BATTLESHIP,
+					BoatType.CARRIER,
+					BoatType.CRUISER, 
+					BoatType.DESTROYER,
+					BoatType.SUBMARINE);
 			
+			List<Direction> dirs = Arrays.asList(
+					Direction.RIGHT,
+					Direction.DOWN,
+					Direction.UP,
+					Direction.LEFT
+					);
+			for (BoatType b : boats) {
+				while (true) {
+					try {
+						board.setBoat(rand.nextInt(10), rand.nextInt(10), b, dirs.get(rand.nextInt(4)));
+					} catch (RuntimeException e) {
+						continue;
+					}
+					break;
+				}
+			}
+			
+			System.out.println(board);
+			initresponse.setBoard(board.getMsg()).build().writeDelimitedTo(os);
 		} else if (init.hasBoard()) {
 			// TODO: Get board.
 			board = Board.build(null);
-			
 		} else {
 			System.out.println("Server did not respond with a proper init message.");
 			System.exit(1);

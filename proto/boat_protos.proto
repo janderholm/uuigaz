@@ -15,17 +15,14 @@ message Init {
 	optional Board board = 2;
 }
 
-message Coordinate {
-	required uint32 x = 1;
-	required uint32 y = 2;
-}
-
 message Board {
 	message Boat {
-		required Coordinate co = 1;
-		required BoatType type = 2;
-		required Direction direction = 3;
-		optional uint32 hits = 4;
+	  required uint32 x = 1;
+    required uint32 y = 2;
+	
+		required BoatType type = 3;
+		required Direction direction = 4;
+		optional uint32 hits = 5;
 
 		enum Direction {
 			DOWN = 1;
@@ -43,11 +40,12 @@ message Board {
 		}
 	}
 	
-	repeated Boat boats = 1;
+	repeated Boat boats = 6;
 }
 
 message Fire {
-	required Coordinate co = 1;
+ 	 required uint32 x = 1;
+   required uint32 y = 2;
 }
 
 message StatusReport {

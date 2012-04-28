@@ -843,364 +843,10 @@ public final class BoatProtos {
     // @@protoc_insertion_point(class_scope:messages.Init)
   }
   
-  public interface CoordinateOrBuilder
-      extends com.google.protobuf.MessageLiteOrBuilder {
-    
-    // required uint32 x = 1;
-    boolean hasX();
-    int getX();
-    
-    // required uint32 y = 2;
-    boolean hasY();
-    int getY();
-  }
-  public static final class Coordinate extends
-      com.google.protobuf.GeneratedMessageLite
-      implements CoordinateOrBuilder {
-    // Use Coordinate.newBuilder() to construct.
-    private Coordinate(Builder builder) {
-      super(builder);
-    }
-    private Coordinate(boolean noInit) {}
-    
-    private static final Coordinate defaultInstance;
-    public static Coordinate getDefaultInstance() {
-      return defaultInstance;
-    }
-    
-    public Coordinate getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-    
-    private int bitField0_;
-    // required uint32 x = 1;
-    public static final int X_FIELD_NUMBER = 1;
-    private int x_;
-    public boolean hasX() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    public int getX() {
-      return x_;
-    }
-    
-    // required uint32 y = 2;
-    public static final int Y_FIELD_NUMBER = 2;
-    private int y_;
-    public boolean hasY() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    public int getY() {
-      return y_;
-    }
-    
-    private void initFields() {
-      x_ = 0;
-      y_ = 0;
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-      
-      if (!hasX()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasY()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-    
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeUInt32(1, x_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeUInt32(2, y_);
-      }
-    }
-    
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-    
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(1, x_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(2, y_);
-      }
-      memoizedSerializedSize = size;
-      return size;
-    }
-    
-    @java.lang.Override
-    protected Object writeReplace() throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-    
-    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.github.uuigaz.messages.BoatProtos.Coordinate prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-    
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.github.uuigaz.messages.BoatProtos.Coordinate, Builder>
-        implements com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder {
-      // Construct using com.github.uuigaz.messages.BoatProtos.Coordinate.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-      
-      private void maybeForceBuilderInitialization() {
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-      
-      public Builder clear() {
-        super.clear();
-        x_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        y_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000002);
-        return this;
-      }
-      
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-      
-      public com.github.uuigaz.messages.BoatProtos.Coordinate getDefaultInstanceForType() {
-        return com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
-      }
-      
-      public com.github.uuigaz.messages.BoatProtos.Coordinate build() {
-        com.github.uuigaz.messages.BoatProtos.Coordinate result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-      
-      private com.github.uuigaz.messages.BoatProtos.Coordinate buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        com.github.uuigaz.messages.BoatProtos.Coordinate result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
-      public com.github.uuigaz.messages.BoatProtos.Coordinate buildPartial() {
-        com.github.uuigaz.messages.BoatProtos.Coordinate result = new com.github.uuigaz.messages.BoatProtos.Coordinate(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.x_ = x_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.y_ = y_;
-        result.bitField0_ = to_bitField0_;
-        return result;
-      }
-      
-      public Builder mergeFrom(com.github.uuigaz.messages.BoatProtos.Coordinate other) {
-        if (other == com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance()) return this;
-        if (other.hasX()) {
-          setX(other.getX());
-        }
-        if (other.hasY()) {
-          setY(other.getY());
-        }
-        return this;
-      }
-      
-      public final boolean isInitialized() {
-        if (!hasX()) {
-          
-          return false;
-        }
-        if (!hasY()) {
-          
-          return false;
-        }
-        return true;
-      }
-      
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              
-              return this;
-            default: {
-              if (!parseUnknownField(input, extensionRegistry, tag)) {
-                
-                return this;
-              }
-              break;
-            }
-            case 8: {
-              bitField0_ |= 0x00000001;
-              x_ = input.readUInt32();
-              break;
-            }
-            case 16: {
-              bitField0_ |= 0x00000002;
-              y_ = input.readUInt32();
-              break;
-            }
-          }
-        }
-      }
-      
-      private int bitField0_;
-      
-      // required uint32 x = 1;
-      private int x_ ;
-      public boolean hasX() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      public int getX() {
-        return x_;
-      }
-      public Builder setX(int value) {
-        bitField0_ |= 0x00000001;
-        x_ = value;
-        
-        return this;
-      }
-      public Builder clearX() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        x_ = 0;
-        
-        return this;
-      }
-      
-      // required uint32 y = 2;
-      private int y_ ;
-      public boolean hasY() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      public int getY() {
-        return y_;
-      }
-      public Builder setY(int value) {
-        bitField0_ |= 0x00000002;
-        y_ = value;
-        
-        return this;
-      }
-      public Builder clearY() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        y_ = 0;
-        
-        return this;
-      }
-      
-      // @@protoc_insertion_point(builder_scope:messages.Coordinate)
-    }
-    
-    static {
-      defaultInstance = new Coordinate(true);
-      defaultInstance.initFields();
-    }
-    
-    // @@protoc_insertion_point(class_scope:messages.Coordinate)
-  }
-  
   public interface BoardOrBuilder
       extends com.google.protobuf.MessageLiteOrBuilder {
     
-    // repeated .messages.Board.Boat boats = 1;
+    // repeated .messages.Board.Boat boats = 6;
     java.util.List<com.github.uuigaz.messages.BoatProtos.Board.Boat> 
         getBoatsList();
     com.github.uuigaz.messages.BoatProtos.Board.Boat getBoats(int index);
@@ -1227,19 +873,23 @@ public final class BoatProtos {
     public interface BoatOrBuilder
         extends com.google.protobuf.MessageLiteOrBuilder {
       
-      // required .messages.Coordinate co = 1;
-      boolean hasCo();
-      com.github.uuigaz.messages.BoatProtos.Coordinate getCo();
+      // required uint32 x = 1;
+      boolean hasX();
+      int getX();
       
-      // required .messages.Board.Boat.BoatType type = 2;
+      // required uint32 y = 2;
+      boolean hasY();
+      int getY();
+      
+      // required .messages.Board.Boat.BoatType type = 3;
       boolean hasType();
       com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType getType();
       
-      // required .messages.Board.Boat.Direction direction = 3;
+      // required .messages.Board.Boat.Direction direction = 4;
       boolean hasDirection();
       com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction getDirection();
       
-      // optional uint32 hits = 4;
+      // optional uint32 hits = 5;
       boolean hasHits();
       int getHits();
     }
@@ -1359,48 +1009,59 @@ public final class BoatProtos {
       }
       
       private int bitField0_;
-      // required .messages.Coordinate co = 1;
-      public static final int CO_FIELD_NUMBER = 1;
-      private com.github.uuigaz.messages.BoatProtos.Coordinate co_;
-      public boolean hasCo() {
+      // required uint32 x = 1;
+      public static final int X_FIELD_NUMBER = 1;
+      private int x_;
+      public boolean hasX() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public com.github.uuigaz.messages.BoatProtos.Coordinate getCo() {
-        return co_;
+      public int getX() {
+        return x_;
       }
       
-      // required .messages.Board.Boat.BoatType type = 2;
-      public static final int TYPE_FIELD_NUMBER = 2;
+      // required uint32 y = 2;
+      public static final int Y_FIELD_NUMBER = 2;
+      private int y_;
+      public boolean hasY() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getY() {
+        return y_;
+      }
+      
+      // required .messages.Board.Boat.BoatType type = 3;
+      public static final int TYPE_FIELD_NUMBER = 3;
       private com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType type_;
       public boolean hasType() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       public com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType getType() {
         return type_;
       }
       
-      // required .messages.Board.Boat.Direction direction = 3;
-      public static final int DIRECTION_FIELD_NUMBER = 3;
+      // required .messages.Board.Boat.Direction direction = 4;
+      public static final int DIRECTION_FIELD_NUMBER = 4;
       private com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction direction_;
       public boolean hasDirection() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       public com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction getDirection() {
         return direction_;
       }
       
-      // optional uint32 hits = 4;
-      public static final int HITS_FIELD_NUMBER = 4;
+      // optional uint32 hits = 5;
+      public static final int HITS_FIELD_NUMBER = 5;
       private int hits_;
       public boolean hasHits() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       public int getHits() {
         return hits_;
       }
       
       private void initFields() {
-        co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
+        x_ = 0;
+        y_ = 0;
         type_ = com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType.CARRIER;
         direction_ = com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction.DOWN;
         hits_ = 0;
@@ -1410,7 +1071,11 @@ public final class BoatProtos {
         byte isInitialized = memoizedIsInitialized;
         if (isInitialized != -1) return isInitialized == 1;
         
-        if (!hasCo()) {
+        if (!hasX()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasY()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -1422,10 +1087,6 @@ public final class BoatProtos {
           memoizedIsInitialized = 0;
           return false;
         }
-        if (!getCo().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
         memoizedIsInitialized = 1;
         return true;
       }
@@ -1434,16 +1095,19 @@ public final class BoatProtos {
                           throws java.io.IOException {
         getSerializedSize();
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeMessage(1, co_);
+          output.writeUInt32(1, x_);
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeEnum(2, type_.getNumber());
+          output.writeUInt32(2, y_);
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          output.writeEnum(3, direction_.getNumber());
+          output.writeEnum(3, type_.getNumber());
         }
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
-          output.writeUInt32(4, hits_);
+          output.writeEnum(4, direction_.getNumber());
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          output.writeUInt32(5, hits_);
         }
       }
       
@@ -1455,19 +1119,23 @@ public final class BoatProtos {
         size = 0;
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(1, co_);
+            .computeUInt32Size(1, x_);
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeEnumSize(2, type_.getNumber());
+            .computeUInt32Size(2, y_);
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeEnumSize(3, direction_.getNumber());
+            .computeEnumSize(3, type_.getNumber());
         }
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeUInt32Size(4, hits_);
+            .computeEnumSize(4, direction_.getNumber());
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32Size(5, hits_);
         }
         memoizedSerializedSize = size;
         return size;
@@ -1569,14 +1237,16 @@ public final class BoatProtos {
         
         public Builder clear() {
           super.clear();
-          co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
+          x_ = 0;
           bitField0_ = (bitField0_ & ~0x00000001);
-          type_ = com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType.CARRIER;
+          y_ = 0;
           bitField0_ = (bitField0_ & ~0x00000002);
-          direction_ = com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction.DOWN;
+          type_ = com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType.CARRIER;
           bitField0_ = (bitField0_ & ~0x00000004);
-          hits_ = 0;
+          direction_ = com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction.DOWN;
           bitField0_ = (bitField0_ & ~0x00000008);
+          hits_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000010);
           return this;
         }
         
@@ -1613,17 +1283,21 @@ public final class BoatProtos {
           if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
             to_bitField0_ |= 0x00000001;
           }
-          result.co_ = co_;
+          result.x_ = x_;
           if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
             to_bitField0_ |= 0x00000002;
           }
-          result.type_ = type_;
+          result.y_ = y_;
           if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
             to_bitField0_ |= 0x00000004;
           }
-          result.direction_ = direction_;
+          result.type_ = type_;
           if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
             to_bitField0_ |= 0x00000008;
+          }
+          result.direction_ = direction_;
+          if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+            to_bitField0_ |= 0x00000010;
           }
           result.hits_ = hits_;
           result.bitField0_ = to_bitField0_;
@@ -1632,8 +1306,11 @@ public final class BoatProtos {
         
         public Builder mergeFrom(com.github.uuigaz.messages.BoatProtos.Board.Boat other) {
           if (other == com.github.uuigaz.messages.BoatProtos.Board.Boat.getDefaultInstance()) return this;
-          if (other.hasCo()) {
-            mergeCo(other.getCo());
+          if (other.hasX()) {
+            setX(other.getX());
+          }
+          if (other.hasY()) {
+            setY(other.getY());
           }
           if (other.hasType()) {
             setType(other.getType());
@@ -1648,7 +1325,11 @@ public final class BoatProtos {
         }
         
         public final boolean isInitialized() {
-          if (!hasCo()) {
+          if (!hasX()) {
+            
+            return false;
+          }
+          if (!hasY()) {
             
             return false;
           }
@@ -1657,10 +1338,6 @@ public final class BoatProtos {
             return false;
           }
           if (!hasDirection()) {
-            
-            return false;
-          }
-          if (!getCo().isInitialized()) {
             
             return false;
           }
@@ -1684,35 +1361,36 @@ public final class BoatProtos {
                 }
                 break;
               }
-              case 10: {
-                com.github.uuigaz.messages.BoatProtos.Coordinate.Builder subBuilder = com.github.uuigaz.messages.BoatProtos.Coordinate.newBuilder();
-                if (hasCo()) {
-                  subBuilder.mergeFrom(getCo());
-                }
-                input.readMessage(subBuilder, extensionRegistry);
-                setCo(subBuilder.buildPartial());
+              case 8: {
+                bitField0_ |= 0x00000001;
+                x_ = input.readUInt32();
                 break;
               }
               case 16: {
-                int rawValue = input.readEnum();
-                com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType value = com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType.valueOf(rawValue);
-                if (value != null) {
-                  bitField0_ |= 0x00000002;
-                  type_ = value;
-                }
+                bitField0_ |= 0x00000002;
+                y_ = input.readUInt32();
                 break;
               }
               case 24: {
                 int rawValue = input.readEnum();
-                com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction value = com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction.valueOf(rawValue);
+                com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType value = com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType.valueOf(rawValue);
                 if (value != null) {
                   bitField0_ |= 0x00000004;
-                  direction_ = value;
+                  type_ = value;
                 }
                 break;
               }
               case 32: {
-                bitField0_ |= 0x00000008;
+                int rawValue = input.readEnum();
+                com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction value = com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction.valueOf(rawValue);
+                if (value != null) {
+                  bitField0_ |= 0x00000008;
+                  direction_ = value;
+                }
+                break;
+              }
+              case 40: {
+                bitField0_ |= 0x00000010;
                 hits_ = input.readUInt32();
                 break;
               }
@@ -1722,53 +1400,52 @@ public final class BoatProtos {
         
         private int bitField0_;
         
-        // required .messages.Coordinate co = 1;
-        private com.github.uuigaz.messages.BoatProtos.Coordinate co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
-        public boolean hasCo() {
+        // required uint32 x = 1;
+        private int x_ ;
+        public boolean hasX() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
         }
-        public com.github.uuigaz.messages.BoatProtos.Coordinate getCo() {
-          return co_;
+        public int getX() {
+          return x_;
         }
-        public Builder setCo(com.github.uuigaz.messages.BoatProtos.Coordinate value) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          co_ = value;
-          
+        public Builder setX(int value) {
           bitField0_ |= 0x00000001;
+          x_ = value;
+          
           return this;
         }
-        public Builder setCo(
-            com.github.uuigaz.messages.BoatProtos.Coordinate.Builder builderForValue) {
-          co_ = builderForValue.build();
-          
-          bitField0_ |= 0x00000001;
-          return this;
-        }
-        public Builder mergeCo(com.github.uuigaz.messages.BoatProtos.Coordinate value) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
-              co_ != com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance()) {
-            co_ =
-              com.github.uuigaz.messages.BoatProtos.Coordinate.newBuilder(co_).mergeFrom(value).buildPartial();
-          } else {
-            co_ = value;
-          }
-          
-          bitField0_ |= 0x00000001;
-          return this;
-        }
-        public Builder clearCo() {
-          co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
-          
+        public Builder clearX() {
           bitField0_ = (bitField0_ & ~0x00000001);
+          x_ = 0;
+          
           return this;
         }
         
-        // required .messages.Board.Boat.BoatType type = 2;
+        // required uint32 y = 2;
+        private int y_ ;
+        public boolean hasY() {
+          return ((bitField0_ & 0x00000002) == 0x00000002);
+        }
+        public int getY() {
+          return y_;
+        }
+        public Builder setY(int value) {
+          bitField0_ |= 0x00000002;
+          y_ = value;
+          
+          return this;
+        }
+        public Builder clearY() {
+          bitField0_ = (bitField0_ & ~0x00000002);
+          y_ = 0;
+          
+          return this;
+        }
+        
+        // required .messages.Board.Boat.BoatType type = 3;
         private com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType type_ = com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType.CARRIER;
         public boolean hasType() {
-          return ((bitField0_ & 0x00000002) == 0x00000002);
+          return ((bitField0_ & 0x00000004) == 0x00000004);
         }
         public com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType getType() {
           return type_;
@@ -1777,22 +1454,22 @@ public final class BoatProtos {
           if (value == null) {
             throw new NullPointerException();
           }
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000004;
           type_ = value;
           
           return this;
         }
         public Builder clearType() {
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000004);
           type_ = com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType.CARRIER;
           
           return this;
         }
         
-        // required .messages.Board.Boat.Direction direction = 3;
+        // required .messages.Board.Boat.Direction direction = 4;
         private com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction direction_ = com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction.DOWN;
         public boolean hasDirection() {
-          return ((bitField0_ & 0x00000004) == 0x00000004);
+          return ((bitField0_ & 0x00000008) == 0x00000008);
         }
         public com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction getDirection() {
           return direction_;
@@ -1801,34 +1478,34 @@ public final class BoatProtos {
           if (value == null) {
             throw new NullPointerException();
           }
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000008;
           direction_ = value;
           
           return this;
         }
         public Builder clearDirection() {
-          bitField0_ = (bitField0_ & ~0x00000004);
+          bitField0_ = (bitField0_ & ~0x00000008);
           direction_ = com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction.DOWN;
           
           return this;
         }
         
-        // optional uint32 hits = 4;
+        // optional uint32 hits = 5;
         private int hits_ ;
         public boolean hasHits() {
-          return ((bitField0_ & 0x00000008) == 0x00000008);
+          return ((bitField0_ & 0x00000010) == 0x00000010);
         }
         public int getHits() {
           return hits_;
         }
         public Builder setHits(int value) {
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000010;
           hits_ = value;
           
           return this;
         }
         public Builder clearHits() {
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000010);
           hits_ = 0;
           
           return this;
@@ -1845,8 +1522,8 @@ public final class BoatProtos {
       // @@protoc_insertion_point(class_scope:messages.Board.Boat)
     }
     
-    // repeated .messages.Board.Boat boats = 1;
-    public static final int BOATS_FIELD_NUMBER = 1;
+    // repeated .messages.Board.Boat boats = 6;
+    public static final int BOATS_FIELD_NUMBER = 6;
     private java.util.List<com.github.uuigaz.messages.BoatProtos.Board.Boat> boats_;
     public java.util.List<com.github.uuigaz.messages.BoatProtos.Board.Boat> getBoatsList() {
       return boats_;
@@ -1888,7 +1565,7 @@ public final class BoatProtos {
                         throws java.io.IOException {
       getSerializedSize();
       for (int i = 0; i < boats_.size(); i++) {
-        output.writeMessage(1, boats_.get(i));
+        output.writeMessage(6, boats_.get(i));
       }
     }
     
@@ -1900,7 +1577,7 @@ public final class BoatProtos {
       size = 0;
       for (int i = 0; i < boats_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, boats_.get(i));
+          .computeMessageSize(6, boats_.get(i));
       }
       memoizedSerializedSize = size;
       return size;
@@ -2086,7 +1763,7 @@ public final class BoatProtos {
               }
               break;
             }
-            case 10: {
+            case 50: {
               com.github.uuigaz.messages.BoatProtos.Board.Boat.Builder subBuilder = com.github.uuigaz.messages.BoatProtos.Board.Boat.newBuilder();
               input.readMessage(subBuilder, extensionRegistry);
               addBoats(subBuilder.buildPartial());
@@ -2098,7 +1775,7 @@ public final class BoatProtos {
       
       private int bitField0_;
       
-      // repeated .messages.Board.Boat boats = 1;
+      // repeated .messages.Board.Boat boats = 6;
       private java.util.List<com.github.uuigaz.messages.BoatProtos.Board.Boat> boats_ =
         java.util.Collections.emptyList();
       private void ensureBoatsIsMutable() {
@@ -2201,9 +1878,13 @@ public final class BoatProtos {
   public interface FireOrBuilder
       extends com.google.protobuf.MessageLiteOrBuilder {
     
-    // required .messages.Coordinate co = 1;
-    boolean hasCo();
-    com.github.uuigaz.messages.BoatProtos.Coordinate getCo();
+    // required uint32 x = 1;
+    boolean hasX();
+    int getX();
+    
+    // required uint32 y = 2;
+    boolean hasY();
+    int getY();
   }
   public static final class Fire extends
       com.google.protobuf.GeneratedMessageLite
@@ -2224,29 +1905,40 @@ public final class BoatProtos {
     }
     
     private int bitField0_;
-    // required .messages.Coordinate co = 1;
-    public static final int CO_FIELD_NUMBER = 1;
-    private com.github.uuigaz.messages.BoatProtos.Coordinate co_;
-    public boolean hasCo() {
+    // required uint32 x = 1;
+    public static final int X_FIELD_NUMBER = 1;
+    private int x_;
+    public boolean hasX() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    public com.github.uuigaz.messages.BoatProtos.Coordinate getCo() {
-      return co_;
+    public int getX() {
+      return x_;
+    }
+    
+    // required uint32 y = 2;
+    public static final int Y_FIELD_NUMBER = 2;
+    private int y_;
+    public boolean hasY() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getY() {
+      return y_;
     }
     
     private void initFields() {
-      co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
+      x_ = 0;
+      y_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasCo()) {
+      if (!hasX()) {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!getCo().isInitialized()) {
+      if (!hasY()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -2258,7 +1950,10 @@ public final class BoatProtos {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, co_);
+        output.writeUInt32(1, x_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeUInt32(2, y_);
       }
     }
     
@@ -2270,7 +1965,11 @@ public final class BoatProtos {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, co_);
+          .computeUInt32Size(1, x_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(2, y_);
       }
       memoizedSerializedSize = size;
       return size;
@@ -2372,8 +2071,10 @@ public final class BoatProtos {
       
       public Builder clear() {
         super.clear();
-        co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
+        x_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
+        y_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
       
@@ -2410,25 +2111,32 @@ public final class BoatProtos {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.co_ = co_;
+        result.x_ = x_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.y_ = y_;
         result.bitField0_ = to_bitField0_;
         return result;
       }
       
       public Builder mergeFrom(com.github.uuigaz.messages.BoatProtos.Fire other) {
         if (other == com.github.uuigaz.messages.BoatProtos.Fire.getDefaultInstance()) return this;
-        if (other.hasCo()) {
-          mergeCo(other.getCo());
+        if (other.hasX()) {
+          setX(other.getX());
+        }
+        if (other.hasY()) {
+          setY(other.getY());
         }
         return this;
       }
       
       public final boolean isInitialized() {
-        if (!hasCo()) {
+        if (!hasX()) {
           
           return false;
         }
-        if (!getCo().isInitialized()) {
+        if (!hasY()) {
           
           return false;
         }
@@ -2452,13 +2160,14 @@ public final class BoatProtos {
               }
               break;
             }
-            case 10: {
-              com.github.uuigaz.messages.BoatProtos.Coordinate.Builder subBuilder = com.github.uuigaz.messages.BoatProtos.Coordinate.newBuilder();
-              if (hasCo()) {
-                subBuilder.mergeFrom(getCo());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setCo(subBuilder.buildPartial());
+            case 8: {
+              bitField0_ |= 0x00000001;
+              x_ = input.readUInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              y_ = input.readUInt32();
               break;
             }
           }
@@ -2467,46 +2176,45 @@ public final class BoatProtos {
       
       private int bitField0_;
       
-      // required .messages.Coordinate co = 1;
-      private com.github.uuigaz.messages.BoatProtos.Coordinate co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
-      public boolean hasCo() {
+      // required uint32 x = 1;
+      private int x_ ;
+      public boolean hasX() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public com.github.uuigaz.messages.BoatProtos.Coordinate getCo() {
-        return co_;
+      public int getX() {
+        return x_;
       }
-      public Builder setCo(com.github.uuigaz.messages.BoatProtos.Coordinate value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        co_ = value;
-        
+      public Builder setX(int value) {
         bitField0_ |= 0x00000001;
+        x_ = value;
+        
         return this;
       }
-      public Builder setCo(
-          com.github.uuigaz.messages.BoatProtos.Coordinate.Builder builderForValue) {
-        co_ = builderForValue.build();
-        
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      public Builder mergeCo(com.github.uuigaz.messages.BoatProtos.Coordinate value) {
-        if (((bitField0_ & 0x00000001) == 0x00000001) &&
-            co_ != com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance()) {
-          co_ =
-            com.github.uuigaz.messages.BoatProtos.Coordinate.newBuilder(co_).mergeFrom(value).buildPartial();
-        } else {
-          co_ = value;
-        }
-        
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      public Builder clearCo() {
-        co_ = com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
-        
+      public Builder clearX() {
         bitField0_ = (bitField0_ & ~0x00000001);
+        x_ = 0;
+        
+        return this;
+      }
+      
+      // required uint32 y = 2;
+      private int y_ ;
+      public boolean hasY() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getY() {
+        return y_;
+      }
+      public Builder setY(int value) {
+        bitField0_ |= 0x00000002;
+        y_ = value;
+        
+        return this;
+      }
+      public Builder clearY() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        y_ = 0;
+        
         return this;
       }
       

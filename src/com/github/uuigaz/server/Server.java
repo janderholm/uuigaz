@@ -6,16 +6,13 @@ import com.github.uuigaz.messages.BoatProtos;
 import com.github.uuigaz.messages.BoatProtos.BaseMessage;
 import com.github.uuigaz.messages.BoatProtos.Fire;
 import com.github.uuigaz.messages.BoatProtos.Init;
-import com.github.uuigaz.messages.BoatProtos.Coordinate;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.List;
 import java.util.LinkedList;
-import java.util.Collections;
 
 class Player implements Runnable {
 	private Socket connection;
@@ -152,7 +149,7 @@ class Session {
 		// TODO: Send to other player.
 		player[other].sendMessage(msg.build());
 		
-		return board[other].fire(fire.getCo()); 
+		return board[other].fire(fire); 
 	}	
 }
 
