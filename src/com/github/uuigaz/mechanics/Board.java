@@ -37,41 +37,49 @@ public class Board {
 		case DOWN: {
 			for (int yn = y; yn <= y + type.getNumber(); ++yn) {
 
-				if (board[x][yn].b != null)
+				if (board[x][yn].occupied)
 					throw new RuntimeException(
 							"Boat cannot share placement with other boat.");
 			}
-			for (int yn = y; yn < y + type.getNumber(); ++yn)
-				board[x][yn].b = b;
+			for (int yn = y; yn < y + type.getNumber(); ++yn) {
+				board[x][yn].b = b;				
+				board[x][yn].occupied = true;
+			}
 			break;
 		}
 		case RIGHT: {
 			for (int xn = x; xn <= x + type.getNumber(); ++xn)
-				if (board[xn][y].b != null) {
+				if (board[xn][y].occupied) {
 					System.out.println(board[xn][y]);
 					throw new RuntimeException(
 							"Boat cannot share placement with other boat.");
 				}
-			for (int xn = x; xn < x + type.getNumber(); ++xn)
+			for (int xn = x; xn < x + type.getNumber(); ++xn) {
 				board[xn][y].b = b;
+				board[xn][y].occupied = true;
+			}
 			break;
 		}
 		case UP: {
 			for (int yn = y; yn >= y - type.getNumber(); --yn)
-				if (board[x][yn].b != null)
+				if (board[x][yn].occupied)
 					throw new RuntimeException(
 							"Boat cannot share placement with other boat.");
-			for (int yn = y; yn > y - type.getNumber(); --yn)
+			for (int yn = y; yn > y - type.getNumber(); --yn) {
 				board[x][yn].b = b;
+				board[x][yn].occupied = true;
+			}
 			break;
 		}
 		case LEFT: {
 			for (int xn = x; xn >= x - type.getNumber(); --xn)
-				if (board[xn][y].b != null)
+				if (board[xn][y].occupied)
 					throw new RuntimeException(
 							"Boat cannot share placement with other boat.");
-			for (int xn = x; xn > x - type.getNumber(); --xn)
+			for (int xn = x; xn > x - type.getNumber(); --xn) {
 				board[xn][y].b = b;
+				board[xn][y].occupied = true;
+			}
 			break;
 		}
 		}
@@ -109,7 +117,7 @@ public class Board {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Fire at Coordinate co, and update board. Return StatusReport containing
 	 * hit = true|false

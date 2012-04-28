@@ -171,7 +171,7 @@ public class ServerTest {
 				}
 			}
 			
-			status = "";
+			status = "\n";
 					
 			if (hits == 15) {
 				System.out.println("WIN!");
@@ -186,7 +186,7 @@ public class ServerTest {
 				Pair move = moves.poll();
 				fb.setX(move.fst);
 				fb.setY(move.snd);
-				status = "\nFire at: (" + move.fst + "," + move.snd + ")\n";
+				status += "Fire at: (" + move.fst + "," + move.snd + ")\n";
 				Fire f = fb.build(); 
 				theirBoard.fire(f);
 				send.setFire(f);
