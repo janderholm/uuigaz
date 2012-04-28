@@ -29,6 +29,11 @@ public class Ident {
 		return ident.getName().hashCode();
 	}
 	
+	@Override
+	public String toString() {
+		return ident.getName();
+	}
+	
 	public static Ident build(BoatProtos.Ident ident) {
 		return new Ident(ident);
 	}

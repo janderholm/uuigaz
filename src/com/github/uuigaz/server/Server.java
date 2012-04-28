@@ -4,6 +4,7 @@ import com.github.uuigaz.mechanics.Board;
 import com.github.uuigaz.mechanics.Ident;
 import com.github.uuigaz.messages.BoatProtos;
 import com.github.uuigaz.messages.BoatProtos.BaseMessage;
+import com.github.uuigaz.messages.BoatProtos.Fire;
 import com.github.uuigaz.messages.BoatProtos.Init;
 import com.github.uuigaz.messages.BoatProtos.Coordinate;
 
@@ -29,8 +30,13 @@ class Player implements Runnable {
 		this.is = connection.getInputStream();
 		this.os = connection.getOutputStream();
 	}
+	
+	public void sendMessage(BoatProtos.BaseMessage msg) throws IOException {
+		msg.writeDelimitedTo(os);
+	}
 
 	public void run() {
+		System.out.println("Connected: " + ident);
 		try {
 			this.session = Controller.getInstance().getSession(this);
 		} catch (InterruptedException e) {
@@ -86,7 +92,7 @@ class Player implements Runnable {
 				
 				if (m.hasFire()) {
 					// TODO: A shot was fired. Respond with StatusReport
-					BoatProtos.StatusReport hit = session.fire(this, m.getFire().getCo());
+					BoatProtos.StatusReport hit = session.fire(this, m.getFire());
 					send.setReport(hit);
 				}
 				
@@ -95,6 +101,8 @@ class Player implements Runnable {
 			}
 		} catch (IOException e) {
 
+		} finally {
+			System.out.println("Disconnected: " + ident);
 		}
 	}
 }
@@ -128,15 +136,23 @@ class Session {
 		return p.ident.equals(player[0]) ? board[0].getMsg() : board[1].getMsg(); 
 	}
 
-	public BoatProtos.StatusReport fire(Player sender, Coordinate co) {
-		Board b = player[0].ident.equals(sender) ? board[1] : board[0];
+	/**
+	 * Fire at opponent and return status report.
+	 * @param sender 
+	 * @param co
+	 * @return StatusReport with getHit set.
+	 * @throws IOException 
+	 */
+	public BoatProtos.StatusReport fire(Player sender, Fire fire) throws IOException {
+		int other = player[0].ident.equals(sender) ? 1 : 0;
+		
+		BoatProtos.BaseMessage.Builder msg = BoatProtos.BaseMessage.newBuilder();
+		msg.setFire(fire);
 		
 		// TODO: Send to other player.
+		player[other].sendMessage(msg.build());
 		
-		BoatProtos.StatusReport.Builder msg = BoatProtos.StatusReport.newBuilder();
-		
-		msg.setHit(b.isHit(co));
-		return msg.build();
+		return board[other].fire(fire.getCo()); 
 	}	
 }
 

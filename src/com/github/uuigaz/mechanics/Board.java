@@ -1,63 +1,73 @@
 package com.github.uuigaz.mechanics;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.github.uuigaz.messages.BoatProtos;
 import com.github.uuigaz.messages.BoatProtos.Board.Boat;
+import com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType;
+import com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction;
 import com.github.uuigaz.messages.BoatProtos.Coordinate;
 
 public class Board {
 	private final Boat.Builder board[][];
-	private final List<Boat.Builder> boats;
+	private final BoatProtos.Board.Builder boardmsg;
 
-	private Board(List<Boat.Builder> boats) {
+	private Board() {
 		this.board = new Boat.Builder[10][10];
-
-		this.boats = boats;
-
-		for (Boat.Builder b : this.boats) {
-
-			Coordinate co = b.getCo();
-
-			int length = b.getType().getNumber();
-
-			switch (b.getDirection()) {
-			case DOWN: {
-				int x = co.getX();
-				for (int y = co.getY(); y < co.getY() + length; ++y)
-					board[x][y] = b;
-				break;
-			}
-			case RIGHT: {
-				int y = co.getY();
-				for (int x = co.getX(); x < co.getX() + length; ++x)
-					board[x][y] = b;
-			}
-			case UP: {
-				int x = co.getX();
-				for (int y = co.getY(); y > co.getY() - length; --y)
-					board[x][y] = b;
-			}
-			case LEFT: {
-				int y = co.getY();
-				for (int x = co.getX(); x > co.getX() - length; --x)
-					board[x][y] = b;
-			}
-			}
-		}
+		this.boardmsg = BoatProtos.Board.newBuilder();
 	}
 
 	public BoatProtos.Board getMsg() {
-		BoatProtos.Board.Builder m = BoatProtos.Board.newBuilder();
-		for (Boat.Builder b : this.boats) {
-			m.addBoats(b);
-		}
-		return m.build();
+		return boardmsg.build();
 	}
-
-	public boolean isHit(BoatProtos.Coordinate co) {
+	
+	public void setBoat(int x, int y, BoatType type, Direction direction) {
+		Boat.Builder b = Boat.newBuilder();
+		
+		switch (direction) {
+		case DOWN: {
+			for (int yn = y; yn < y + type.getNumber(); ++yn)
+				if (board[x][yn] != null)
+					throw new RuntimeException("Boat cannot share placement with other boat.");
+			for (int yn = y; yn < y + type.getNumber(); ++yn)
+				board[x][yn] = b;
+			break;
+		}
+		case RIGHT: {
+			for (int xn = x; xn < x + type.getNumber(); ++xn)
+				if (board[xn][y] != null)
+					throw new RuntimeException("Boat cannot share placement with other boat.");
+			for (int xn = x; xn < x + type.getNumber(); ++xn)
+				board[xn][y] = b;
+		}
+		case UP: {
+			for (int yn = y; yn > y - type.getNumber(); --yn)
+				if (board[x][yn] != null)
+					throw new RuntimeException("Boat cannot share placement with other boat.");
+			for (int yn = y; yn > y - type.getNumber(); --yn)
+				board[x][yn] = b;
+		}
+		case LEFT: {
+			for (int xn = x; xn > x - type.getNumber(); --xn)
+				if (board[xn][y] != null)
+					throw new RuntimeException("Boat cannot share placement with other boat.");
+			for (int xn = x; xn > x - type.getNumber(); --xn)
+				board[xn][y] = b;
+		}
+		}
+		
+		boardmsg.addBoats(b);
+	}
+	
+	/**
+	 * Fire at Coordinate co, and update board.
+	 * Return StatusReport containing hit = true|false
+	 */
+	public BoatProtos.StatusReport fire(BoatProtos.Coordinate co) {
 		Boat.Builder b = board[co.getX()][co.getY()];
+		boolean status = false;
 		if (b != null) {
 			if (!b.hasHits()) {
 				b.setHits(0);
@@ -77,17 +87,26 @@ public class Board {
 			bits = bits ^ (1 << hitIn);
 			
 			b.setHits(bits);		
-			return true;
+			status = true;
 		}
-		return false;
+		
+		BoatProtos.StatusReport.Builder msg = BoatProtos.StatusReport.newBuilder();
+		msg.setHit(status);
+		return msg.build();
 	}
 
-	public static Board build(BoatProtos.Board board) {
-		List<Boat.Builder> l = new ArrayList<Boat.Builder>();
+	public static Board build() {
+		return new Board();
+	}
+	
+	public static Board build(BoatProtos.Board boardmsg) {
 		
-		for (Boat b : board.getBoatsList()) {
-			l.add(b.toBuilder());
+		Board board = new Board();
+		
+		for (Boat b : boardmsg.getBoatsList()) {
+			Coordinate co = b.getCo();
+			board.setBoat(co.getX(), co.getY(), b.getType(), b.getDirection());
 		}
-		return new Board(l);
+		return board;
 	}
 }

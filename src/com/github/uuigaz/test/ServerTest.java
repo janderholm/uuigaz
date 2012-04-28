@@ -1,6 +1,7 @@
 package com.github.uuigaz.test;
 
 import com.github.uuigaz.mechanics.Ident;
+import com.github.uuigaz.mechanics.Board;
 import com.github.uuigaz.messages.BoatProtos.*;
 
 import java.io.IOException;
@@ -53,6 +54,27 @@ public class ServerTest {
 		InputStream is = socket.getInputStream();
 		
 		ident.getMsg().writeDelimitedTo(os);
+		
+		Init init = Init.parseDelimitedFrom(is);
+		
+		Board board;
+		
+		if (init.hasNewGame() && init.getNewGame()) {
+			// TODO: Create board.
+			
+		} else if (init.hasBoard()) {
+			// TODO: Get board.
+			board = Board.build(null);
+			
+		} else {
+			System.out.println("Server did not respond with a proper init message.");
+			System.exit(1);
+		}
+		
+		BaseMessage msg = BaseMessage.parseDelimitedFrom(is);
+		while (true) {
+			
+		}
 	}
 
 }
