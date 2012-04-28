@@ -1,6 +1,7 @@
 package com.github.uuigaz.server;
 
 import com.github.uuigaz.mechanics.Board;
+import com.github.uuigaz.mechanics.Ident;
 import com.github.uuigaz.messages.BoatProtos;
 import com.github.uuigaz.messages.BoatProtos.BaseMessage;
 import com.github.uuigaz.messages.BoatProtos.Init;
@@ -19,10 +20,10 @@ class Player implements Runnable {
 	private Socket connection;
 	private InputStream is;
 	private OutputStream os;
-	public final BoatProtos.Ident ident;
+	public final Ident ident;
 	private Session session;
 
-	public Player(BoatProtos.Ident ident, Socket connection) throws IOException {
+	public Player(Ident ident, Socket connection) throws IOException {
 		this.ident = ident;
 		this.connection = connection;
 		this.is = connection.getInputStream();
@@ -119,7 +120,7 @@ class Session {
 		return p.ident.equals(player[0]) ? board[0] != null : board[1] != null; 
 	}
 
-	public boolean belongsTo(BoatProtos.Ident ident) {
+	public boolean belongsTo(Ident ident) {
 		return player[0].ident.equals(ident) || player[1].ident.equals(ident);
 	}
 	
@@ -147,6 +148,7 @@ class Controller {
 
 	private Controller() {
 		this.participants = new LinkedList<Player>();
+		this.sessions = new LinkedList<Session>();
 	}
 
 	public synchronized Session getSession(Player p)
@@ -179,10 +181,8 @@ class Controller {
 	}
 
 	public static Controller getInstance() {
-		synchronized (instance) {
-			if (instance == null) {
-				instance = new Controller();
-			}
+		if (instance == null) {
+			instance = new Controller();
 		}
 		return instance;
 	}
@@ -192,6 +192,8 @@ public class Server {
 
 	public static void main(String[] args) {
 
+		Controller.getInstance();
+		
 		int port = 30000;
 
 		if (args.length > 0) {
@@ -219,7 +221,7 @@ public class Server {
 				socket = listen.accept();
 				System.out.println("Connection from" + socket.getInetAddress());
 				BoatProtos.Ident ident = BoatProtos.Ident.parseDelimitedFrom(socket.getInputStream());
-				new Thread(new Player(ident, socket)).start();
+				new Thread(new Player(Ident.build(ident), socket)).start();
 			} catch (IOException e) {
 				// TODO:
 				// A connection failed. Not sure what to do here but just leave
