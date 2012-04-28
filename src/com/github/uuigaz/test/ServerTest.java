@@ -137,7 +137,7 @@ public class ServerTest {
 			msg = BaseMessage.parseDelimitedFrom(is);
 			send = BaseMessage.newBuilder();
 			
-			Thread.sleep(10);
+			Thread.sleep(5);
 			
 			if (msg.hasFire()) {
 				Fire f = msg.getFire();
@@ -191,6 +191,7 @@ public class ServerTest {
 			}
 			
 			send.build().writeDelimitedTo(os);
+			os.flush();
 		}
 	}
 

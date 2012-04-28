@@ -32,6 +32,7 @@ class Player implements Runnable {
 	public synchronized void sendMessage(BoatProtos.BaseMessage msg)
 			throws IOException {
 		msg.writeDelimitedTo(os);
+		os.flush();
 	}
 
 	public void run() {
@@ -52,16 +53,17 @@ class Player implements Runnable {
 				init = Init.newBuilder();
 				init.setBoard(session.getBoardMsg(this));
 				init.build().writeDelimitedTo(os);
+				os.flush();
 			} else {
 				// Ask client to create a board.
 				init = Init.newBuilder();
 				init.setNewGame(true);
 				init.build().writeDelimitedTo(os);
+				os.flush();
 				iinit = Init.parseDelimitedFrom(is);
 
 				if (iinit.hasBoard()) {
 					session.initialize(this, iinit.getBoard());
-					// TODO: Figure out who's to start.
 				} else {
 					System.err
 							.println("Client did not respond a new game with a board.");
