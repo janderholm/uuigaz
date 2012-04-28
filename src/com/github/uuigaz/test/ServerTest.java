@@ -14,8 +14,18 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+
+class Pair {
+	int fst;
+	int snd;
+	Pair(int fst, int snd) {
+		this.fst = fst;
+		this.snd = snd;
+	}
+}
 
 public class ServerTest {
 
@@ -64,7 +74,8 @@ public class ServerTest {
 		Init init = Init.parseDelimitedFrom(is);
 		Init.Builder initresponse = Init.newBuilder(); 
 		
-		Board board;
+		Board board = null;
+		Board theirBoard = Board.build();
 		Random rand = new Random();
 		
 		if (init.hasNewGame() && init.getNewGame()) {
@@ -98,15 +109,78 @@ public class ServerTest {
 			initresponse.setBoard(board.getMsg()).build().writeDelimitedTo(os);
 		} else if (init.hasBoard()) {
 			// TODO: Get board.
-			board = Board.build(null);
+			board = Board.build(init.getBoard());
 		} else {
 			System.out.println("Server did not respond with a proper init message.");
 			System.exit(1);
 		}
 		
-		BaseMessage msg = BaseMessage.parseDelimitedFrom(is);
+		LinkedList<Pair> moves = new LinkedList<Pair>();
+		
+		for (int i = 0; i < 10; ++i) {
+			for (int j = 0; j < 10; ++j) {
+				moves.add(new Pair(i, j));
+			}
+		}
+		
+		java.util.Collections.shuffle(moves);
+		
+		BaseMessage msg;
+		BaseMessage.Builder send;
+
+		int hits = 0;
+		int taken = 0;
+		
 		while (true) {
+			msg = BaseMessage.parseDelimitedFrom(is);
+			send = BaseMessage.newBuilder();
+			if (msg.hasFire()) {
+				Fire f = msg.getFire();
+				if (board.isHit(f)) {
+					taken += 1;
+				}
+			}
 			
+			if (msg.hasReport()) {
+				if (msg.getReport().getHit()) {
+					System.out.println("HIT");
+					hits += 1;
+				} else {
+					System.out.println("MISS");
+				}
+			}
+				
+			// Score printing
+			String hitBoard = board.toString();
+			String takenBoard = theirBoard.toString();
+			
+			String[] l = hitBoard.split("\\n");
+			String[] r = takenBoard.split("\\n");
+			
+			for (int i = 0; i < l.length; ++ i) {
+				System.out.println(l[i] + "     " + r[i]);
+			}
+					
+			if (hits == 14) {
+				System.out.println("WIN!");
+				break;
+			} else if (taken == 14) {
+				System.out.println("LOSE!");
+				break;
+			}
+
+			if (msg.hasYourTurn() && msg.hasYourTurn()) {
+				Fire.Builder fb = Fire.newBuilder();
+				Pair move = moves.poll();
+				fb.setX(move.fst);
+				fb.setY(move.snd);
+				System.out.println("Fire at: (" + move.fst + "," + move.snd + ")");
+				Fire f = fb.build(); 
+				theirBoard.fire(f);
+				send.setFire(f);
+			}
+			
+			send.build().writeDelimitedTo(os);
 		}
 	}
 

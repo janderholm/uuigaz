@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
+import java.util.Random;
 
 class Player implements Runnable {
 	private Socket connection;
@@ -27,8 +28,9 @@ class Player implements Runnable {
 		this.is = connection.getInputStream();
 		this.os = connection.getOutputStream();
 	}
-	
-	public void sendMessage(BoatProtos.BaseMessage msg) throws IOException {
+
+	public synchronized void sendMessage(BoatProtos.BaseMessage msg)
+			throws IOException {
 		msg.writeDelimitedTo(os);
 	}
 
@@ -36,46 +38,44 @@ class Player implements Runnable {
 		System.out.println("Connected: " + ident);
 		try {
 			this.session = Controller.getInstance().getSession(this);
-		} catch (InterruptedException e) {
+
 			// TODO:
-			// Here we were interrupted when waiting for someone to connect.
-			// We probably want to kill ourselves now.
-			e.printStackTrace();
-			return;
-		}
+			// Session was just started here. This means we need to replay all
+			// previous messages if there are any, or initialize a new game if
+			// there weren't.
 
-		// TODO:
-		// Session was just started here. This means we need to replay all
-		// previous messages if there are any, or initialize a new game if
-		// there weren't.
-
-		try {
 			Init.Builder init;
 			Init iinit;
-			
+
 			if (session.isInitialized(this)) {
 				// If session already running replay any messages.
 				init = Init.newBuilder();
 				init.setBoard(session.getBoardMsg(this));
-				init.build().writeDelimitedTo(os);				
+				init.build().writeDelimitedTo(os);
 			} else {
 				// Ask client to create a board.
 				init = Init.newBuilder();
 				init.setNewGame(true);
 				init.build().writeDelimitedTo(os);
 				iinit = Init.parseDelimitedFrom(is);
-				
+
 				if (iinit.hasBoard()) {
 					session.initialize(this, iinit.getBoard());
 					// TODO: Figure out who's to start.
 				} else {
-					System.err.println("Client did not respond a new game with a board.");
+					System.err
+							.println("Client did not respond a new game with a board.");
 				}
 			}
 
-			
 			BaseMessage m;
 			BaseMessage.Builder send;
+
+			// Send a turn message to begin game.
+			send = BaseMessage.newBuilder();
+			send.setYourTurn(session.myTurn(this));
+			sendMessage(send.build());
+
 			while (true) {
 				// TODO:
 				// Probably no need for a listening sentry. When a game is
@@ -86,18 +86,23 @@ class Player implements Runnable {
 
 				// Clean the basemessagebuilder.
 				send = BaseMessage.newBuilder();
-				
+
 				if (m.hasFire()) {
 					// TODO: A shot was fired. Respond with StatusReport
-					BoatProtos.StatusReport hit = session.fire(this, m.getFire());
+					BoatProtos.StatusReport hit = session.fire(this,
+							m.getFire());
 					send.setReport(hit);
 				}
-				
-				BaseMessage s = send.build();
-				s.writeDelimitedTo(os);
+				sendMessage(send.build());
+
 			}
 		} catch (IOException e) {
 
+		} catch (InterruptedException e) {
+			// TODO:
+			// Here we were interrupted when waiting for someone to connect.
+			// We probably want to kill ourselves now.
+			e.printStackTrace();
 		} finally {
 			System.out.println("Disconnected: " + ident);
 		}
@@ -107,50 +112,74 @@ class Player implements Runnable {
 class Session {
 	private final Player player[];
 	private final Board board[];
+	private int turn;
 
 	public Session(Player player1, Player player2) {
 		player = new Player[2];
 		board = new Board[2];
-		
+
 		player[0] = player1;
 		player[1] = player2;
+
+		turn = new Random().nextInt(2);
 	}
 
-	public void initialize(Player p, BoatProtos.Board boardmsg) {
-		int i = p.ident.equals(player[0]) ? 0 : 1;
+	public synchronized void initialize(Player p, BoatProtos.Board boardmsg)
+			throws InterruptedException {
+		int i = p.ident.equals(player[0].ident) ? 0 : 1;
 		board[i] = Board.build(boardmsg);
+		System.out.println(i);
+		notifyAll();
+		while (board[0] == null || board[1] == null) {
+
+			wait();
+		}
+		System.out.println("END");
 	}
 
 	public boolean isInitialized(Player p) {
-		return p.ident.equals(player[0]) ? board[0] != null : board[1] != null; 
+		return p.ident.equals(player[0].ident) ? board[0] != null : board[1] != null;
 	}
 
 	public boolean belongsTo(Ident ident) {
 		return player[0].ident.equals(ident) || player[1].ident.equals(ident);
 	}
-	
+
+	public boolean myTurn(Player p) {
+		int index = player[0].ident.equals(p.ident) ? 0 : 1;
+
+		return turn == index;
+	}
+
 	public BoatProtos.Board getBoardMsg(Player p) {
-		return p.ident.equals(player[0]) ? board[0].getMsg() : board[1].getMsg(); 
+		return p.ident.equals(player[0].ident) ? board[0].getMsg() : board[1]
+				.getMsg();
 	}
 
 	/**
 	 * Fire at opponent and return status report.
-	 * @param sender 
+	 * 
+	 * @param sender
 	 * @param co
 	 * @return StatusReport with getHit set.
-	 * @throws IOException 
+	 * @throws IOException
 	 */
-	public BoatProtos.StatusReport fire(Player sender, Fire fire) throws IOException {
-		int other = player[0].ident.equals(sender) ? 1 : 0;
-		
-		BoatProtos.BaseMessage.Builder msg = BoatProtos.BaseMessage.newBuilder();
+	public BoatProtos.StatusReport fire(Player sender, Fire fire)
+			throws IOException {
+		int other = player[0].ident.equals(sender.ident) ? 1 : 0;
+
+		turn = (turn + 1) % 2;
+
+		BoatProtos.BaseMessage.Builder msg = BoatProtos.BaseMessage
+				.newBuilder();
 		msg.setFire(fire);
-		
+		msg.setYourTurn(other == turn);
+
 		// TODO: Send to other player.
 		player[other].sendMessage(msg.build());
-		
-		return board[other].fire(fire); 
-	}	
+
+		return board[other].fire(fire);
+	}
 }
 
 class Controller {
@@ -206,7 +235,7 @@ public class Server {
 	public static void main(String[] args) {
 
 		Controller.getInstance();
-		
+
 		int port = 30000;
 
 		if (args.length > 0) {
@@ -233,7 +262,8 @@ public class Server {
 			try {
 				socket = listen.accept();
 				System.out.println("Connection from" + socket.getInetAddress());
-				BoatProtos.Ident ident = BoatProtos.Ident.parseDelimitedFrom(socket.getInputStream());
+				BoatProtos.Ident ident = BoatProtos.Ident
+						.parseDelimitedFrom(socket.getInputStream());
 				new Thread(new Player(Ident.build(ident), socket)).start();
 			} catch (IOException e) {
 				// TODO:
