@@ -82,6 +82,7 @@ public class ServerTest {
 		if (init.hasNewGame() && init.getNewGame()) {
 			// TODO: Create board.
 			board = Board.build();
+
 			List<BoatType> boats = Arrays.asList(
 					BoatType.BATTLESHIP,
 					BoatType.CARRIER,
@@ -105,8 +106,6 @@ public class ServerTest {
 					break;
 				}
 			}
-			
-			System.out.println(board);
 			initresponse.setBoard(board.getMsg()).build().writeDelimitedTo(os);
 		} else if (init.hasBoard()) {
 			// TODO: Get board.
@@ -137,7 +136,7 @@ public class ServerTest {
 			msg = BaseMessage.parseDelimitedFrom(is);
 			send = BaseMessage.newBuilder();
 			
-			Thread.sleep(100);
+			Thread.sleep(50);
 			
 			if (msg.hasFire()) {
 				Fire f = msg.getFire();

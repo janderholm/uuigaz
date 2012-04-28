@@ -35,50 +35,73 @@ public class Board {
 
 		switch (direction) {
 		case DOWN: {
-			for (int yn = y; yn <= y + type.getNumber(); ++yn) {
-
-				if (board[x][yn].occupied)
+			for (int yn = y; yn < y + type.getNumber(); ++yn) {
+				if (board[yn][x].occupied)
 					throw new RuntimeException(
 							"Boat cannot share placement with other boat.");
 			}
+			for (int yn = y - 1; yn <= y + type.getNumber(); ++yn) {
+				for (int xn = x - 1; xn <= x + 1; ++xn) {
+					if (yn < 0 || xn < 0 || yn > board.length || xn > board.length)
+						continue;
+					board[yn][xn].occupied = true;
+				}
+			}
 			for (int yn = y; yn < y + type.getNumber(); ++yn) {
-				board[x][yn].b = b;				
-				board[x][yn].occupied = true;
+				board[yn][x].b = b;			
 			}
 			break;
 		}
 		case RIGHT: {
-			for (int xn = x; xn <= x + type.getNumber(); ++xn)
-				if (board[xn][y].occupied) {
-					System.out.println(board[xn][y]);
+			for (int xn = x; xn < x + type.getNumber(); ++xn)
+				if (board[y][xn].occupied)
 					throw new RuntimeException(
 							"Boat cannot share placement with other boat.");
+
+			for (int xn = x - 1; xn <= x + type.getNumber(); ++xn) {
+				for (int yn = y - 1; yn <= y + 1; ++yn) {
+					if (yn < 0 || xn < 0 || yn > board.length || xn > board.length)
+						continue;
+					board[yn][xn].occupied = true;
 				}
+			}
 			for (int xn = x; xn < x + type.getNumber(); ++xn) {
-				board[xn][y].b = b;
-				board[xn][y].occupied = true;
+				board[y][xn].b = b;
 			}
 			break;
 		}
 		case UP: {
-			for (int yn = y; yn >= y - type.getNumber(); --yn)
-				if (board[x][yn].occupied)
+			for (int yn = y; yn > y - type.getNumber(); --yn)
+				if (board[yn][x].occupied)
 					throw new RuntimeException(
 							"Boat cannot share placement with other boat.");
+			for (int yn = y + 1; yn >= y - type.getNumber(); --yn) {
+				for (int xn = x - 1; xn <= x + 1; ++xn) {
+					if (yn < 0 || xn < 0 || yn > board.length || board.length > 10)
+						continue;
+					board[yn][xn].occupied = true;
+				}
+			}
 			for (int yn = y; yn > y - type.getNumber(); --yn) {
-				board[x][yn].b = b;
-				board[x][yn].occupied = true;
+				board[yn][x].b = b;
 			}
 			break;
 		}
 		case LEFT: {
-			for (int xn = x; xn >= x - type.getNumber(); --xn)
-				if (board[xn][y].occupied)
+			for (int xn = x; xn > x - type.getNumber(); --xn)
+				if (board[y][xn].occupied)
 					throw new RuntimeException(
 							"Boat cannot share placement with other boat.");
+
+			for (int xn = x + 1; xn >= x - type.getNumber(); --xn) {
+				for (int yn = y - 1; yn <= y + 1; ++yn) {
+					if (yn < 0 || xn < 0 || yn > board.length || xn > board.length)
+						continue;
+					board[yn][xn].occupied = true;
+				}
+			}
 			for (int xn = x; xn > x - type.getNumber(); --xn) {
-				board[xn][y].b = b;
-				board[xn][y].occupied = true;
+				board[y][xn].b = b;
 			}
 			break;
 		}
@@ -166,10 +189,10 @@ public class Board {
 				} else if (bw.b == null && bw.hit) {
 					// Hit in water.
 					sb.append('░');
-				} else if (bw.hit) {
+				} else if (bw.b != null && bw.hit) {
 					// hit in boat.
 					sb.append('▒');
-				} else {
+				} else if (bw.b != null && !bw.hit) {
 					// no hit in boat.
 					sb.append('█');
 				}
