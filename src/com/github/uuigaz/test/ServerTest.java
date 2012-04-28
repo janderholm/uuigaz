@@ -136,7 +136,7 @@ public class ServerTest {
 			msg = BaseMessage.parseDelimitedFrom(is);
 			send = BaseMessage.newBuilder();
 			
-			Thread.sleep(50);
+			//Thread.sleep(50);
 			
 			if (msg.hasFire()) {
 				Fire f = msg.getFire();
