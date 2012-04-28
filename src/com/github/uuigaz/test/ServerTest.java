@@ -33,8 +33,9 @@ public class ServerTest {
 	 * @param args
 	 * @throws IOException 
 	 * @throws UnknownHostException 
+	 * @throws InterruptedException 
 	 */
-	public static void main(String[] args) throws UnknownHostException, IOException {
+	public static void main(String[] args) throws UnknownHostException, IOException, InterruptedException {
 	
 		String arg  = "localhost:30000";
 		
@@ -130,23 +131,26 @@ public class ServerTest {
 
 		int hits = 0;
 		int taken = 0;
+		String status = "";
 		
 		while (true) {
 			msg = BaseMessage.parseDelimitedFrom(is);
 			send = BaseMessage.newBuilder();
+			
+			Thread.sleep(10);
+			
 			if (msg.hasFire()) {
 				Fire f = msg.getFire();
 				if (board.isHit(f)) {
+					status += "Hit taken!\n";
 					taken += 1;
 				}
 			}
 			
 			if (msg.hasReport()) {
 				if (msg.getReport().getHit()) {
-					System.out.println("HIT");
+					status += "Last shot was a hit!\n";
 					hits += 1;
-				} else {
-					System.out.println("MISS");
 				}
 			}
 				
@@ -156,15 +160,21 @@ public class ServerTest {
 			
 			String[] l = hitBoard.split("\\n");
 			String[] r = takenBoard.split("\\n");
-			
+			String[] s = status.split("\\n");
+
+			System.out.println("\033[2J");
 			for (int i = 0; i < l.length; ++ i) {
-				System.out.println(l[i] + "     " + r[i]);
+				if (i < s.length) {
+					System.out.println(l[i] + "     " + r[i] + "  " + s[i]);
+				} else {
+					System.out.println(l[i] + "     " + r[i]);
+				}
 			}
 					
-			if (hits == 14) {
+			if (hits == 15) {
 				System.out.println("WIN!");
 				break;
-			} else if (taken == 14) {
+			} else if (taken == 15) {
 				System.out.println("LOSE!");
 				break;
 			}
@@ -174,7 +184,7 @@ public class ServerTest {
 				Pair move = moves.poll();
 				fb.setX(move.fst);
 				fb.setY(move.snd);
-				System.out.println("Fire at: (" + move.fst + "," + move.snd + ")");
+				status = "\nFire at: (" + move.fst + "," + move.snd + ")\n";
 				Fire f = fb.build(); 
 				theirBoard.fire(f);
 				send.setFire(f);

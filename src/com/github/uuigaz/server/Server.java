@@ -128,13 +128,12 @@ class Session {
 			throws InterruptedException {
 		int i = p.ident.equals(player[0].ident) ? 0 : 1;
 		board[i] = Board.build(boardmsg);
-		System.out.println(i);
+		
 		notifyAll();
-		while (board[0] == null || board[1] == null) {
 
+		while (board[0] == null || board[1] == null) {
 			wait();
 		}
-		System.out.println("END");
 	}
 
 	public boolean isInitialized(Player p) {
