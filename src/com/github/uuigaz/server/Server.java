@@ -31,8 +31,12 @@ class Player implements Runnable {
 
 	public synchronized void sendMessage(BoatProtos.BaseMessage msg)
 			throws IOException {
-		msg.writeDelimitedTo(os);
-		os.flush();
+		
+		// Don't send empty messages!
+		if (msg.hasFire() || msg.hasReport() || msg.hasYourTurn()) {
+			msg.writeDelimitedTo(os);
+			os.flush();
+		}
 	}
 
 	public void run() {
@@ -95,8 +99,8 @@ class Player implements Runnable {
 							m.getFire());
 					send.setReport(hit);
 				}
-				sendMessage(send.build());
 
+				sendMessage(send.build());
 			}
 		} catch (IOException e) {
 

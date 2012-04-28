@@ -137,7 +137,7 @@ public class ServerTest {
 			msg = BaseMessage.parseDelimitedFrom(is);
 			send = BaseMessage.newBuilder();
 			
-			Thread.sleep(5);
+			Thread.sleep(100);
 			
 			if (msg.hasFire()) {
 				Fire f = msg.getFire();
@@ -170,6 +170,8 @@ public class ServerTest {
 					System.out.println(l[i] + "     " + r[i]);
 				}
 			}
+			
+			status = "";
 					
 			if (hits == 15) {
 				System.out.println("WIN!");
@@ -190,8 +192,11 @@ public class ServerTest {
 				send.setFire(f);
 			}
 			
-			send.build().writeDelimitedTo(os);
-			os.flush();
+			// Don't send empty messages!
+			if (msg.hasFire() || msg.hasReport() || msg.hasYourTurn()) {
+				send.build().writeDelimitedTo(os);
+				os.flush();
+			}
 		}
 	}
 

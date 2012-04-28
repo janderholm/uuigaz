@@ -195,6 +195,7 @@ public class Board {
 
 	private class BoatWrapper {
 		public boolean hit;
+		public boolean occupied;
 		public Boat.Builder b;
 
 	}
