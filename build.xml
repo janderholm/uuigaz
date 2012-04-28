@@ -1,47 +1,49 @@
 <?xml version="1.0"?>
 <project name="uuigaz" default="build" basedir=".">
 
-	<!-- Shared library dir -->
-	<property name="share.dir" value="/usr/share/java" />
+  <!-- Shared library dir -->
+  <property name="share.dir" value="/usr/share/java"/>
 
-	<!-- Default is to include ants runtime, this we don't want. -->
-	<presetdef name="javac">
-		<javac includeantruntime="false" />
-	</presetdef>
+  <!-- Default is to include ants runtime, this we don't want. -->
+  <presetdef name="javac">
+    <javac includeantruntime="false"/>
+  </presetdef>
 
-	<!-- Make sure protobuf is available on classpath -->
-	<path id="classpath">
-		<fileset dir="${share.dir}" includes="protobuf.jar"/>
-	</path>
+  <!-- Make sure protobuf is available on classpath -->
+  <path id="classpath">
+    <fileset dir="${share.dir}" includes="protobuf.jar"/>
+  </path>
 
-	<target name="proto_build">
-		<exec executable="protoc">
-			<arg value="proto/boat_protos.proto" />
-			<arg value="--java_out=src/" />
-		</exec>
-	</target>
+  <target name="build_protos">
+    <exec executable="protoc">
+      <arg value="proto/boat_protos.proto"/>
+      <arg value="--java_out=src/"/>
+    </exec>
+  </target>
 
-	<target name="build" >
-		<mkdir dir="bin" />
-		<javac srcdir="src" destdir="bin" debug="true" classpathref="classpath" />
-	</target>
+  <target name="build" depends="build_protos">
+    <mkdir dir="bin"/>
+    <javac srcdir="src" destdir="bin" debug="true" classpathref="classpath"/>
+  </target>
 
-	<target name="clean">
-		<delete dir="bin" />
-		<delete dir="jar" />
-	</target>
+  <target name="clean">
+    <delete dir="bin"/>
+    <delete dir="jar"/>
+  </target>
 
-	<target name="jar" depends="build" >
-		<mkdir dir="jar"/>
-		<jar destfile="jar/Server.jar" basedir="bin">
-			<manifest>
-				<attribute name="Main-Class" value="com.github.uuigaz.server.Server"/>
-			</manifest>
-		</jar>
-	</target>
-
-	<target name="run" depends="build" >
-		
-	</target>
+  <target name="jar" depends="build">
+    <mkdir dir="jar"/>
+    <jar destfile="jar/Server.jar" basedir="bin">
+      <manifest>
+        <attribute name="Main-Class" value="com.github.uuigaz.server.Server"/>
+      </manifest>
+    </jar>
+    <jar destfile="jar/ServerTest.jar" basedir="bin">
+      <manifest>
+        <attribute name="Main-Class" value="com.github.uuigaz.test.ServerTest"/>
+      </manifest>
+    </jar>
+  </target>
 
 </project>
+
