@@ -38,20 +38,26 @@ class Grid:
                     self.cell_height])
 
     def grid_event(self,pos):
-        if pos[0] < self.x_offset or pos[1] < self.y_offset:
-            return
         posx = pos[0]-self.x_offset
         posy = pos[1]-self.y_offset
+        if pos[0] < self.x_offset or pos[1] < self.y_offset:
+            return
+        if posx > (self.cell_width+self.grid_margin)*10:
+            return
+        if posy > (self.cell_height+self.grid_margin)*10:
+            return
+
         if posx < 0:
-            posx = 0;
+            posx = 0
         if posy < 0:
-            posy = 0;
+            posy = 0
         # Change the x/y screen coordinates to grid coordinates
         column = posx // (self.cell_width+self.grid_margin)
         row = posy // (self.cell_height+self.grid_margin)
-        # Sete t hat location to zero
-        if row < 10 and column < 10:
-            self.grid[row][column]=1
+        self._event(row,column)
+
+    def _event(self,row,col):
+        assert False, "Not implemented"
 
     def transform(self,cell_width,cell_height,grid_margin,x_offset,y_offset):
         self.cell_width=cell_width
