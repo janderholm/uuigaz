@@ -52,3 +52,16 @@ class Grid:
         # Sete t hat location to zero
         if row < 10 and column < 10:
             self.grid[row][column]=1
+
+    def transform(self,cell_width,cell_height,grid_margin,x_offset,y_offset):
+        self.cell_width=cell_width
+        self.cell_height=cell_height
+        self.grid_margin=grid_margin
+        self.x_offset=x_offset
+        self.y_offset=y_offset
+
+    def get_grid(self):
+        return self.grid
+
+    def set_grid(self,new_grid):
+        self.grid = new_grid
