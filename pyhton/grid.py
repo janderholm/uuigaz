@@ -22,7 +22,7 @@ class Grid:
             # in this row
             self.grid.append([])
             for column in range(10):
-                self.grid[row].append(0) # Append a cell
+                self.grid[row].append(-1) # Append a cell
 
     def draw_grid(self):
          # Draw the grid
@@ -60,11 +60,11 @@ class Grid:
         assert False, "Not implemented"
 
     def transform(self,cell_width,cell_height,grid_margin,x_offset,y_offset):
-        self.cell_width=cell_width
-        self.cell_height=cell_height
-        self.grid_margin=grid_margin
-        self.x_offset=x_offset
-        self.y_offset=y_offset
+        self.cell_width = cell_width
+        self.cell_height = cell_height
+        self.grid_margin = grid_margin
+        self.x_offset = x_offset
+        self.y_offset = y_offset
 
     def get_grid(self):
         return self.grid

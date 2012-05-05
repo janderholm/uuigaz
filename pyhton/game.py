@@ -5,6 +5,7 @@ import pygame
 import pygame.mixer
 import grid
 import placement_grid
+import settings as s
 
 black = ( 0, 0, 0)
 white = ( 255, 255, 255)
@@ -25,6 +26,17 @@ def set_grid(screen,clock,grid1):
                 pos = pygame.mouse.get_pos()
                 grid1.grid_event(pos)
                 print("Click ",pos,"Grid coordinates: ")
+            if event.type == pygame.KEYDOWN:
+                print("KEYDOWN")
+                if event.key == pygame.K_UP:
+                    grid1.set_direction(s.VERTICAL)
+                if event.key == pygame.K_DOWN:
+                    grid1.set_direction(s.HORIZONTAL)
+                if event.key == pygame.K_RIGHT:
+                    grid1.set_direction(s.HORIZONTAL)
+                if event.key == pygame.K_LEFT:
+                    grid1.set_direction(s.VERTICAL)
+
         # Set the screen background
         screen.fill(white)
         grid1.draw_grid()
