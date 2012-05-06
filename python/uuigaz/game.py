@@ -2,12 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import socket
 
 import pygame
 import pygame.mixer
 import placement_grid 
 import grid
 import settings as s
+
+from optparse import OptionParser
 
 black = ( 0, 0, 0)
 white = ( 255, 255, 255)
@@ -69,7 +72,24 @@ def play_game(screen,clock,grid1,grid2):
         clock.tick(20)
         pygame.display.flip()
 
-def main():
+def main(argv):
+    parser = OptionParser(usage="%prog HOST PORT")
+    
+    (options, args) = parser.parse_args(argv)
+    
+    if len(args) != 3:
+        parser.print_usage()
+        print "Bad arguments!"
+        return 1
+    
+    host = argv[1]
+    port = int(argv[2])
+    
+    soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    soc.connect((host, port))
+
+
+    
     pygame.mixer.init()
     pygame.init()
     screen=pygame.display.set_mode(size)
@@ -89,4 +109,4 @@ def main():
     return 0
 
 if __name__ == '__main__':
-    sys.exit(main())
+    sys.exit(main(sys.argv))
