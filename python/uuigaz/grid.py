@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import pygame
+import pygame.font
 # Define some colors
 black = ( 0, 0, 0)
 white = ( 255, 255, 255)
@@ -17,6 +18,8 @@ class Grid:
         self.grid_margin=grid_margin
         self.x_offset=x_offset
         self.y_offset=y_offset
+        self.msg_coords = (10, 10)
+        self._log = ''
         for row in range(10):
             # Add an empty array that will hold each cell
             # in this row
@@ -71,3 +74,18 @@ class Grid:
 
     def set_grid(self,new_grid):
         self.grid = new_grid
+        
+    def write(self, msg):
+        # XXX: IT'S A TRAP!
+        self._log += msg.strip()
+
+    def clear_log(self):
+        self._log = ''
+
+    def draw_log(self):
+        font = pygame.font.Font(None, 28)
+        text = font.render(self._log,  True, (10, 10, 10))
+        x, y = self.msg_coords
+        textpos = text.get_rect(centerx=x, centery=y)
+        self.screen.blit(text, textpos)
+        

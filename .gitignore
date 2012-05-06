@@ -1,3 +1,4 @@
+# Java files #
 *.class
 
 # Package Files #
@@ -8,12 +9,14 @@
 # Eclipse files #
 .classpath
 .project
+.pydevproject
+.settings
 
-#pythonfiles
+# Python files #
 *.pyc
 *.pyo
 
-#other
+# Other #
 *.svg
 *.png
 *.wav

@@ -2,11 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import socket
 
 import pygame
 import pygame.mixer
 import placement_grid 
 import grid
+import settings as s
+
+from optparse import OptionParser
 
 black = ( 0, 0, 0)
 white = ( 255, 255, 255)
@@ -41,7 +45,8 @@ def set_grid(screen,clock,grid1):
         # Set the screen background
         screen.fill(white)
         grid1.draw_grid()
-        screen.blit(image,(110,110))
+        screen.blit(image, (110,110))
+        grid1.draw_log()
         clock.tick(20)
         pygame.display.flip()
 
@@ -67,17 +72,36 @@ def play_game(screen,clock,grid1,grid2):
         clock.tick(20)
         pygame.display.flip()
 
-def main():
+def main(argv):
+    parser = OptionParser(usage="%prog HOST PORT")
+    
+    (options, args) = parser.parse_args(argv)
+    
+    if len(args) != 3:
+        parser.print_usage()
+        print "Bad arguments!"
+        return 1
+    
+    host = argv[1]
+    port = int(argv[2])
+    
+    soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    soc.connect((host, port))
+
+
+    
     pygame.mixer.init()
     pygame.init()
     screen=pygame.display.set_mode(size)
     pygame.display.set_caption("Uuigaz")
     clock = pygame.time.Clock()
 
+    screen.fill(white)
     grid1 = placement_grid.Placement_grid(screen,29,29,1,132,160)
     grid2 = grid.Grid(screen,33,33,1,250,250)
 
-    set_grid(screen,clock,grid1)
+    set_grid(screen, clock, grid1)
+    
     grid1.transform(22,22,1,23,23)
     play_game(screen,clock,grid2,grid1)
 
@@ -85,4 +109,4 @@ def main():
     return 0
 
 if __name__ == '__main__':
-    sys.exit(main())
+    sys.exit(main(sys.argv))
