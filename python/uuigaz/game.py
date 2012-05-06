@@ -12,6 +12,55 @@ import settings as s
 
 from optparse import OptionParser
 
+
+##########################
+##### Monkeypatching #####
+##########################
+
+# HACK: Java has something called writeDelimitedTo that prepends size
+#       as a varint, python api does not so we patch it in.
+
+import google.protobuf.message
+
+if not 'SerializeToSocket' in dir(google.protobuf.message.Message):
+    import google.protobuf.internal.encoder
+    import cStringIO
+
+
+    def _monkey_wdelimit(self, soc):
+        msg = self.SerializeToString()
+        io = cStringIO.StringIO()
+        google.protobuf.internal.encoder._EncodeVarint(soc.send, len(msg))
+        soc.send(msg)
+
+    google.protobuf.message.Message.SerializeToSocket = _monkey_wdelimit
+    
+if not 'ParseFromSocket' in dir(google.protobuf.message.Message):
+    import google.protobuf.internal.decoder
+
+    class SocketBuffer(object):
+        def __init__(self, soc):
+            self._buffer = cStringIO.StringIO()
+            self._soc = soc
+        
+        def __getitem__(self, pos):
+            while len(self._buffer.getvalue()) < (pos + 1):
+                self.soc.recv_into(self._buffer, 1)
+            return self._buffer.getvalue()[pos]
+            
+    def _monkey_pdelimit(self, soc):
+        buf = SocketBuffer(soc)
+        bytes = google.protobuf.internal.decoder._DecodeVarint(buf, 0)
+        msg = soc.recv(bytes)
+        return self.ParseFromString(msg)
+
+    google.protobuf.message.Message.ParseFromSocket = _monkey_pdelimit
+
+
+##########################
+######### END ############
+##########################
+
 black = ( 0, 0, 0)
 white = ( 255, 255, 255)
 green = ( 0, 255, 0)
@@ -101,6 +150,7 @@ def main(argv):
     grid2 = grid.Grid(screen,33,33,1,250,250)
 
     set_grid(screen, clock, grid1)
+    grid1.get_msg()
     
     grid1.transform(22,22,1,23,23)
     play_game(screen,clock,grid2,grid1)
