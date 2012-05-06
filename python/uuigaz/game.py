@@ -7,6 +7,8 @@ import socket
 import pygame
 import inputbox
 import pygame.mixer
+
+import boat_protos_pb2
 import placement_grid 
 import grid
 import settings as s
@@ -25,12 +27,11 @@ import google.protobuf.message
 
 if not 'SerializeToSocket' in dir(google.protobuf.message.Message):
     import google.protobuf.internal.encoder
-    import cStringIO
+    import io
 
 
     def _monkey_wdelimit(self, soc):
         msg = self.SerializeToString()
-        io = cStringIO.StringIO()
         google.protobuf.internal.encoder._EncodeVarint(soc.send, len(msg))
         soc.send(msg)
 
@@ -41,17 +42,22 @@ if not 'ParseFromSocket' in dir(google.protobuf.message.Message):
 
     class SocketBuffer(object):
         def __init__(self, soc):
-            self._buffer = cStringIO.StringIO()
+            self._buffer = io.BytesIO()
             self._soc = soc
         
         def __getitem__(self, pos):
+            print "get " + str(pos)
             while len(self._buffer.getvalue()) < (pos + 1):
-                self.soc.recv_into(self._buffer, 1)
+                print "get " + str(pos)
+                self._buffer.write(self._soc.recv(1))
+            print "done getting"
             return self._buffer.getvalue()[pos]
             
     def _monkey_pdelimit(self, soc):
         buf = SocketBuffer(soc)
-        bytes = google.protobuf.internal.decoder._DecodeVarint(buf, 0)
+        print "parsing"
+        bytes, _ = google.protobuf.internal.decoder._DecodeVarint(buf, 0)
+        print "ZOMG IT PARSED: " + str(bytes)
         msg = soc.recv(bytes)
         return self.ParseFromString(msg)
 
@@ -146,8 +152,21 @@ def main(argv):
     clock = pygame.time.Clock()
 
     screen.fill(white)
-    message = inputbox.input(screen)
-    print message
+    
+    
+    # Create Ident
+    
+    ident = boat_protos_pb2.Ident()
+    ident.name = inputbox.input(screen)
+    
+    ident.SerializeToSocket(soc)
+    
+    # Parse Init
+    init = boat_protos_pb2.Init()
+    init.ParseFromSocket(soc)
+    
+    print init
+    
 
     screen.fill(white)
     grid1 = placement_grid.Placement_grid(screen,29,29,1,132,160)
