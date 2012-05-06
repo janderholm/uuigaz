@@ -62,7 +62,6 @@ class Placement_grid(grid.Grid):
 
         self.current_boat+=1
 
-
     def set_direction(self,direction):
         self.direction = direction;
         

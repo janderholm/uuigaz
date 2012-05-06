@@ -66,7 +66,6 @@ def play_game(screen,clock,grid1,grid2):
         clock.tick(20)
         pygame.display.flip()
 
-
 def main():
     pygame.mixer.init()
     pygame.init()
@@ -78,7 +77,7 @@ def main():
     grid2 = grid.Grid(screen,33,33,1,250,250)
 
     set_grid(screen,clock,grid1)
-    grid1.transform(22,22,1,24,24)
+    grid1.transform(22,22,1,23,23)
     play_game(screen,clock,grid2,grid1)
 
     pygame.quit()

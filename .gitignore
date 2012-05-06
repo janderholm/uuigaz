@@ -8,3 +8,13 @@
 # Eclipse files #
 .classpath
 .project
+
+#pythonfiles
+*.pyc
+*.pyo
+
+#other
+*.svg
+*.png
+*.wav
+
