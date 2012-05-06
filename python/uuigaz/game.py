@@ -163,10 +163,8 @@ def main(argv):
     if init.HasField("newGame"):
         grid1 = placement_grid.Placement_grid(screen,29,29,1,132,160)    
         set_grid(screen, clock, grid1)
-        init2 = boat_protos_pb2.Init()
-        board = grid1.get_msg()
-        init2.board = board
-        init2.SerializeToSocket(soc)
+        init.board.CopyFrom(grid1.get_msg())
+        init.SerializeToSocket(soc)
     elif init.HasField("board"):
         pass
     else:
