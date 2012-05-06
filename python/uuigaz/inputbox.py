@@ -16,10 +16,6 @@ def draw_box(screen, message):
            ((screen.get_width() / 2) - 100,
             (screen.get_height() / 2) - 10,
             200,20), 0)
-    pygame.draw.rect(screen, (255,255,255),
-               ((screen.get_width() / 2) - 102,
-                (screen.get_height() / 2) - 12,
-                204,24), 1)
     fontobject=pygame.font.SysFont('Arial', 18)
     if len(message) != 0:
         screen.blit(fontobject.render(message, 1, (255, 255, 255)),
@@ -32,10 +28,9 @@ def input(screen):
            ((screen.get_width() / 2) - 100,
             (screen.get_height() / 2) - 10,
             200,20), 0)
-    pygame.draw.rect(screen, (255,255,255),
-               ((screen.get_width() / 2) - 102,
-                (screen.get_height() / 2) - 12,
-                204,24), 1)
+    fontobject=pygame.font.SysFont('Arial', 18)
+    screen.blit(fontobject.render("Write your name", 1, (0, 0, 0)),
+                ((screen.get_width() / 2) - 90, (screen.get_height() / 2) - 50))
     pygame.display.flip()
     done = False
     s = ""
@@ -46,7 +41,10 @@ def input(screen):
             done=True
         if event.type == pygame.KEYDOWN:
             inkey = event.key
-            if inkey == pygame.K_RETURN or inkey == pygame.K_KP_ENTER:
+            if inkey == K_BACKSPACE:
+                s = s[0:-1]
+                draw_box(screen,s)
+            elif inkey == pygame.K_RETURN or inkey == pygame.K_KP_ENTER:
                 done=True
                 draw_box(screen,s)
             elif inkey <= 127:
