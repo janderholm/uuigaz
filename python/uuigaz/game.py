@@ -1,11 +1,12 @@
-#! /usr/bin/python2.7 -tt
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+import sys
 
 import pygame
 import pygame.mixer
+import placement_grid 
 import grid
-import placement_grid
-import settings as s
 
 black = ( 0, 0, 0)
 white = ( 255, 255, 255)
@@ -14,8 +15,8 @@ red = ( 255, 0, 0)
 size=(600,600)
 
 def set_grid(screen,clock,grid1):
-    click_sound = pygame.mixer.Sound("bomb3.wav")
-    image = pygame.image.load('Battleships_start.png')
+    click_sound = pygame.mixer.Sound("resources/bomb3.wav")
+    image = pygame.image.load('resources/Battleships_start.png')
     done = False
     while done==False:
         for event in pygame.event.get():
@@ -45,8 +46,8 @@ def set_grid(screen,clock,grid1):
         pygame.display.flip()
 
 def play_game(screen,clock,grid1,grid2):
-    click_sound = pygame.mixer.Sound("bomb3.wav")
-    image = pygame.image.load('Battleships_Paper_Game.png')
+    click_sound = pygame.mixer.Sound("resources/bomb3.wav")
+    image = pygame.image.load('resources/Battleships_Paper_Game.png')
     image = pygame.transform.scale(image, (size[0]-10,size[1]-10))
     done = False
     while done==False:
@@ -81,4 +82,7 @@ def main():
     play_game(screen,clock,grid2,grid1)
 
     pygame.quit()
-main()
+    return 0
+
+if __name__ == '__main__':
+    sys.exit(main())

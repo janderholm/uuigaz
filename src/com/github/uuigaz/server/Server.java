@@ -222,6 +222,7 @@ class Controller {
 				// Change this to notify() if we don't lock on anything else.
 				notifyAll();
 			}
+			System.out.println("size of session: " + sessions.size());
 		}
 
 		return session;
