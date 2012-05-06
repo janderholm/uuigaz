@@ -20,7 +20,7 @@ red = ( 255, 0, 0)
 size=(600,600)
 
 def set_grid(screen,clock,grid1):
-    click_sound = pygame.mixer.Sound("resources/mortar.wav")
+    click_sound = pygame.mixer.Sound("resources/splash.wav")
     image = pygame.image.load('resources/Battleships_start.png')
     done = False
     while done==False:
