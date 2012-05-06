@@ -7,6 +7,7 @@ import pygame
 import pygame.mixer
 import placement_grid 
 import grid
+import settings as s
 
 black = ( 0, 0, 0)
 white = ( 255, 255, 255)
@@ -41,7 +42,8 @@ def set_grid(screen,clock,grid1):
         # Set the screen background
         screen.fill(white)
         grid1.draw_grid()
-        screen.blit(image,(110,110))
+        screen.blit(image, (110,110))
+        grid1.draw_log()
         clock.tick(20)
         pygame.display.flip()
 
@@ -74,10 +76,12 @@ def main():
     pygame.display.set_caption("Uuigaz")
     clock = pygame.time.Clock()
 
+    screen.fill(white)
     grid1 = placement_grid.Placement_grid(screen,29,29,1,132,160)
     grid2 = grid.Grid(screen,33,33,1,250,250)
 
-    set_grid(screen,clock,grid1)
+    set_grid(screen, clock, grid1)
+    
     grid1.transform(22,22,1,23,23)
     play_game(screen,clock,grid2,grid1)
 
