@@ -5,6 +5,7 @@ import sys
 import socket
 
 import pygame
+import inputbox
 import pygame.mixer
 import placement_grid 
 import grid
@@ -68,7 +69,7 @@ red = ( 255, 0, 0)
 size=(600,600)
 
 def set_grid(screen,clock,grid1):
-    click_sound = pygame.mixer.Sound("resources/bomb3.wav")
+    click_sound = pygame.mixer.Sound("resources/mortar.wav")
     image = pygame.image.load('resources/Battleships_start.png')
     done = False
     while done==False:
@@ -138,12 +139,15 @@ def main(argv):
     soc.connect((host, port))
 
 
-    
     pygame.mixer.init()
     pygame.init()
     screen=pygame.display.set_mode(size)
     pygame.display.set_caption("Uuigaz")
     clock = pygame.time.Clock()
+
+    screen.fill(white)
+    message = inputbox.input(screen)
+    print message
 
     screen.fill(white)
     grid1 = placement_grid.Placement_grid(screen,29,29,1,132,160)
