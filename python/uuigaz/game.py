@@ -7,11 +7,66 @@ import socket
 import pygame
 import inputbox
 import pygame.mixer
+
+import boat_protos_pb2
 import placement_grid 
 import grid
 import settings as s
 
 from optparse import OptionParser
+
+
+##########################
+##### Monkeypatching #####
+##########################
+
+# HACK: Java has something called writeDelimitedTo that prepends size
+#       as a varint, python api does not so we patch it in.
+
+import google.protobuf.message
+
+if not 'SerializeToSocket' in dir(google.protobuf.message.Message):
+    import google.protobuf.internal.encoder
+    import io
+
+
+    def _monkey_wdelimit(self, soc):
+        msg = self.SerializeToString()
+        google.protobuf.internal.encoder._EncodeVarint(soc.send, len(msg))
+        soc.send(msg)
+
+    google.protobuf.message.Message.SerializeToSocket = _monkey_wdelimit
+    
+if not 'ParseFromSocket' in dir(google.protobuf.message.Message):
+    import google.protobuf.internal.decoder
+
+    class SocketBuffer(object):
+        def __init__(self, soc):
+            self._buffer = io.BytesIO()
+            self._soc = soc
+        
+        def __getitem__(self, pos):
+            print "get " + str(pos)
+            while len(self._buffer.getvalue()) < (pos + 1):
+                print "get " + str(pos)
+                self._buffer.write(self._soc.recv(1))
+            print "done getting"
+            return self._buffer.getvalue()[pos]
+            
+    def _monkey_pdelimit(self, soc):
+        buf = SocketBuffer(soc)
+        print "parsing"
+        bytes, _ = google.protobuf.internal.decoder._DecodeVarint(buf, 0)
+        print "ZOMG IT PARSED: " + str(bytes)
+        msg = soc.recv(bytes)
+        return self.ParseFromString(msg)
+
+    google.protobuf.message.Message.ParseFromSocket = _monkey_pdelimit
+
+
+##########################
+######### END ############
+##########################
 
 black = ( 0, 0, 0)
 white = ( 255, 255, 255)
@@ -97,14 +152,28 @@ def main(argv):
     clock = pygame.time.Clock()
 
     screen.fill(white)
-    message = inputbox.input(screen)
-    print message
+    
+    
+    # Create Ident
+    
+    ident = boat_protos_pb2.Ident()
+    ident.name = inputbox.input(screen)
+    
+    ident.SerializeToSocket(soc)
+    
+    # Parse Init
+    init = boat_protos_pb2.Init()
+    init.ParseFromSocket(soc)
+    
+    print init
+    
 
     screen.fill(white)
     grid1 = placement_grid.Placement_grid(screen,29,29,1,132,160)
     grid2 = grid.Grid(screen,33,33,1,250,250)
 
     set_grid(screen, clock, grid1)
+    grid1.get_msg()
     
     grid1.transform(22,22,1,23,23)
     play_game(screen,clock,grid2,grid1)
