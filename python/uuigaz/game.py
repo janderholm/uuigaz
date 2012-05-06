@@ -5,6 +5,7 @@ import sys
 import socket
 
 import pygame
+import inputbox
 import pygame.mixer
 import placement_grid 
 import grid
@@ -89,12 +90,14 @@ def main(argv):
     soc.connect((host, port))
 
 
-    
     pygame.mixer.init()
     pygame.init()
     screen=pygame.display.set_mode(size)
     pygame.display.set_caption("Uuigaz")
     clock = pygame.time.Clock()
+
+    screen.fill(white)
+    message = inputbox.input(screen)
 
     screen.fill(white)
     grid1 = placement_grid.Placement_grid(screen,29,29,1,132,160)

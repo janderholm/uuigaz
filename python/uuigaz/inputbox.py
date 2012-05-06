@@ -45,18 +45,15 @@ def input(screen):
         if event.type == pygame.QUIT:
             done=True
         if event.type == pygame.KEYDOWN:
-            print("KEYDOWN")
             inkey = event.key
             if inkey == pygame.K_RETURN or inkey == pygame.K_KP_ENTER:
-                done = True
-            if inkey == K_BACKSPACE:
-                s = s[0:-1]
+                done=True
                 draw_box(screen,s)
             elif inkey <= 127:
                 s += chr(inkey)
                 draw_box(screen,s)
-                print(s)
         #screen.fill(settings.white)
+    return s
 
 def main():
     pygame.init()
