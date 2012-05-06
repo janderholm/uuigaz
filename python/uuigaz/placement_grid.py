@@ -58,8 +58,8 @@ class Placement_grid(grid.Grid):
                     print >> self,  "Boats can't overlap"
                     return
             boat = self._boardmsg.boats.add()
-            boat.x = row
-            boat.y = col
+            boat.x = col
+            boat.y = row
             boat.direction = boat_protos_pb2.Board.Boat.RIGHT
             boat.type = bt[1]
             self.clear_log()
@@ -85,8 +85,8 @@ class Placement_grid(grid.Grid):
                     print >> self, "Boats can't overlap"
                     return
             boat = self._boardmsg.boats.add()
-            boat.x = row
-            boat.y = col
+            boat.x = col
+            boat.y = row
             boat.direction = boat_protos_pb2.Board.Boat.DOWN
             boat.type = bt[1]
             self.clear_log()

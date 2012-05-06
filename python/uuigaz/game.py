@@ -159,10 +159,11 @@ def main(argv):
     init = boat_protos_pb2.Init()
     init.ParseFromSocket(soc)
 
-    screen.fill(white)    
+    screen.fill(white)
     if init.HasField("newGame"):
-        grid1 = placement_grid.Placement_grid(screen,29,29,1,132,160)    
+        grid1 = placement_grid.Placement_grid(screen,29,29,1,132,160)
         set_grid(screen, clock, grid1)
+        init.Clear()
         init.board.CopyFrom(grid1.get_msg())
         init.SerializeToSocket(soc)
     elif init.HasField("board"):
