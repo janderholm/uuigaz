@@ -46,18 +46,13 @@ if not 'ParseFromSocket' in dir(google.protobuf.message.Message):
             self._soc = soc
         
         def __getitem__(self, pos):
-            print "get " + str(pos)
             while len(self._buffer.getvalue()) < (pos + 1):
-                print "get " + str(pos)
                 self._buffer.write(self._soc.recv(1))
-            print "done getting"
             return self._buffer.getvalue()[pos]
             
     def _monkey_pdelimit(self, soc):
         buf = SocketBuffer(soc)
-        print "parsing"
         bytes, _ = google.protobuf.internal.decoder._DecodeVarint(buf, 0)
-        print "ZOMG IT PARSED: " + str(bytes)
         msg = soc.recv(bytes)
         return self.ParseFromString(msg)
 
@@ -155,7 +150,6 @@ def main(argv):
     
     
     # Create Ident
-    
     ident = boat_protos_pb2.Ident()
     ident.name = inputbox.input(screen)
     
@@ -164,16 +158,23 @@ def main(argv):
     # Parse Init
     init = boat_protos_pb2.Init()
     init.ParseFromSocket(soc)
-    
-    print init
-    
 
-    screen.fill(white)
-    grid1 = placement_grid.Placement_grid(screen,29,29,1,132,160)
+    screen.fill(white)    
+    if init.HasField("newGame"):
+        grid1 = placement_grid.Placement_grid(screen,29,29,1,132,160)    
+        set_grid(screen, clock, grid1)
+        init2 = boat_protos_pb2.Init()
+        board = grid1.get_msg()
+        init2.board = board
+        init2.SerializeToSocket(soc)
+    elif init.HasField("board"):
+        pass
+    else:
+        raise Exception("bad message received")
+        return 1
+
     grid2 = grid.Grid(screen,33,33,1,250,250)
 
-    set_grid(screen, clock, grid1)
-    grid1.get_msg()
     
     grid1.transform(22,22,1,23,23)
     play_game(screen,clock,grid2,grid1)
