@@ -50,6 +50,9 @@ class Placement_grid(grid.Grid):
 
         if direction == s.HORIZONTAL and col + bt[1] <= 10:
             for i in range(0,bt[1]):
+                if self.grid[row][col+i] == -2:
+                    print >> self, "Boats cannot share placement with other boat"
+                    return
                 if self.grid[row][col+i] != -1:
                     self.clear_log()
                     print >> self,  "Boats can't overlap"
@@ -61,11 +64,22 @@ class Placement_grid(grid.Grid):
             boat.type = bt[1]
             self.clear_log()
 
+            for i in range(0,bt[1]+2):
+                for j in range(0,3):
+                    if row-1+j >= 10 or col-1+i >= 10 or row-1+j < 0 or col-1+i < 0:
+                        continue
+                    if self.grid[row-1+j][col-1+i] != -1:
+                        continue
+                    self.grid[row-1+j][col-1+i] = -2
+
             for i in range(0,bt[1]):
                 self.grid[row][col+i] = bt[0]
 
         elif direction == s.VERTICAL and row + bt[1] <= 10:
             for i in range(0,bt[1]):
+                if self.grid[row+i][col] == -2:
+                    print >> self, "Boats cannot share placement with other boat"
+                    return
                 if self.grid[row+i][col] != -1:
                     self.clear_log()
                     print >> self, "Boats can't overlap"
@@ -77,8 +91,17 @@ class Placement_grid(grid.Grid):
             boat.type = bt[1]
             self.clear_log()
            
+            for i in range(0,bt[1]+2):
+                for j in range(0,3):
+                    if row-1+i >= 10 or col-1+j >= 10 or row-1+i < 0 or col-1+j < 0:
+                        continue
+                    if self.grid[row-1+i][col-1+j] != -1:
+                        continue
+                    self.grid[row-1+i][col-1+j] = -2
+
             for i in range(0,bt[1]):
                 self.grid[row+i][col] = bt[0]
+
         else:
             self.clear_log()
             print >> self, "Can't place boat there"
