@@ -42,7 +42,7 @@ public class Board {
 			}
 			for (int yn = y - 1; yn <= y + type.getNumber(); ++yn) {
 				for (int xn = x - 1; xn <= x + 1; ++xn) {
-					if (yn < 0 || xn < 0 || yn > board.length || xn > board.length)
+					if (yn < 0 || xn < 0 || yn >= board.length || xn >= board.length)
 						continue;
 					board[yn][xn].occupied = true;
 				}
@@ -60,7 +60,7 @@ public class Board {
 
 			for (int xn = x - 1; xn <= x + type.getNumber(); ++xn) {
 				for (int yn = y - 1; yn <= y + 1; ++yn) {
-					if (yn < 0 || xn < 0 || yn > board.length || xn > board.length)
+					if (yn < 0 || xn < 0 || yn >= board.length || xn >= board.length)
 						continue;
 					board[yn][xn].occupied = true;
 				}
@@ -77,7 +77,7 @@ public class Board {
 							"Boat cannot share placement with other boat.");
 			for (int yn = y + 1; yn >= y - type.getNumber(); --yn) {
 				for (int xn = x - 1; xn <= x + 1; ++xn) {
-					if (yn < 0 || xn < 0 || yn > board.length || board.length > 10)
+					if (yn < 0 || xn < 0 || yn >= board.length || xn >= board.length)
 						continue;
 					board[yn][xn].occupied = true;
 				}
@@ -95,7 +95,7 @@ public class Board {
 
 			for (int xn = x + 1; xn >= x - type.getNumber(); --xn) {
 				for (int yn = y - 1; yn <= y + 1; ++yn) {
-					if (yn < 0 || xn < 0 || yn > board.length || xn > board.length)
+					if (yn < 0 || xn < 0 || yn >= board.length || xn >= board.length)
 						continue;
 					board[yn][xn].occupied = true;
 				}

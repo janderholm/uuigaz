@@ -164,6 +164,7 @@ def main(argv):
         grid1 = placement_grid.Placement_grid(screen,29,29,1,132,160)
         set_grid(screen, clock, grid1)
         init.Clear()
+        print grid1.get_msg()
         init.board.CopyFrom(grid1.get_msg())
         init.SerializeToSocket(soc)
     elif init.HasField("board"):
