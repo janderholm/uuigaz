@@ -21,7 +21,7 @@
     </exec>
   </target>
 
-  <target name="build" depends="build_protos">
+  <target name="build">
     <mkdir dir="bin"/>
     <javac srcdir="src" destdir="bin" debug="true" includes="**/*.java" classpathref="classpath"/>
   </target>
