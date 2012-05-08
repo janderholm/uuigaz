@@ -56,8 +56,11 @@ if not 'ParseFromSocket' in dir(google.protobuf.message.Message):
             
     def _monkey_pdelimit(self, soc):
         buf = SocketBuffer(soc)
-        bytes, _ = google.protobuf.internal.decoder._DecodeVarint(buf, 0)
-        msg = soc.recv(bytes)
+        nbytes, _ = google.protobuf.internal.decoder._DecodeVarint(buf, 0)
+        old = soc.gettimeout()
+        soc.settimeout(0.0)
+        msg = soc.recv(nbytes)
+        soc.settimeout(old)
         return self.ParseFromString(msg)
 
     google.protobuf.message.Message.ParseFromSocket = _monkey_pdelimit
