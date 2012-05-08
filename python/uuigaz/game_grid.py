@@ -5,12 +5,13 @@ import settings as s
 import boat_protos_pb2
 
 class Game_grid(grid.Grid):
-    def __init__(self,screen,cell_width,cell_height,grid_margin,x_offset,y_offset):
+    def __init__(self,screen,soc,cell_width,cell_height,grid_margin,x_offset,y_offset):
     	grid.Grid.__init__(self, screen,cell_width,cell_height,grid_margin,x_offset,y_offset)
         self.direction = s.HORIZONTAL
         self.boats = [s.CARRIER, s.BATTLESHIP, s.CRUISER, s.DESTROYER,s.SUBMARINE]
         self.current_boat = 0;
         self._basemsg = boat_protos_pb2.BaseMessage()
+        self.soc = soc;
 
     def draw_grid(self):
          # Draw the grid
@@ -41,6 +42,8 @@ class Game_grid(grid.Grid):
         fire.y = col
         self._basemsg.fire.CopyFrom(fire)
         self.grid[row][col] = 0
+        msg = boat_protos_pb2.BaseMessage()
+        msg.SerializeToSocket(self.soc)
 
     def get_msg(self):
         return self._basemsg

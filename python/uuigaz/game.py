@@ -118,12 +118,7 @@ def play_game(screen,clock,soc,grid1,grid2):
                 click_sound.play()
                 pos = pygame.mouse.get_pos()
                 grid1.grid_event(pos)
-                msg = grid1.get_msg()
-                msg.SerializeToSocket(soc)
-                msg.ParseFromSocket(soc)
-                print msg.fire.x
-                print msg.fire.y
-                pygame.event.clear()
+#                pygame.event.clear()
                 print("Click ",pos,"Grid coordinates: ")
         # Set the screen background
         msg = ParseFromSocket(soc)
@@ -194,7 +189,7 @@ def main(argv):
         raise Exception("bad message received")
         return 1
 
-    grid2 = game_grid.Game_grid(screen,33,33,1,250,250)
+    grid2 = game_grid.Game_grid(screen,soc,33,33,1,250,250)
 
     
     grid1.transform(22,22,1,23,23)
