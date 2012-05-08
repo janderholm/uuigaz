@@ -10,6 +10,7 @@ import pygame.mixer
 
 import boat_protos_pb2
 import placement_grid 
+import game_grid
 import grid
 import settings as s
 
@@ -101,7 +102,7 @@ def set_grid(screen,clock,grid1):
         clock.tick(20)
         pygame.display.flip()
 
-def play_game(screen,clock,grid1,grid2):
+def play_game(screen,clock,soc,grid1,grid2):
     click_sound = pygame.mixer.Sound("resources/bomb3.wav")
     image = pygame.image.load('resources/Battleships_Paper_Game.png')
     image = pygame.transform.scale(image, (size[0]-10,size[1]-10))
@@ -114,6 +115,12 @@ def play_game(screen,clock,grid1,grid2):
                 click_sound.play()
                 pos = pygame.mouse.get_pos()
                 grid1.grid_event(pos)
+                msg = grid1.get_msg()
+                msg.SerializeToSocket(soc)
+                msg.ParseFromSocket(soc)
+                print msg.fire.x
+                print msg.fire.y
+                pygame.event.clear()
                 print("Click ",pos,"Grid coordinates: ")
         # Set the screen background
         screen.fill(white)
@@ -172,11 +179,11 @@ def main(argv):
         raise Exception("bad message received")
         return 1
 
-    grid2 = grid.Grid(screen,33,33,1,250,250)
+    grid2 = game_grid.Game_grid(screen,33,33,1,250,250)
 
     
     grid1.transform(22,22,1,23,23)
-    play_game(screen,clock,grid2,grid1)
+    play_game(screen,clock,soc,grid2,grid1)
 
     pygame.quit()
     return 0
