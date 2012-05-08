@@ -110,6 +110,7 @@ def play_game(screen,clock,soc,grid1,grid2):
     image = pygame.image.load(res('resources/Battleships_Paper_Game.png'))
     image = pygame.transform.scale(image, (size[0]-10,size[1]-10))
     done = False
+    myturn = False
     while done==False:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -117,8 +118,8 @@ def play_game(screen,clock,soc,grid1,grid2):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 click_sound.play()
                 pos = pygame.mouse.get_pos()
-                grid1.grid_event(pos)
-#                pygame.event.clear()
+                if myturn:
+                    grid1.grid_event(pos)
                 print("Click ",pos,"Grid coordinates: ")
         # Set the screen background
         msg = ParseFromSocket(soc)
@@ -130,9 +131,9 @@ def play_game(screen,clock,soc,grid1,grid2):
             pass
 
         if msg.HasField("yourTurn") and msg.yourTurn:
-            pass
-
-
+            myturn = True
+        else:
+            myturn = False
         screen.fill(white)
         grid1.draw_grid()
         grid2.draw_grid()
