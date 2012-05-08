@@ -3,6 +3,7 @@
 
 import sys
 import socket
+import pkg_resources
 
 import pygame
 import inputbox
@@ -14,6 +15,8 @@ import grid
 import settings as s
 
 from optparse import OptionParser
+
+res = lambda x: pkg_resources.resource_stream(__name__, x)
 
 
 ##########################
@@ -70,8 +73,8 @@ red = ( 255, 0, 0)
 size=(600,600)
 
 def set_grid(screen,clock,grid1):
-    click_sound = pygame.mixer.Sound("resources/splash.wav")
-    image = pygame.image.load('resources/Battleships_start.png')
+    click_sound = pygame.mixer.Sound(res("resources/splash.wav"))
+    image = pygame.image.load(res("resources/Battleships_start.png"))
     done = False
     while done==False:
         for event in pygame.event.get():
@@ -102,8 +105,8 @@ def set_grid(screen,clock,grid1):
         pygame.display.flip()
 
 def play_game(screen,clock,grid1,grid2):
-    click_sound = pygame.mixer.Sound("resources/bomb3.wav")
-    image = pygame.image.load('resources/Battleships_Paper_Game.png')
+    click_sound = pygame.mixer.Sound(res("resources/bomb3.wav"))
+    image = pygame.image.load(res('resources/Battleships_Paper_Game.png'))
     image = pygame.transform.scale(image, (size[0]-10,size[1]-10))
     done = False
     while done==False:
