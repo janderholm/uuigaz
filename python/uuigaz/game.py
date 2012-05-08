@@ -114,6 +114,9 @@ def play_game(screen,clock,soc,grid1,grid2):
     image = pygame.transform.scale(image, (size[0]-10,size[1]-10))
     done = False
     myturn = False
+
+    #soc.setblocking(0)
+
     while done==False:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -123,20 +126,28 @@ def play_game(screen,clock,soc,grid1,grid2):
                 pos = pygame.mouse.get_pos()
                 if myturn:
                     grid1.grid_event(pos)
+                    myturn  = False
+                else:
+                    print >> grid1, "Not your turn!"
                 print("Click ",pos,"Grid coordinates: ")
         # Set the screen background
-        msg = ParseFromSocket(soc)
+        msg = boat_protos_pb2.BaseMessage()
+        try: 
+            msg.ParseFromSocket(soc)
+            print "got message"
+            if msg.HasField("fire"):
+                pass
 
-        if msg.HasField("fire"):
+            if msg.HasField("report"):
+                pass
+
+            if msg.HasField("yourTurn"):
+                print "myturn"
+                myturn = True
+
+        except socket.error:
             pass
 
-        if msg.HasField("report"):
-            pass
-
-        if msg.HasField("yourTurn") and msg.yourTurn:
-            myturn = True
-        else:
-            myturn = False
         screen.fill(white)
         grid1.draw_grid()
         grid2.draw_grid()
