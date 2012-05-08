@@ -15,11 +15,15 @@ public final class BoatProtos {
     boolean hasYourTurn();
     boolean getYourTurn();
     
-    // optional .messages.Fire fire = 2;
+    // optional bool endGame = 2;
+    boolean hasEndGame();
+    boolean getEndGame();
+    
+    // optional .messages.Fire fire = 3;
     boolean hasFire();
     com.github.uuigaz.messages.BoatProtos.Fire getFire();
     
-    // optional .messages.StatusReport report = 3;
+    // optional .messages.StatusReport report = 4;
     boolean hasReport();
     com.github.uuigaz.messages.BoatProtos.StatusReport getReport();
   }
@@ -52,21 +56,31 @@ public final class BoatProtos {
       return yourTurn_;
     }
     
-    // optional .messages.Fire fire = 2;
-    public static final int FIRE_FIELD_NUMBER = 2;
+    // optional bool endGame = 2;
+    public static final int ENDGAME_FIELD_NUMBER = 2;
+    private boolean endGame_;
+    public boolean hasEndGame() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public boolean getEndGame() {
+      return endGame_;
+    }
+    
+    // optional .messages.Fire fire = 3;
+    public static final int FIRE_FIELD_NUMBER = 3;
     private com.github.uuigaz.messages.BoatProtos.Fire fire_;
     public boolean hasFire() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     public com.github.uuigaz.messages.BoatProtos.Fire getFire() {
       return fire_;
     }
     
-    // optional .messages.StatusReport report = 3;
-    public static final int REPORT_FIELD_NUMBER = 3;
+    // optional .messages.StatusReport report = 4;
+    public static final int REPORT_FIELD_NUMBER = 4;
     private com.github.uuigaz.messages.BoatProtos.StatusReport report_;
     public boolean hasReport() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     public com.github.uuigaz.messages.BoatProtos.StatusReport getReport() {
       return report_;
@@ -74,6 +88,7 @@ public final class BoatProtos {
     
     private void initFields() {
       yourTurn_ = false;
+      endGame_ = false;
       fire_ = com.github.uuigaz.messages.BoatProtos.Fire.getDefaultInstance();
       report_ = com.github.uuigaz.messages.BoatProtos.StatusReport.getDefaultInstance();
     }
@@ -99,10 +114,13 @@ public final class BoatProtos {
         output.writeBool(1, yourTurn_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeMessage(2, fire_);
+        output.writeBool(2, endGame_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeMessage(3, report_);
+        output.writeMessage(3, fire_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeMessage(4, report_);
       }
     }
     
@@ -118,11 +136,15 @@ public final class BoatProtos {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, fire_);
+          .computeBoolSize(2, endGame_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, report_);
+          .computeMessageSize(3, fire_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, report_);
       }
       memoizedSerializedSize = size;
       return size;
@@ -228,10 +250,12 @@ public final class BoatProtos {
         super.clear();
         yourTurn_ = false;
         bitField0_ = (bitField0_ & ~0x00000001);
-        fire_ = com.github.uuigaz.messages.BoatProtos.Fire.getDefaultInstance();
+        endGame_ = false;
         bitField0_ = (bitField0_ & ~0x00000002);
-        report_ = com.github.uuigaz.messages.BoatProtos.StatusReport.getDefaultInstance();
+        fire_ = com.github.uuigaz.messages.BoatProtos.Fire.getDefaultInstance();
         bitField0_ = (bitField0_ & ~0x00000004);
+        report_ = com.github.uuigaz.messages.BoatProtos.StatusReport.getDefaultInstance();
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       
@@ -272,9 +296,13 @@ public final class BoatProtos {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.fire_ = fire_;
+        result.endGame_ = endGame_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
+        }
+        result.fire_ = fire_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
         }
         result.report_ = report_;
         result.bitField0_ = to_bitField0_;
@@ -285,6 +313,9 @@ public final class BoatProtos {
         if (other == com.github.uuigaz.messages.BoatProtos.BaseMessage.getDefaultInstance()) return this;
         if (other.hasYourTurn()) {
           setYourTurn(other.getYourTurn());
+        }
+        if (other.hasEndGame()) {
+          setEndGame(other.getEndGame());
         }
         if (other.hasFire()) {
           mergeFire(other.getFire());
@@ -327,7 +358,12 @@ public final class BoatProtos {
               yourTurn_ = input.readBool();
               break;
             }
-            case 18: {
+            case 16: {
+              bitField0_ |= 0x00000002;
+              endGame_ = input.readBool();
+              break;
+            }
+            case 26: {
               com.github.uuigaz.messages.BoatProtos.Fire.Builder subBuilder = com.github.uuigaz.messages.BoatProtos.Fire.newBuilder();
               if (hasFire()) {
                 subBuilder.mergeFrom(getFire());
@@ -336,7 +372,7 @@ public final class BoatProtos {
               setFire(subBuilder.buildPartial());
               break;
             }
-            case 26: {
+            case 34: {
               com.github.uuigaz.messages.BoatProtos.StatusReport.Builder subBuilder = com.github.uuigaz.messages.BoatProtos.StatusReport.newBuilder();
               if (hasReport()) {
                 subBuilder.mergeFrom(getReport());
@@ -372,10 +408,31 @@ public final class BoatProtos {
         return this;
       }
       
-      // optional .messages.Fire fire = 2;
+      // optional bool endGame = 2;
+      private boolean endGame_ ;
+      public boolean hasEndGame() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public boolean getEndGame() {
+        return endGame_;
+      }
+      public Builder setEndGame(boolean value) {
+        bitField0_ |= 0x00000002;
+        endGame_ = value;
+        
+        return this;
+      }
+      public Builder clearEndGame() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        endGame_ = false;
+        
+        return this;
+      }
+      
+      // optional .messages.Fire fire = 3;
       private com.github.uuigaz.messages.BoatProtos.Fire fire_ = com.github.uuigaz.messages.BoatProtos.Fire.getDefaultInstance();
       public boolean hasFire() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       public com.github.uuigaz.messages.BoatProtos.Fire getFire() {
         return fire_;
@@ -386,18 +443,18 @@ public final class BoatProtos {
         }
         fire_ = value;
         
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         return this;
       }
       public Builder setFire(
           com.github.uuigaz.messages.BoatProtos.Fire.Builder builderForValue) {
         fire_ = builderForValue.build();
         
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         return this;
       }
       public Builder mergeFire(com.github.uuigaz.messages.BoatProtos.Fire value) {
-        if (((bitField0_ & 0x00000002) == 0x00000002) &&
+        if (((bitField0_ & 0x00000004) == 0x00000004) &&
             fire_ != com.github.uuigaz.messages.BoatProtos.Fire.getDefaultInstance()) {
           fire_ =
             com.github.uuigaz.messages.BoatProtos.Fire.newBuilder(fire_).mergeFrom(value).buildPartial();
@@ -405,20 +462,20 @@ public final class BoatProtos {
           fire_ = value;
         }
         
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         return this;
       }
       public Builder clearFire() {
         fire_ = com.github.uuigaz.messages.BoatProtos.Fire.getDefaultInstance();
         
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
       
-      // optional .messages.StatusReport report = 3;
+      // optional .messages.StatusReport report = 4;
       private com.github.uuigaz.messages.BoatProtos.StatusReport report_ = com.github.uuigaz.messages.BoatProtos.StatusReport.getDefaultInstance();
       public boolean hasReport() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       public com.github.uuigaz.messages.BoatProtos.StatusReport getReport() {
         return report_;
@@ -429,18 +486,18 @@ public final class BoatProtos {
         }
         report_ = value;
         
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       public Builder setReport(
           com.github.uuigaz.messages.BoatProtos.StatusReport.Builder builderForValue) {
         report_ = builderForValue.build();
         
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       public Builder mergeReport(com.github.uuigaz.messages.BoatProtos.StatusReport value) {
-        if (((bitField0_ & 0x00000004) == 0x00000004) &&
+        if (((bitField0_ & 0x00000008) == 0x00000008) &&
             report_ != com.github.uuigaz.messages.BoatProtos.StatusReport.getDefaultInstance()) {
           report_ =
             com.github.uuigaz.messages.BoatProtos.StatusReport.newBuilder(report_).mergeFrom(value).buildPartial();
@@ -448,13 +505,13 @@ public final class BoatProtos {
           report_ = value;
         }
         
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       public Builder clearReport() {
         report_ = com.github.uuigaz.messages.BoatProtos.StatusReport.getDefaultInstance();
         
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       

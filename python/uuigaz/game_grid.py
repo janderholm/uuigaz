@@ -6,12 +6,15 @@ import boat_protos_pb2
 
 class Game_grid(grid.Grid):
     def __init__(self,screen,soc,cell_width,cell_height,grid_margin,x_offset,y_offset):
-    	grid.Grid.__init__(self, screen,cell_width,cell_height,grid_margin,x_offset,y_offset)
+        grid.Grid.__init__(self, screen,cell_width,cell_height,grid_margin,x_offset,y_offset)
         self.direction = s.HORIZONTAL
         self.boats = [s.CARRIER, s.BATTLESHIP, s.CRUISER, s.DESTROYER,s.SUBMARINE]
         self.current_boat = 0;
-        self._basemsg = boat_protos_pb2.BaseMessage()
         self.soc = soc;
+        self.myturn = False
+        x = screen.get_width() / 20
+        y = screen.get_width() - (screen.get_width() / 2)
+        self.msg_coords = (x, y)
 
     def draw_grid(self):
          # Draw the grid
@@ -37,16 +40,17 @@ class Game_grid(grid.Grid):
 
     #abstract method, position validation is done in superclass
     def _event(self,row,col):
-        fire = boat_protos_pb2.Fire()
-        fire.x = row
-        fire.y = col
-        self._basemsg.fire.CopyFrom(fire)
-        self.grid[row][col] = 0
-        msg = boat_protos_pb2.BaseMessage()
-        msg.SerializeToSocket(self.soc)
+        if self.myturn:
+            self.myturn = False
+            fire = boat_protos_pb2.Fire()
+            fire.x = row
+            fire.y = col
+            self.grid[row][col] = 0
+            msg = boat_protos_pb2.BaseMessage()
+            msg.fire.CopyFrom(fire)
+            msg.SerializeToSocket(self.soc)
+        else:
+            print "not my turn"
 
     def get_msg(self):
         return self._basemsg
-        
-
-        

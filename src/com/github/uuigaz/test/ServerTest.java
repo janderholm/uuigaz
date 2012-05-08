@@ -132,12 +132,14 @@ public class ServerTest {
 		int taken = 0;
 		String status = "";
 		
-		while (true) {
+		
+		boolean run = true;
+		while (run) {
 			msg = BaseMessage.parseDelimitedFrom(is);
 			send = BaseMessage.newBuilder();
-			
-			//Thread.sleep(50);
-			
+
+			Thread.sleep(50);
+
 			if (msg.hasFire()) {
 				Fire f = msg.getFire();
 				if (board.isHit(f)) {
@@ -145,18 +147,18 @@ public class ServerTest {
 					taken += 1;
 				}
 			}
-			
+
 			if (msg.hasReport()) {
 				if (msg.getReport().getHit()) {
 					status += "Last shot was a hit!\n";
 					hits += 1;
 				}
 			}
-				
+
 			// Score printing
 			String hitBoard = board.toString();
 			String takenBoard = theirBoard.toString();
-			
+
 			String[] l = hitBoard.split("\\n");
 			String[] r = takenBoard.split("\\n");
 			String[] s = status.split("\\n");
@@ -169,15 +171,17 @@ public class ServerTest {
 					System.out.println(l[i] + "     " + r[i]);
 				}
 			}
-			
+
 			status = "\n";
-					
+
 			if (hits == 15) {
 				System.out.println("WIN!");
-				break;
+				send.setEndGame(true);
+				run = false;
 			} else if (taken == 15) {
 				System.out.println("LOSE!");
-				break;
+				send.setEndGame(true);
+				run = false;
 			}
 
 			if (msg.hasYourTurn() && msg.hasYourTurn()) {
@@ -191,8 +195,19 @@ public class ServerTest {
 				send.setFire(f);
 			}
 			
+			if (rand.nextInt(300) == 1) {
+				// Randomly end game
+				send.setEndGame(true);
+				run = false;
+			}
+			
+			/*
+			if(msg.hasEndGame()) {
+				run = false;
+			}*/
+			
 			// Don't send empty messages!
-			if (msg.hasFire() || msg.hasReport() || msg.hasYourTurn()) {
+			if (msg.hasFire() || msg.hasReport() || msg.hasYourTurn() || msg.hasEndGame()) {
 				send.build().writeDelimitedTo(os);
 				os.flush();
 			}

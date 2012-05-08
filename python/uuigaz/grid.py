@@ -74,7 +74,7 @@ class Grid:
 
     def set_grid(self,new_grid):
         self.grid = new_grid
-        
+
     def write(self, msg):
         # XXX: IT'S A TRAP!
         self._log += msg.strip()
@@ -88,4 +88,3 @@ class Grid:
         x, y = self.msg_coords
         textpos = text.get_rect(centerx=x, centery=y)
         self.screen.blit(text, textpos)
-        

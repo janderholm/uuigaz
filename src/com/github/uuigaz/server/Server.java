@@ -34,7 +34,12 @@ class Player implements Runnable {
 			throws IOException {
 		
 		// Don't send empty messages!
-		if (msg.hasFire() || msg.hasReport() || msg.hasYourTurn()) {
+		if (msg.hasFire()     ||
+			msg.hasReport()   ||
+			msg.hasYourTurn() ||
+			msg.hasEndGame()) {
+			
+			System.out.println("Sending message to: " + this.ident);
 			msg.writeDelimitedTo(os);
 			os.flush();
 		}
@@ -91,6 +96,12 @@ class Player implements Runnable {
 
 				m = BaseMessage.parseDelimitedFrom(is);
 
+				System.out.println("Got message from " + ident.toString());
+				
+				System.out.println("Fire :" + m.hasFire());
+				System.out.println("Endgame :" + m.hasEndGame());
+				System.out.println("Report :" + m.hasReport());
+				
 				// Clean the basemessagebuilder.
 				send = BaseMessage.newBuilder();
 
@@ -101,11 +112,17 @@ class Player implements Runnable {
 					send.setReport(hit);
 				}
 			
-				if (m.hasEndGame()) {
-					Controller.getInstance().finishSession(this);
-				}
 				
 				sendMessage(send.build());
+				
+				
+				// Last thing to do is check if we want to leave game.
+				if (m.hasEndGame()) {
+					Controller.getInstance().finishSession(this);
+					session.finishSession(this);
+					break;
+				}
+				
 			}
 		} catch (IOException e) {
 
@@ -135,11 +152,24 @@ class Session {
 		turn = new Random().nextInt(2);
 	}
 
+	public void finishSession(Player p) {
+		int other = player[0].ident.equals(p.ident) ? 1 : 0;
+		
+		BoatProtos.BaseMessage.Builder msg = BoatProtos.BaseMessage.newBuilder();
+		msg.setEndGame(true);
+		try {
+			player[other].sendMessage(msg.build());
+		} catch (IOException e) {
+			// Other player probably has disconnected.
+			e.printStackTrace();
+		}
+	}
+
 	public synchronized void initialize(Player p, BoatProtos.Board boardmsg)
 			throws InterruptedException {
 		int i = p.ident.equals(player[0].ident) ? 0 : 1;
 		board[i] = Board.build(boardmsg);
-		
+
 		notifyAll();
 
 		while (board[0] == null || board[1] == null) {
@@ -188,7 +218,10 @@ class Session {
 		// TODO: Send to other player.
 		player[other].sendMessage(msg.build());
 
-		return board[other].fire(fire);
+		BoatProtos.StatusReport report = board[other].fire(fire); 
+		
+		System.out.println("Player: " + sender.ident + " fires a shot and is was " + (report.getHit() ? "" : "not ") + "a hit");  		
+		return report;
 	}
 }
 
@@ -214,7 +247,7 @@ class Controller {
 			}
 		}
 	}
-	
+
 	public synchronized Session getSession(Player p)
 			throws InterruptedException {
 		Session session = null;
@@ -293,6 +326,8 @@ public class Server {
 				// A connection failed. Not sure what to do here but just leave
 				// it with a stack trace for now.
 				e.printStackTrace();
+			} finally {
+				// TODO: Serialize Controller.
 			}
 		}
 

@@ -7,7 +7,7 @@ import boat_protos_pb2
 
 class Placement_grid(grid.Grid):
     def __init__(self,screen,cell_width,cell_height,grid_margin,x_offset,y_offset):
-    	grid.Grid.__init__(self, screen,cell_width,cell_height,grid_margin,x_offset,y_offset)
+        grid.Grid.__init__(self, screen,cell_width,cell_height,grid_margin,x_offset,y_offset)
         self.direction = s.HORIZONTAL
         self.boats = [s.CARRIER, s.BATTLESHIP, s.CRUISER, s.DESTROYER,s.SUBMARINE]
         self.current_boat = 0;
@@ -15,7 +15,7 @@ class Placement_grid(grid.Grid):
         x = screen.get_width() / 2
         y = screen.get_width() - (screen.get_width() / 7)
         self.msg_coords = (x, y)
-        
+
     def draw_grid(self):
          # Draw the grid
         for row in range(10):
@@ -90,7 +90,7 @@ class Placement_grid(grid.Grid):
             boat.direction = boat_protos_pb2.Board.Boat.DOWN
             boat.type = bt[1]
             self.clear_log()
-           
+
             for i in range(0,bt[1]+2):
                 for j in range(0,3):
                     if row-1+i >= 10 or col-1+j >= 10 or row-1+i < 0 or col-1+j < 0:
@@ -114,6 +114,3 @@ class Placement_grid(grid.Grid):
 
     def get_msg(self):
         return self._boardmsg
-        
-
-        

@@ -10,7 +10,7 @@ import inputbox
 import pygame.mixer
 
 import boat_protos_pb2
-import placement_grid 
+import placement_grid
 import game_grid
 import grid
 import settings as s
@@ -37,10 +37,14 @@ if not 'SerializeToSocket' in dir(google.protobuf.message.Message):
     def _monkey_wdelimit(self, soc):
         msg = self.SerializeToString()
         google.protobuf.internal.encoder._EncodeVarint(soc.send, len(msg))
+        print "=================="
+        print "Sending %s bytes of data" % len(msg)
+        print self
+        print "=================="
         soc.send(msg)
 
     google.protobuf.message.Message.SerializeToSocket = _monkey_wdelimit
-    
+
 if not 'ParseFromSocket' in dir(google.protobuf.message.Message):
     import google.protobuf.internal.decoder
 
@@ -48,20 +52,25 @@ if not 'ParseFromSocket' in dir(google.protobuf.message.Message):
         def __init__(self, soc):
             self._buffer = io.BytesIO()
             self._soc = soc
-        
+
         def __getitem__(self, pos):
             while len(self._buffer.getvalue()) < (pos + 1):
                 self._buffer.write(self._soc.recv(1))
+                self._soc.setblocking(1)
             return self._buffer.getvalue()[pos]
-            
+
     def _monkey_pdelimit(self, soc):
+        old = soc.gettimeout()
         buf = SocketBuffer(soc)
         nbytes, _ = google.protobuf.internal.decoder._DecodeVarint(buf, 0)
-        old = soc.gettimeout()
+        print "=================="
+        print "Receiving %d bytes of data." % nbytes
         soc.settimeout(0.0)
         msg = soc.recv(nbytes)
         soc.settimeout(old)
-        return self.ParseFromString(msg)
+        self.ParseFromString(msg)
+        print self
+        print "=================="
 
     google.protobuf.message.Message.ParseFromSocket = _monkey_pdelimit
 
@@ -80,10 +89,10 @@ def set_grid(screen,clock,grid1):
     click_sound = pygame.mixer.Sound(res("resources/splash.wav"))
     image = pygame.image.load(res("resources/Battleships_start.png"))
     done = False
-    while done==False:
+    while not done:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                done=True
+                done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 click_sound.play()
                 pos = pygame.mouse.get_pos()
@@ -113,37 +122,35 @@ def play_game(screen,clock,soc,grid1,grid2):
     image = pygame.image.load(res('resources/Battleships_Paper_Game.png'))
     image = pygame.transform.scale(image, (size[0]-10,size[1]-10))
     done = False
-    myturn = False
 
-    #soc.setblocking(0)
-
-    while done==False:
+    while not done:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done=True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 click_sound.play()
                 pos = pygame.mouse.get_pos()
-                if myturn:
-                    grid1.grid_event(pos)
-                    myturn  = False
-                else:
-                    print >> grid1, "Not your turn!"
-                print("Click ",pos,"Grid coordinates: ")
+                grid1.grid_event(pos)
+                #print "Click ", pos, "Grid coordinates: "
         # Set the screen background
         msg = boat_protos_pb2.BaseMessage()
-        try: 
+        try:
+            soc.setblocking(0)
             msg.ParseFromSocket(soc)
-            print "got message"
+            soc.setblocking(1)
+            print msg
             if msg.HasField("fire"):
                 pass
 
             if msg.HasField("report"):
                 pass
 
-            if msg.HasField("yourTurn"):
-                print "myturn"
-                myturn = True
+            if msg.HasField("yourTurn") and msg.yourTurn:
+                grid1.myturn = True
+
+            if msg.HasField("endGame"):
+                # Server has asked us to end the game.
+                pass
 
         except socket.error:
             pass
@@ -151,23 +158,25 @@ def play_game(screen,clock,soc,grid1,grid2):
         screen.fill(white)
         grid1.draw_grid()
         grid2.draw_grid()
+        grid1.draw_log()
+        grid2.draw_log()
         screen.blit(image,(2,2))
         clock.tick(20)
         pygame.display.flip()
 
 def main(argv):
     parser = OptionParser(usage="%prog HOST PORT")
-    
+
     (options, args) = parser.parse_args(argv)
-    
+
     if len(args) != 3:
         parser.print_usage()
         print "Bad arguments!"
         return 1
-    
+
     host = argv[1]
     port = int(argv[2])
-    
+
     soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     soc.connect((host, port))
 
@@ -179,14 +188,14 @@ def main(argv):
     clock = pygame.time.Clock()
 
     screen.fill(white)
-    
-    
+
+
     # Create Ident
     ident = boat_protos_pb2.Ident()
     ident.name = inputbox.input(screen)
-    
+
     ident.SerializeToSocket(soc)
-    
+
     # Parse Init
     init = boat_protos_pb2.Init()
     init.ParseFromSocket(soc)
@@ -199,14 +208,15 @@ def main(argv):
         init.board.CopyFrom(grid1.get_msg())
         init.SerializeToSocket(soc)
     elif init.HasField("board"):
-        pass
+        print "BOARD ALREADY EXIST, PARSE IT INSTEAD."
+        return 1
     else:
         raise Exception("bad message received")
         return 1
 
     grid2 = game_grid.Game_grid(screen,soc,33,33,1,250,250)
 
-    
+
     grid1.transform(22,22,1,23,23)
     play_game(screen,clock,soc,grid2,grid1)
 

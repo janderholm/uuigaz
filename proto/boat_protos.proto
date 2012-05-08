@@ -18,8 +18,8 @@ message Init {
 
 message Board {
 	message Boat {
-	  required uint32 x = 1;
-    required uint32 y = 2;
+		required uint32 x = 1;
+		required uint32 y = 2;
 	
 		required BoatType type = 3;
 		required Direction direction = 4;
@@ -45,8 +45,8 @@ message Board {
 }
 
 message Fire {
- 	 required uint32 x = 1;
-   required uint32 y = 2;
+	required uint32 x = 1;
+	required uint32 y = 2;
 }
 
 message StatusReport {
