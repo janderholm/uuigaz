@@ -6,8 +6,9 @@ option optimize_for = LITE_RUNTIME;
 
 message BaseMessage {
 	optional bool yourTurn = 1;
-	optional Fire fire = 2;
-	optional StatusReport report = 3;
+	optional bool endGame = 2;
+	optional Fire fire = 3;
+	optional StatusReport report = 4;
 }
 
 message Init {

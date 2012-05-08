@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -99,7 +100,11 @@ class Player implements Runnable {
 							m.getFire());
 					send.setReport(hit);
 				}
-
+			
+				if (m.hasEndGame()) {
+					Controller.getInstance().finishSession(this);
+				}
+				
 				sendMessage(send.build());
 			}
 		} catch (IOException e) {
@@ -198,6 +203,18 @@ class Controller {
 		this.sessions = new LinkedList<Session>();
 	}
 
+	public synchronized void finishSession(Player p) {
+		Iterator<Session> iter = sessions.iterator();
+		Session s;
+		
+		while (iter.hasNext()) {
+			s = iter.next();
+			if (s.belongsTo(p.ident)) {
+				iter.remove();
+			}
+		}
+	}
+	
 	public synchronized Session getSession(Player p)
 			throws InterruptedException {
 		Session session = null;
