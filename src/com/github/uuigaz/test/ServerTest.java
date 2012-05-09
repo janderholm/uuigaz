@@ -79,6 +79,10 @@ public class ServerTest {
 		Board board = null;
 		Board theirBoard = null;
 		Random rand = new Random();
+
+		int hits = 0;
+		int taken = 0;
+
 		
 		if (init.hasNewGame() && init.getNewGame()) {
 			// The server asks us to create a new game.
@@ -110,30 +114,38 @@ public class ServerTest {
 		} else if (init.hasBoard()) {
 			// A session was already establised.
 			board = Board.build(init.getBoard());
+			for (Coordinate co : init.getBoard().getCosList()) {
+				if (co.getHit()) {
+					taken += 1;
+				}
+			}
 			theirBoard = Board.build(init.getOther());
+			for (Coordinate co : init.getOther().getCosList()) {
+				if (co.getHit()) {
+					hits += 1;
+				}
+			}
 		} else {
 			System.out.println("Server did not respond with a proper init message.");
 			System.exit(1);
 		}
-		
+
+		// Generate and shuffle all possible moves.
 		LinkedList<Pair> moves = new LinkedList<Pair>();
-		
 		for (int i = 0; i < 10; ++i) {
 			for (int j = 0; j < 10; ++j) {
 				moves.add(new Pair(i, j));
 			}
 		}
-		
 		java.util.Collections.shuffle(moves);
+
 		
 		BaseMessage msg;
 		BaseMessage.Builder send;
 
-		int hits = 0;
-		int taken = 0;
 		String status = "";
 		
-		
+
 		boolean run = true;
 		while (run) {
 			msg = BaseMessage.parseDelimitedFrom(is);
@@ -196,13 +208,11 @@ public class ServerTest {
 				send.setFire(f);
 			}
 			
-			/*
-			if (rand.nextInt(300) == 1) {
+			if (rand.nextInt(20) == 1) {
 				// Randomly end game
-				send.setEndGame(true);
-				run = false;
+				//send.setEndGame(true);
+				//run = false;
 			}
-			*/
 
 			if(msg.hasEndGame()) {
 				run = false;

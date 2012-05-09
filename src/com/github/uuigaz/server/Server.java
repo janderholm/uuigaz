@@ -38,8 +38,13 @@ class Player implements Runnable {
 			msg.hasReport()   ||
 			msg.hasYourTurn() ||
 			msg.hasEndGame()) {
-			
-			//System.out.println("Sending message to: " + this.ident);
+			/*
+			System.out.println("Sending message to: " + this.ident);
+			System.out.println("Fire: " + msg.hasFire());
+			System.out.println("Endgame: " + msg.hasEndGame());
+			System.out.println("Report: " + msg.hasReport());
+			System.out.println("YourTurn: " + (msg.hasYourTurn() && msg.getYourTurn()));
+			*/
 			msg.writeDelimitedTo(os);
 			os.flush();
 		}
@@ -104,10 +109,11 @@ class Player implements Runnable {
 /*
 				System.out.println("Got message from " + ident.toString());
 				
-				System.out.println("Fire :" + m.hasFire());
-				System.out.println("Endgame :" + m.hasEndGame());
-				System.out.println("Report :" + m.hasReport());
-	*/			
+				System.out.println("Fire: " + m.hasFire());
+				System.out.println("Endgame: " + m.hasEndGame());
+				System.out.println("Report: " + m.hasReport());
+				System.out.println("YourTurn: " + (m.hasYourTurn() && m.getYourTurn()));
+*/
 				// Clean the basemessagebuilder.
 				send = BaseMessage.newBuilder();
 
