@@ -116,6 +116,8 @@ public class Board {
 
 		bw.hit = true;
 
+		int ret = 0;
+		
 		if (b != null) {
 			if (!b.hasHits()) {
 				b.setHits(0);
@@ -136,12 +138,21 @@ public class Board {
 			}
 
 			if (sunk == bits) {
-				return 2;
+				ret = 2;
 			} else {
-				return 1;
+				ret = 1;
 			}
 		}
-		return 0;
+		
+		BoatProtos.Coordinate.Builder co = BoatProtos.Coordinate.newBuilder();
+		
+		co.setX(f.getX());
+		co.setY(f.getY());
+		co.setHit(ret != 0);
+		
+		System.out.println("I AM NOW, I REPEAT, I AM NOW ADDING A COORDINATE TO THE BOARD!!!");
+		boardmsg.addCos(co);
+		return ret;
 	}
 
 	/**

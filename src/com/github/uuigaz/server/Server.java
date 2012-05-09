@@ -60,8 +60,10 @@ class Player implements Runnable {
 
 			if (session.isInitialized(this)) {
 				// If session already running replay any messages.
+				this.session.setMeAsOwner(this);
 				init = Init.newBuilder();
 				init.setBoard(session.getBoardMsg(this));
+				init.setOther(session.getOtherBoardMsg(this));
 				init.build().writeDelimitedTo(os);
 				os.flush();
 			} else {
@@ -185,6 +187,12 @@ class Session {
 	public boolean belongsTo(Ident ident) {
 		return player[0].ident.equals(ident) || player[1].ident.equals(ident);
 	}
+	
+	public void setMeAsOwner(Player p) {
+		int index = player[0].ident.equals(p.ident) ? 0 : 1;
+		
+		player[0] = p;
+	}
 
 	public boolean myTurn(Player p) {
 		int index = player[0].ident.equals(p.ident) ? 0 : 1;
@@ -197,6 +205,11 @@ class Session {
 				.getMsg();
 	}
 
+	public BoatProtos.Board getOtherBoardMsg(Player p) {
+		return p.ident.equals(player[0].ident) ? board[1].getMsg() : board[0]
+				.getMsg();
+	}
+	
 	/**
 	 * Fire at opponent and return status report.
 	 * 
@@ -223,6 +236,11 @@ class Session {
 		
 		//System.out.println("Player: " + sender.ident + " fires a shot and is was " + (report.getHit() ? "" : "not ") + "a hit");  		
 		return report;
+	}
+	
+	@Override
+	public String toString() {
+		return "Session between " + player[0].ident + " and " + player[1].ident;
 	}
 }
 
@@ -254,12 +272,16 @@ class Controller {
 		Session session = null;
 		while (session == null) {
 			for (Session s : sessions) {
+				System.out.println(s);
 				if (s.belongsTo(p.ident)) {
+					System.out.println("Did find a session.");
 					session = s;
 					return session;
 				}
 			}
 
+			System.out.println("Did not find a session");
+			
 			if (participants.isEmpty()) {
 				// No session and no one to play against means we must
 				// wait for someone.

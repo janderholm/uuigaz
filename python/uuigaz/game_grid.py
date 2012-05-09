@@ -57,7 +57,7 @@ class Game_grid(grid.Grid):
     #abstract method, position validation is done in superclass
     def _event(self,row,col):
         if self.myturn:
-            if self.grid[row][col] > 0:
+            if self.grid[row][col] >= 0:
                 # Already fired
                 print >> self, "Already fired there"
                 return

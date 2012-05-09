@@ -11,7 +11,7 @@ from google.protobuf import descriptor_pb2
 DESCRIPTOR = descriptor.FileDescriptor(
   name='proto/boat_protos.proto',
   package='messages',
-  serialized_pb='\n\x17proto/boat_protos.proto\x12\x08messages\"v\n\x0b\x42\x61seMessage\x12\x10\n\x08yourTurn\x18\x01 \x01(\x08\x12\x0f\n\x07\x65ndGame\x18\x02 \x01(\x08\x12\x1c\n\x04\x66ire\x18\x03 \x01(\x0b\x32\x0e.messages.Fire\x12&\n\x06report\x18\x04 \x01(\x0b\x32\x16.messages.StatusReport\"7\n\x04Init\x12\x0f\n\x07newGame\x18\x01 \x01(\x08\x12\x1e\n\x05\x62oard\x18\x02 \x01(\x0b\x32\x0f.messages.Board\"\xc1\x02\n\x05\x42oard\x12#\n\x05\x62oats\x18\x06 \x03(\x0b\x32\x14.messages.Board.Boat\x1a\x92\x02\n\x04\x42oat\x12\t\n\x01x\x18\x01 \x02(\r\x12\t\n\x01y\x18\x02 \x02(\r\x12+\n\x04type\x18\x03 \x02(\x0e\x32\x1d.messages.Board.Boat.BoatType\x12\x31\n\tdirection\x18\x04 \x02(\x0e\x32\x1e.messages.Board.Boat.Direction\x12\x0c\n\x04hits\x18\x05 \x01(\r\"2\n\tDirection\x12\x08\n\x04\x44OWN\x10\x01\x12\t\n\x05RIGHT\x10\x02\x12\x06\n\x02UP\x10\x03\x12\x08\n\x04LEFT\x10\x04\"R\n\x08\x42oatType\x12\x0b\n\x07\x43\x41RRIER\x10\x05\x12\x0e\n\nBATTLESHIP\x10\x04\x12\x0b\n\x07\x43RUISER\x10\x03\x12\r\n\tDESTROYER\x10\x02\x12\r\n\tSUBMARINE\x10\x01\"\x1c\n\x04\x46ire\x12\t\n\x01x\x18\x01 \x02(\r\x12\t\n\x01y\x18\x02 \x02(\r\")\n\x0cStatusReport\x12\x0b\n\x03hit\x18\x01 \x01(\x08\x12\x0c\n\x04sunk\x18\x02 \x01(\x08\"\x15\n\x05Ident\x12\x0c\n\x04name\x18\x01 \x02(\tB\x1e\n\x1a\x63om.github.uuigaz.messagesH\x03')
+  serialized_pb='\n\x17proto/boat_protos.proto\x12\x08messages\"v\n\x0b\x42\x61seMessage\x12\x10\n\x08yourTurn\x18\x01 \x01(\x08\x12\x0f\n\x07\x65ndGame\x18\x02 \x01(\x08\x12\x1c\n\x04\x66ire\x18\x03 \x01(\x0b\x32\x0e.messages.Fire\x12&\n\x06report\x18\x04 \x01(\x0b\x32\x16.messages.StatusReport\"W\n\x04Init\x12\x0f\n\x07newGame\x18\x01 \x01(\x08\x12\x1e\n\x05\x62oard\x18\x02 \x01(\x0b\x32\x0f.messages.Board\x12\x1e\n\x05other\x18\x03 \x01(\x0b\x32\x0f.messages.Board\"\xe4\x02\n\x05\x42oard\x12#\n\x05\x62oats\x18\x06 \x03(\x0b\x32\x14.messages.Board.Boat\x12!\n\x03\x63os\x18\x07 \x03(\x0b\x32\x14.messages.Coordinate\x1a\x92\x02\n\x04\x42oat\x12\t\n\x01x\x18\x01 \x02(\r\x12\t\n\x01y\x18\x02 \x02(\r\x12+\n\x04type\x18\x03 \x02(\x0e\x32\x1d.messages.Board.Boat.BoatType\x12\x31\n\tdirection\x18\x04 \x02(\x0e\x32\x1e.messages.Board.Boat.Direction\x12\x0c\n\x04hits\x18\x05 \x01(\r\"2\n\tDirection\x12\x08\n\x04\x44OWN\x10\x01\x12\t\n\x05RIGHT\x10\x02\x12\x06\n\x02UP\x10\x03\x12\x08\n\x04LEFT\x10\x04\"R\n\x08\x42oatType\x12\x0b\n\x07\x43\x41RRIER\x10\x05\x12\x0e\n\nBATTLESHIP\x10\x04\x12\x0b\n\x07\x43RUISER\x10\x03\x12\r\n\tDESTROYER\x10\x02\x12\r\n\tSUBMARINE\x10\x01\"/\n\nCoordinate\x12\t\n\x01x\x18\x01 \x01(\r\x12\t\n\x01y\x18\x02 \x01(\r\x12\x0b\n\x03hit\x18\x03 \x01(\x08\"\x1c\n\x04\x46ire\x12\t\n\x01x\x18\x01 \x02(\r\x12\t\n\x01y\x18\x02 \x02(\r\")\n\x0cStatusReport\x12\x0b\n\x03hit\x18\x01 \x01(\x08\x12\x0c\n\x04sunk\x18\x02 \x01(\x08\"\x15\n\x05Ident\x12\x0c\n\x04name\x18\x01 \x02(\tB\x1e\n\x1a\x63om.github.uuigaz.messagesH\x03')
 
 
 
@@ -40,8 +40,8 @@ _BOARD_BOAT_DIRECTION = descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=402,
-  serialized_end=452,
+  serialized_start=469,
+  serialized_end=519,
 )
 
 _BOARD_BOAT_BOATTYPE = descriptor.EnumDescriptor(
@@ -73,8 +73,8 @@ _BOARD_BOAT_BOATTYPE = descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=454,
-  serialized_end=536,
+  serialized_start=521,
+  serialized_end=603,
 )
 
 
@@ -148,6 +148,13 @@ _INIT = descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    descriptor.FieldDescriptor(
+      name='other', full_name='messages.Init.other', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -158,7 +165,7 @@ _INIT = descriptor.Descriptor(
   is_extendable=False,
   extension_ranges=[],
   serialized_start=157,
-  serialized_end=212,
+  serialized_end=244,
 )
 
 
@@ -215,8 +222,8 @@ _BOARD_BOAT = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=262,
-  serialized_end=536,
+  serialized_start=329,
+  serialized_end=603,
 )
 
 _BOARD = descriptor.Descriptor(
@@ -233,6 +240,13 @@ _BOARD = descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    descriptor.FieldDescriptor(
+      name='cos', full_name='messages.Board.cos', index=1,
+      number=7, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -242,8 +256,50 @@ _BOARD = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=215,
-  serialized_end=536,
+  serialized_start=247,
+  serialized_end=603,
+)
+
+
+_COORDINATE = descriptor.Descriptor(
+  name='Coordinate',
+  full_name='messages.Coordinate',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    descriptor.FieldDescriptor(
+      name='x', full_name='messages.Coordinate.x', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    descriptor.FieldDescriptor(
+      name='y', full_name='messages.Coordinate.y', index=1,
+      number=2, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    descriptor.FieldDescriptor(
+      name='hit', full_name='messages.Coordinate.hit', index=2,
+      number=3, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  serialized_start=605,
+  serialized_end=652,
 )
 
 
@@ -277,8 +333,8 @@ _FIRE = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=538,
-  serialized_end=566,
+  serialized_start=654,
+  serialized_end=682,
 )
 
 
@@ -312,8 +368,8 @@ _STATUSREPORT = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=568,
-  serialized_end=609,
+  serialized_start=684,
+  serialized_end=725,
 )
 
 
@@ -340,22 +396,25 @@ _IDENT = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=611,
-  serialized_end=632,
+  serialized_start=727,
+  serialized_end=748,
 )
 
 _BASEMESSAGE.fields_by_name['fire'].message_type = _FIRE
 _BASEMESSAGE.fields_by_name['report'].message_type = _STATUSREPORT
 _INIT.fields_by_name['board'].message_type = _BOARD
+_INIT.fields_by_name['other'].message_type = _BOARD
 _BOARD_BOAT.fields_by_name['type'].enum_type = _BOARD_BOAT_BOATTYPE
 _BOARD_BOAT.fields_by_name['direction'].enum_type = _BOARD_BOAT_DIRECTION
 _BOARD_BOAT.containing_type = _BOARD;
 _BOARD_BOAT_DIRECTION.containing_type = _BOARD_BOAT;
 _BOARD_BOAT_BOATTYPE.containing_type = _BOARD_BOAT;
 _BOARD.fields_by_name['boats'].message_type = _BOARD_BOAT
+_BOARD.fields_by_name['cos'].message_type = _COORDINATE
 DESCRIPTOR.message_types_by_name['BaseMessage'] = _BASEMESSAGE
 DESCRIPTOR.message_types_by_name['Init'] = _INIT
 DESCRIPTOR.message_types_by_name['Board'] = _BOARD
+DESCRIPTOR.message_types_by_name['Coordinate'] = _COORDINATE
 DESCRIPTOR.message_types_by_name['Fire'] = _FIRE
 DESCRIPTOR.message_types_by_name['StatusReport'] = _STATUSREPORT
 DESCRIPTOR.message_types_by_name['Ident'] = _IDENT
@@ -383,6 +442,12 @@ class Board(message.Message):
   DESCRIPTOR = _BOARD
   
   # @@protoc_insertion_point(class_scope:messages.Board)
+
+class Coordinate(message.Message):
+  __metaclass__ = reflection.GeneratedProtocolMessageType
+  DESCRIPTOR = _COORDINATE
+  
+  # @@protoc_insertion_point(class_scope:messages.Coordinate)
 
 class Fire(message.Message):
   __metaclass__ = reflection.GeneratedProtocolMessageType

@@ -14,6 +14,7 @@ message BaseMessage {
 message Init {
 	optional bool newGame = 1;
 	optional Board board = 2;
+	optional Board other = 3;
 }
 
 message Board {
@@ -42,6 +43,13 @@ message Board {
 	}
 	
 	repeated Boat boats = 6;
+	repeated Coordinate cos = 7;
+}
+
+message Coordinate {
+  optional uint32 x = 1;
+  optional uint32 y = 2;
+  optional bool hit = 3;
 }
 
 message Fire {

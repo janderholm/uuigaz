@@ -536,6 +536,10 @@ public final class BoatProtos {
     // optional .messages.Board board = 2;
     boolean hasBoard();
     com.github.uuigaz.messages.BoatProtos.Board getBoard();
+    
+    // optional .messages.Board other = 3;
+    boolean hasOther();
+    com.github.uuigaz.messages.BoatProtos.Board getOther();
   }
   public static final class Init extends
       com.google.protobuf.GeneratedMessageLite
@@ -576,9 +580,20 @@ public final class BoatProtos {
       return board_;
     }
     
+    // optional .messages.Board other = 3;
+    public static final int OTHER_FIELD_NUMBER = 3;
+    private com.github.uuigaz.messages.BoatProtos.Board other_;
+    public boolean hasOther() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public com.github.uuigaz.messages.BoatProtos.Board getOther() {
+      return other_;
+    }
+    
     private void initFields() {
       newGame_ = false;
       board_ = com.github.uuigaz.messages.BoatProtos.Board.getDefaultInstance();
+      other_ = com.github.uuigaz.messages.BoatProtos.Board.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -587,6 +602,12 @@ public final class BoatProtos {
       
       if (hasBoard()) {
         if (!getBoard().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      if (hasOther()) {
+        if (!getOther().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -604,6 +625,9 @@ public final class BoatProtos {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeMessage(2, board_);
       }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeMessage(3, other_);
+      }
     }
     
     private int memoizedSerializedSize = -1;
@@ -619,6 +643,10 @@ public final class BoatProtos {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, board_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, other_);
       }
       memoizedSerializedSize = size;
       return size;
@@ -726,6 +754,8 @@ public final class BoatProtos {
         bitField0_ = (bitField0_ & ~0x00000001);
         board_ = com.github.uuigaz.messages.BoatProtos.Board.getDefaultInstance();
         bitField0_ = (bitField0_ & ~0x00000002);
+        other_ = com.github.uuigaz.messages.BoatProtos.Board.getDefaultInstance();
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
       
@@ -767,6 +797,10 @@ public final class BoatProtos {
           to_bitField0_ |= 0x00000002;
         }
         result.board_ = board_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.other_ = other_;
         result.bitField0_ = to_bitField0_;
         return result;
       }
@@ -779,12 +813,21 @@ public final class BoatProtos {
         if (other.hasBoard()) {
           mergeBoard(other.getBoard());
         }
+        if (other.hasOther()) {
+          mergeOther(other.getOther());
+        }
         return this;
       }
       
       public final boolean isInitialized() {
         if (hasBoard()) {
           if (!getBoard().isInitialized()) {
+            
+            return false;
+          }
+        }
+        if (hasOther()) {
+          if (!getOther().isInitialized()) {
             
             return false;
           }
@@ -821,6 +864,15 @@ public final class BoatProtos {
               }
               input.readMessage(subBuilder, extensionRegistry);
               setBoard(subBuilder.buildPartial());
+              break;
+            }
+            case 26: {
+              com.github.uuigaz.messages.BoatProtos.Board.Builder subBuilder = com.github.uuigaz.messages.BoatProtos.Board.newBuilder();
+              if (hasOther()) {
+                subBuilder.mergeFrom(getOther());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setOther(subBuilder.buildPartial());
               break;
             }
           }
@@ -893,6 +945,49 @@ public final class BoatProtos {
         return this;
       }
       
+      // optional .messages.Board other = 3;
+      private com.github.uuigaz.messages.BoatProtos.Board other_ = com.github.uuigaz.messages.BoatProtos.Board.getDefaultInstance();
+      public boolean hasOther() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public com.github.uuigaz.messages.BoatProtos.Board getOther() {
+        return other_;
+      }
+      public Builder setOther(com.github.uuigaz.messages.BoatProtos.Board value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        other_ = value;
+        
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder setOther(
+          com.github.uuigaz.messages.BoatProtos.Board.Builder builderForValue) {
+        other_ = builderForValue.build();
+        
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder mergeOther(com.github.uuigaz.messages.BoatProtos.Board value) {
+        if (((bitField0_ & 0x00000004) == 0x00000004) &&
+            other_ != com.github.uuigaz.messages.BoatProtos.Board.getDefaultInstance()) {
+          other_ =
+            com.github.uuigaz.messages.BoatProtos.Board.newBuilder(other_).mergeFrom(value).buildPartial();
+        } else {
+          other_ = value;
+        }
+        
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      public Builder clearOther() {
+        other_ = com.github.uuigaz.messages.BoatProtos.Board.getDefaultInstance();
+        
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      
       // @@protoc_insertion_point(builder_scope:messages.Init)
     }
     
@@ -912,6 +1007,12 @@ public final class BoatProtos {
         getBoatsList();
     com.github.uuigaz.messages.BoatProtos.Board.Boat getBoats(int index);
     int getBoatsCount();
+    
+    // repeated .messages.Coordinate cos = 7;
+    java.util.List<com.github.uuigaz.messages.BoatProtos.Coordinate> 
+        getCosList();
+    com.github.uuigaz.messages.BoatProtos.Coordinate getCos(int index);
+    int getCosCount();
   }
   public static final class Board extends
       com.google.protobuf.GeneratedMessageLite
@@ -1606,8 +1707,30 @@ public final class BoatProtos {
       return boats_.get(index);
     }
     
+    // repeated .messages.Coordinate cos = 7;
+    public static final int COS_FIELD_NUMBER = 7;
+    private java.util.List<com.github.uuigaz.messages.BoatProtos.Coordinate> cos_;
+    public java.util.List<com.github.uuigaz.messages.BoatProtos.Coordinate> getCosList() {
+      return cos_;
+    }
+    public java.util.List<? extends com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder> 
+        getCosOrBuilderList() {
+      return cos_;
+    }
+    public int getCosCount() {
+      return cos_.size();
+    }
+    public com.github.uuigaz.messages.BoatProtos.Coordinate getCos(int index) {
+      return cos_.get(index);
+    }
+    public com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder getCosOrBuilder(
+        int index) {
+      return cos_.get(index);
+    }
+    
     private void initFields() {
       boats_ = java.util.Collections.emptyList();
+      cos_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1630,6 +1753,9 @@ public final class BoatProtos {
       for (int i = 0; i < boats_.size(); i++) {
         output.writeMessage(6, boats_.get(i));
       }
+      for (int i = 0; i < cos_.size(); i++) {
+        output.writeMessage(7, cos_.get(i));
+      }
     }
     
     private int memoizedSerializedSize = -1;
@@ -1641,6 +1767,10 @@ public final class BoatProtos {
       for (int i = 0; i < boats_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(6, boats_.get(i));
+      }
+      for (int i = 0; i < cos_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(7, cos_.get(i));
       }
       memoizedSerializedSize = size;
       return size;
@@ -1746,6 +1876,8 @@ public final class BoatProtos {
         super.clear();
         boats_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000001);
+        cos_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
       
@@ -1783,6 +1915,11 @@ public final class BoatProtos {
           bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.boats_ = boats_;
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          cos_ = java.util.Collections.unmodifiableList(cos_);
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.cos_ = cos_;
         return result;
       }
       
@@ -1795,6 +1932,16 @@ public final class BoatProtos {
           } else {
             ensureBoatsIsMutable();
             boats_.addAll(other.boats_);
+          }
+          
+        }
+        if (!other.cos_.isEmpty()) {
+          if (cos_.isEmpty()) {
+            cos_ = other.cos_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureCosIsMutable();
+            cos_.addAll(other.cos_);
           }
           
         }
@@ -1832,6 +1979,12 @@ public final class BoatProtos {
               com.github.uuigaz.messages.BoatProtos.Board.Boat.Builder subBuilder = com.github.uuigaz.messages.BoatProtos.Board.Boat.newBuilder();
               input.readMessage(subBuilder, extensionRegistry);
               addBoats(subBuilder.buildPartial());
+              break;
+            }
+            case 58: {
+              com.github.uuigaz.messages.BoatProtos.Coordinate.Builder subBuilder = com.github.uuigaz.messages.BoatProtos.Coordinate.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addCos(subBuilder.buildPartial());
               break;
             }
           }
@@ -1929,6 +2082,95 @@ public final class BoatProtos {
         return this;
       }
       
+      // repeated .messages.Coordinate cos = 7;
+      private java.util.List<com.github.uuigaz.messages.BoatProtos.Coordinate> cos_ =
+        java.util.Collections.emptyList();
+      private void ensureCosIsMutable() {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+          cos_ = new java.util.ArrayList<com.github.uuigaz.messages.BoatProtos.Coordinate>(cos_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+      
+      public java.util.List<com.github.uuigaz.messages.BoatProtos.Coordinate> getCosList() {
+        return java.util.Collections.unmodifiableList(cos_);
+      }
+      public int getCosCount() {
+        return cos_.size();
+      }
+      public com.github.uuigaz.messages.BoatProtos.Coordinate getCos(int index) {
+        return cos_.get(index);
+      }
+      public Builder setCos(
+          int index, com.github.uuigaz.messages.BoatProtos.Coordinate value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureCosIsMutable();
+        cos_.set(index, value);
+        
+        return this;
+      }
+      public Builder setCos(
+          int index, com.github.uuigaz.messages.BoatProtos.Coordinate.Builder builderForValue) {
+        ensureCosIsMutable();
+        cos_.set(index, builderForValue.build());
+        
+        return this;
+      }
+      public Builder addCos(com.github.uuigaz.messages.BoatProtos.Coordinate value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureCosIsMutable();
+        cos_.add(value);
+        
+        return this;
+      }
+      public Builder addCos(
+          int index, com.github.uuigaz.messages.BoatProtos.Coordinate value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureCosIsMutable();
+        cos_.add(index, value);
+        
+        return this;
+      }
+      public Builder addCos(
+          com.github.uuigaz.messages.BoatProtos.Coordinate.Builder builderForValue) {
+        ensureCosIsMutable();
+        cos_.add(builderForValue.build());
+        
+        return this;
+      }
+      public Builder addCos(
+          int index, com.github.uuigaz.messages.BoatProtos.Coordinate.Builder builderForValue) {
+        ensureCosIsMutable();
+        cos_.add(index, builderForValue.build());
+        
+        return this;
+      }
+      public Builder addAllCos(
+          java.lang.Iterable<? extends com.github.uuigaz.messages.BoatProtos.Coordinate> values) {
+        ensureCosIsMutable();
+        super.addAll(values, cos_);
+        
+        return this;
+      }
+      public Builder clearCos() {
+        cos_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        
+        return this;
+      }
+      public Builder removeCos(int index) {
+        ensureCosIsMutable();
+        cos_.remove(index);
+        
+        return this;
+      }
+      
       // @@protoc_insertion_point(builder_scope:messages.Board)
     }
     
@@ -1938,6 +2180,403 @@ public final class BoatProtos {
     }
     
     // @@protoc_insertion_point(class_scope:messages.Board)
+  }
+  
+  public interface CoordinateOrBuilder
+      extends com.google.protobuf.MessageLiteOrBuilder {
+    
+    // optional uint32 x = 1;
+    boolean hasX();
+    int getX();
+    
+    // optional uint32 y = 2;
+    boolean hasY();
+    int getY();
+    
+    // optional bool hit = 3;
+    boolean hasHit();
+    boolean getHit();
+  }
+  public static final class Coordinate extends
+      com.google.protobuf.GeneratedMessageLite
+      implements CoordinateOrBuilder {
+    // Use Coordinate.newBuilder() to construct.
+    private Coordinate(Builder builder) {
+      super(builder);
+    }
+    private Coordinate(boolean noInit) {}
+    
+    private static final Coordinate defaultInstance;
+    public static Coordinate getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public Coordinate getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    private int bitField0_;
+    // optional uint32 x = 1;
+    public static final int X_FIELD_NUMBER = 1;
+    private int x_;
+    public boolean hasX() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public int getX() {
+      return x_;
+    }
+    
+    // optional uint32 y = 2;
+    public static final int Y_FIELD_NUMBER = 2;
+    private int y_;
+    public boolean hasY() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public int getY() {
+      return y_;
+    }
+    
+    // optional bool hit = 3;
+    public static final int HIT_FIELD_NUMBER = 3;
+    private boolean hit_;
+    public boolean hasHit() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public boolean getHit() {
+      return hit_;
+    }
+    
+    private void initFields() {
+      x_ = 0;
+      y_ = 0;
+      hit_ = false;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeUInt32(1, x_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeUInt32(2, y_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBool(3, hit_);
+      }
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(1, x_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(2, y_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, hit_);
+      }
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.github.uuigaz.messages.BoatProtos.Coordinate parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.github.uuigaz.messages.BoatProtos.Coordinate prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageLite.Builder<
+          com.github.uuigaz.messages.BoatProtos.Coordinate, Builder>
+        implements com.github.uuigaz.messages.BoatProtos.CoordinateOrBuilder {
+      // Construct using com.github.uuigaz.messages.BoatProtos.Coordinate.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private void maybeForceBuilderInitialization() {
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        x_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        y_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        hit_ = false;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.github.uuigaz.messages.BoatProtos.Coordinate getDefaultInstanceForType() {
+        return com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance();
+      }
+      
+      public com.github.uuigaz.messages.BoatProtos.Coordinate build() {
+        com.github.uuigaz.messages.BoatProtos.Coordinate result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.github.uuigaz.messages.BoatProtos.Coordinate buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.github.uuigaz.messages.BoatProtos.Coordinate result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.github.uuigaz.messages.BoatProtos.Coordinate buildPartial() {
+        com.github.uuigaz.messages.BoatProtos.Coordinate result = new com.github.uuigaz.messages.BoatProtos.Coordinate(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.x_ = x_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.y_ = y_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.hit_ = hit_;
+        result.bitField0_ = to_bitField0_;
+        return result;
+      }
+      
+      public Builder mergeFrom(com.github.uuigaz.messages.BoatProtos.Coordinate other) {
+        if (other == com.github.uuigaz.messages.BoatProtos.Coordinate.getDefaultInstance()) return this;
+        if (other.hasX()) {
+          setX(other.getX());
+        }
+        if (other.hasY()) {
+          setY(other.getY());
+        }
+        if (other.hasHit()) {
+          setHit(other.getHit());
+        }
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              
+              return this;
+            default: {
+              if (!parseUnknownField(input, extensionRegistry, tag)) {
+                
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              x_ = input.readUInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              y_ = input.readUInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              hit_ = input.readBool();
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // optional uint32 x = 1;
+      private int x_ ;
+      public boolean hasX() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public int getX() {
+        return x_;
+      }
+      public Builder setX(int value) {
+        bitField0_ |= 0x00000001;
+        x_ = value;
+        
+        return this;
+      }
+      public Builder clearX() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        x_ = 0;
+        
+        return this;
+      }
+      
+      // optional uint32 y = 2;
+      private int y_ ;
+      public boolean hasY() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public int getY() {
+        return y_;
+      }
+      public Builder setY(int value) {
+        bitField0_ |= 0x00000002;
+        y_ = value;
+        
+        return this;
+      }
+      public Builder clearY() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        y_ = 0;
+        
+        return this;
+      }
+      
+      // optional bool hit = 3;
+      private boolean hit_ ;
+      public boolean hasHit() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public boolean getHit() {
+        return hit_;
+      }
+      public Builder setHit(boolean value) {
+        bitField0_ |= 0x00000004;
+        hit_ = value;
+        
+        return this;
+      }
+      public Builder clearHit() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        hit_ = false;
+        
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:messages.Coordinate)
+    }
+    
+    static {
+      defaultInstance = new Coordinate(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:messages.Coordinate)
   }
   
   public interface FireOrBuilder

@@ -118,6 +118,35 @@ def set_grid(screen,clock,grid1):
         clock.tick(20)
         pygame.display.flip()
 
+def set_grid_from_board(screen, grid1, grid2, board, other):
+    for c, boat in enumerate(board.boats):
+        x = boat.x
+        y = boat.y
+        
+        if boat.direction == boat_protos_pb2.Board.Boat.RIGHT:
+            for xn in xrange(boat.type):          
+                grid1.grid[y][xn + x] = c
+        elif boat.direction == boat_protos_pb2.Board.Boat.DOWN:
+            for yn in xrange(boat.type):
+                grid1.grid[yn + y][x] = c
+        else:
+            print "OOPS! Not implemented!"
+               
+    for co in board.cos:
+        grid1.grid[co.y][co.x] = 0
+        #if grid1.grid[y][x] >= 0:
+        #    grid1.
+        
+    print other.cos
+        
+    for co in other.cos:
+        print co
+        if co.hit:
+            grid2.grid[co.x][co.y] = 0
+        else:
+            grid2.grid[co.x][co.y] = 5
+            
+
 def play_game(screen,clock,soc,grid1,grid2):
     click_sound = pygame.mixer.Sound(res("resources/mortar.wav"))
     image = pygame.image.load(res('resources/Battleships_Paper_Game.png'))
@@ -215,20 +244,21 @@ def main(argv):
     init.ParseFromSocket(soc)
 
     screen.fill(white)
+    grid1 = placement_grid.Placement_grid(screen,29,29,1,132,160)
+    grid2 = game_grid.Game_grid(screen,soc,33,33,1,250,250)
+    
     if init.HasField("newGame"):
-        grid1 = placement_grid.Placement_grid(screen,29,29,1,132,160)
         set_grid(screen, clock, grid1)
         init.Clear()
         init.board.CopyFrom(grid1.get_msg())
         init.SerializeToSocket(soc)
     elif init.HasField("board"):
         print "BOARD ALREADY EXIST, PARSE IT INSTEAD."
-        return 1
+        set_grid_from_board(screen, grid1, grid2, init.board, init.other)
     else:
         raise Exception("bad message received")
         return 1
 
-    grid2 = game_grid.Game_grid(screen,soc,33,33,1,250,250)
 
 
     grid1.transform(22,22,1,23,23)

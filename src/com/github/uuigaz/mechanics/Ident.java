@@ -18,7 +18,7 @@ public class Ident {
 		if (o == this) {
 			return true;
 		} else if (o instanceof Ident) {
-			return ((Ident) o).ident.getName() == ident.getName();
+			return ((Ident) o).ident.getName().equals(ident.getName());
 		}
 
 		return false;
