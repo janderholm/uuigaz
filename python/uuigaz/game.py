@@ -202,11 +202,11 @@ def play_game(screen,clock,soc,grid1,grid2):
             
             
             if grid1.hitsGiven == 15:
-                print >> "WIN!"
+                print >> grid1, "WIN!"
                 done = True
             elif grid1.hitsTaken == 15:
                 done = True
-                print "LOSE!"
+                print grid2, "LOSE!"
         except socket.error:
             pass
 
