@@ -16,6 +16,8 @@ class Game_grid(grid.Grid):
         self.current_boat = 0;
         self.soc = soc;
         self.myturn = False
+        self.hitsTaken = 0
+        self.hitsGiven = 0
         x = screen.get_width() / 30
         y = screen.get_width() - (screen.get_width() / 2)
         self._centerx = False
@@ -23,8 +25,8 @@ class Game_grid(grid.Grid):
 
     def draw_grid(self):
          # Draw the grid
-        for row in range(10):
-            for column in range(10):
+        for row in xrange(10):
+            for column in xrange(10):
                 color = s.white
                 nbr = self.grid[row][column]
                 if nbr == 0:
@@ -37,19 +39,29 @@ class Game_grid(grid.Grid):
                     color = s.green
                 elif nbr == 4:
                     color = s.gold
+                elif nbr == 5:
+                    color = s.sea
                 pygame.draw.rect(self.screen,color,
                     [(self.grid_margin+self.cell_width)*column+self.grid_margin+self.x_offset,
                     (self.grid_margin+self.cell_height)*row+self.grid_margin+self.y_offset,
                     self.cell_width,
                     self.cell_height])
 
+    def flip_last(self, color):
+        """Change last set cell to color"""
+        print "FLIP TO COLOR " + str(color)
+        row, col = self.last
+        self.grid[row][col] = color
+        
+
     #abstract method, position validation is done in superclass
     def _event(self,row,col):
         if self.myturn:
-            if self.grid[row][col] == 0:
+            if self.grid[row][col] > 0:
                 # Already fired
                 print >> self, "Already fired there"
                 return
+            self.last = (row, col)
             self.myturn = False
             fire = boat_protos_pb2.Fire()
             fire.x = row

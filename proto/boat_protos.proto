@@ -51,6 +51,7 @@ message Fire {
 
 message StatusReport {
 	optional bool hit = 1;
+	optional bool sunk = 2;
 }
 
 message Ident {

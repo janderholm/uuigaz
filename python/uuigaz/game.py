@@ -143,13 +143,20 @@ def play_game(screen,clock,soc,grid1,grid2):
             #grid1.clear_log()
             
             if msg.HasField("fire"):
-                print >> grid1, "Taking fire"
+                print >> grid1, "Taking fire!"
+                x = msg.fire.x
+                y = msg.fire.y
+                grid2.grid[x][y] = 0
 
             if msg.HasField("report"):
-                if msg.report:
-                    print >> grid1, "HIT"
+                if msg.report.hit:
+                    print >> grid1, "You hit!"
+                    grid1.hitsGiven += 1
                 else:
-                    print >> grid1, "MISS"
+                    grid1.flip_last(5)
+                    print >> grid1, "You missed!"
+                if msg.report.sunk:
+                    print >> grid1, "Enemy ship sunk!"
 
             if msg.HasField("yourTurn") and msg.yourTurn:
                 print >> grid1, "Make your move!"

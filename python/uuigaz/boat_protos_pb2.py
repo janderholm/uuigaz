@@ -11,7 +11,7 @@ from google.protobuf import descriptor_pb2
 DESCRIPTOR = descriptor.FileDescriptor(
   name='proto/boat_protos.proto',
   package='messages',
-  serialized_pb='\n\x17proto/boat_protos.proto\x12\x08messages\"v\n\x0b\x42\x61seMessage\x12\x10\n\x08yourTurn\x18\x01 \x01(\x08\x12\x0f\n\x07\x65ndGame\x18\x02 \x01(\x08\x12\x1c\n\x04\x66ire\x18\x03 \x01(\x0b\x32\x0e.messages.Fire\x12&\n\x06report\x18\x04 \x01(\x0b\x32\x16.messages.StatusReport\"7\n\x04Init\x12\x0f\n\x07newGame\x18\x01 \x01(\x08\x12\x1e\n\x05\x62oard\x18\x02 \x01(\x0b\x32\x0f.messages.Board\"\xc1\x02\n\x05\x42oard\x12#\n\x05\x62oats\x18\x06 \x03(\x0b\x32\x14.messages.Board.Boat\x1a\x92\x02\n\x04\x42oat\x12\t\n\x01x\x18\x01 \x02(\r\x12\t\n\x01y\x18\x02 \x02(\r\x12+\n\x04type\x18\x03 \x02(\x0e\x32\x1d.messages.Board.Boat.BoatType\x12\x31\n\tdirection\x18\x04 \x02(\x0e\x32\x1e.messages.Board.Boat.Direction\x12\x0c\n\x04hits\x18\x05 \x01(\r\"2\n\tDirection\x12\x08\n\x04\x44OWN\x10\x01\x12\t\n\x05RIGHT\x10\x02\x12\x06\n\x02UP\x10\x03\x12\x08\n\x04LEFT\x10\x04\"R\n\x08\x42oatType\x12\x0b\n\x07\x43\x41RRIER\x10\x05\x12\x0e\n\nBATTLESHIP\x10\x04\x12\x0b\n\x07\x43RUISER\x10\x03\x12\r\n\tDESTROYER\x10\x02\x12\r\n\tSUBMARINE\x10\x01\"\x1c\n\x04\x46ire\x12\t\n\x01x\x18\x01 \x02(\r\x12\t\n\x01y\x18\x02 \x02(\r\"\x1b\n\x0cStatusReport\x12\x0b\n\x03hit\x18\x01 \x01(\x08\"\x15\n\x05Ident\x12\x0c\n\x04name\x18\x01 \x02(\tB\x1e\n\x1a\x63om.github.uuigaz.messagesH\x03')
+  serialized_pb='\n\x17proto/boat_protos.proto\x12\x08messages\"v\n\x0b\x42\x61seMessage\x12\x10\n\x08yourTurn\x18\x01 \x01(\x08\x12\x0f\n\x07\x65ndGame\x18\x02 \x01(\x08\x12\x1c\n\x04\x66ire\x18\x03 \x01(\x0b\x32\x0e.messages.Fire\x12&\n\x06report\x18\x04 \x01(\x0b\x32\x16.messages.StatusReport\"7\n\x04Init\x12\x0f\n\x07newGame\x18\x01 \x01(\x08\x12\x1e\n\x05\x62oard\x18\x02 \x01(\x0b\x32\x0f.messages.Board\"\xc1\x02\n\x05\x42oard\x12#\n\x05\x62oats\x18\x06 \x03(\x0b\x32\x14.messages.Board.Boat\x1a\x92\x02\n\x04\x42oat\x12\t\n\x01x\x18\x01 \x02(\r\x12\t\n\x01y\x18\x02 \x02(\r\x12+\n\x04type\x18\x03 \x02(\x0e\x32\x1d.messages.Board.Boat.BoatType\x12\x31\n\tdirection\x18\x04 \x02(\x0e\x32\x1e.messages.Board.Boat.Direction\x12\x0c\n\x04hits\x18\x05 \x01(\r\"2\n\tDirection\x12\x08\n\x04\x44OWN\x10\x01\x12\t\n\x05RIGHT\x10\x02\x12\x06\n\x02UP\x10\x03\x12\x08\n\x04LEFT\x10\x04\"R\n\x08\x42oatType\x12\x0b\n\x07\x43\x41RRIER\x10\x05\x12\x0e\n\nBATTLESHIP\x10\x04\x12\x0b\n\x07\x43RUISER\x10\x03\x12\r\n\tDESTROYER\x10\x02\x12\r\n\tSUBMARINE\x10\x01\"\x1c\n\x04\x46ire\x12\t\n\x01x\x18\x01 \x02(\r\x12\t\n\x01y\x18\x02 \x02(\r\")\n\x0cStatusReport\x12\x0b\n\x03hit\x18\x01 \x01(\x08\x12\x0c\n\x04sunk\x18\x02 \x01(\x08\"\x15\n\x05Ident\x12\x0c\n\x04name\x18\x01 \x02(\tB\x1e\n\x1a\x63om.github.uuigaz.messagesH\x03')
 
 
 
@@ -296,6 +296,13 @@ _STATUSREPORT = descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    descriptor.FieldDescriptor(
+      name='sunk', full_name='messages.StatusReport.sunk', index=1,
+      number=2, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -306,7 +313,7 @@ _STATUSREPORT = descriptor.Descriptor(
   is_extendable=False,
   extension_ranges=[],
   serialized_start=568,
-  serialized_end=595,
+  serialized_end=609,
 )
 
 
@@ -333,8 +340,8 @@ _IDENT = descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=597,
-  serialized_end=618,
+  serialized_start=611,
+  serialized_end=632,
 )
 
 _BASEMESSAGE.fields_by_name['fire'].message_type = _FIRE
@@ -354,45 +361,45 @@ DESCRIPTOR.message_types_by_name['StatusReport'] = _STATUSREPORT
 DESCRIPTOR.message_types_by_name['Ident'] = _IDENT
 
 class BaseMessage(message.Message):
-    __metaclass__ = reflection.GeneratedProtocolMessageType
-    DESCRIPTOR = _BASEMESSAGE
-
-    # @@protoc_insertion_point(class_scope:messages.BaseMessage)
+  __metaclass__ = reflection.GeneratedProtocolMessageType
+  DESCRIPTOR = _BASEMESSAGE
+  
+  # @@protoc_insertion_point(class_scope:messages.BaseMessage)
 
 class Init(message.Message):
-    __metaclass__ = reflection.GeneratedProtocolMessageType
-    DESCRIPTOR = _INIT
-
-    # @@protoc_insertion_point(class_scope:messages.Init)
+  __metaclass__ = reflection.GeneratedProtocolMessageType
+  DESCRIPTOR = _INIT
+  
+  # @@protoc_insertion_point(class_scope:messages.Init)
 
 class Board(message.Message):
+  __metaclass__ = reflection.GeneratedProtocolMessageType
+  
+  class Boat(message.Message):
     __metaclass__ = reflection.GeneratedProtocolMessageType
-
-    class Boat(message.Message):
-        __metaclass__ = reflection.GeneratedProtocolMessageType
-        DESCRIPTOR = _BOARD_BOAT
-
-        # @@protoc_insertion_point(class_scope:messages.Board.Boat)
-    DESCRIPTOR = _BOARD
-
-    # @@protoc_insertion_point(class_scope:messages.Board)
+    DESCRIPTOR = _BOARD_BOAT
+    
+    # @@protoc_insertion_point(class_scope:messages.Board.Boat)
+  DESCRIPTOR = _BOARD
+  
+  # @@protoc_insertion_point(class_scope:messages.Board)
 
 class Fire(message.Message):
-    __metaclass__ = reflection.GeneratedProtocolMessageType
-    DESCRIPTOR = _FIRE
-
-    # @@protoc_insertion_point(class_scope:messages.Fire)
+  __metaclass__ = reflection.GeneratedProtocolMessageType
+  DESCRIPTOR = _FIRE
+  
+  # @@protoc_insertion_point(class_scope:messages.Fire)
 
 class StatusReport(message.Message):
-    __metaclass__ = reflection.GeneratedProtocolMessageType
-    DESCRIPTOR = _STATUSREPORT
-
-    # @@protoc_insertion_point(class_scope:messages.StatusReport)
+  __metaclass__ = reflection.GeneratedProtocolMessageType
+  DESCRIPTOR = _STATUSREPORT
+  
+  # @@protoc_insertion_point(class_scope:messages.StatusReport)
 
 class Ident(message.Message):
-    __metaclass__ = reflection.GeneratedProtocolMessageType
-    DESCRIPTOR = _IDENT
-
-    # @@protoc_insertion_point(class_scope:messages.Ident)
+  __metaclass__ = reflection.GeneratedProtocolMessageType
+  DESCRIPTOR = _IDENT
+  
+  # @@protoc_insertion_point(class_scope:messages.Ident)
 
 # @@protoc_insertion_point(module_scope)

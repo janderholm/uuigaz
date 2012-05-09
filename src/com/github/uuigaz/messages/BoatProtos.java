@@ -2302,6 +2302,10 @@ public final class BoatProtos {
     // optional bool hit = 1;
     boolean hasHit();
     boolean getHit();
+    
+    // optional bool sunk = 2;
+    boolean hasSunk();
+    boolean getSunk();
   }
   public static final class StatusReport extends
       com.google.protobuf.GeneratedMessageLite
@@ -2332,8 +2336,19 @@ public final class BoatProtos {
       return hit_;
     }
     
+    // optional bool sunk = 2;
+    public static final int SUNK_FIELD_NUMBER = 2;
+    private boolean sunk_;
+    public boolean hasSunk() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    public boolean getSunk() {
+      return sunk_;
+    }
+    
     private void initFields() {
       hit_ = false;
+      sunk_ = false;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -2350,6 +2365,9 @@ public final class BoatProtos {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBool(1, hit_);
       }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBool(2, sunk_);
+      }
     }
     
     private int memoizedSerializedSize = -1;
@@ -2361,6 +2379,10 @@ public final class BoatProtos {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, hit_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(2, sunk_);
       }
       memoizedSerializedSize = size;
       return size;
@@ -2466,6 +2488,8 @@ public final class BoatProtos {
         super.clear();
         hit_ = false;
         bitField0_ = (bitField0_ & ~0x00000001);
+        sunk_ = false;
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
       
@@ -2503,6 +2527,10 @@ public final class BoatProtos {
           to_bitField0_ |= 0x00000001;
         }
         result.hit_ = hit_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.sunk_ = sunk_;
         result.bitField0_ = to_bitField0_;
         return result;
       }
@@ -2511,6 +2539,9 @@ public final class BoatProtos {
         if (other == com.github.uuigaz.messages.BoatProtos.StatusReport.getDefaultInstance()) return this;
         if (other.hasHit()) {
           setHit(other.getHit());
+        }
+        if (other.hasSunk()) {
+          setSunk(other.getSunk());
         }
         return this;
       }
@@ -2541,6 +2572,11 @@ public final class BoatProtos {
               hit_ = input.readBool();
               break;
             }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              sunk_ = input.readBool();
+              break;
+            }
           }
         }
       }
@@ -2564,6 +2600,27 @@ public final class BoatProtos {
       public Builder clearHit() {
         bitField0_ = (bitField0_ & ~0x00000001);
         hit_ = false;
+        
+        return this;
+      }
+      
+      // optional bool sunk = 2;
+      private boolean sunk_ ;
+      public boolean hasSunk() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      public boolean getSunk() {
+        return sunk_;
+      }
+      public Builder setSunk(boolean value) {
+        bitField0_ |= 0x00000002;
+        sunk_ = value;
+        
+        return this;
+      }
+      public Builder clearSunk() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        sunk_ = false;
         
         return this;
       }

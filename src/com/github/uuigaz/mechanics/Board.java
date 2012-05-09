@@ -110,7 +110,7 @@ public class Board {
 		boardmsg.addBoats(b);
 	}
 
-	public boolean isHit(BoatProtos.Fire f) {
+	public int isHit(BoatProtos.Fire f) {
 		BoatWrapper bw = board[f.getX()][f.getY()];
 		Boat.Builder b = bw.b;
 
@@ -123,22 +123,25 @@ public class Board {
 
 			int x = b.getX();
 			int y = b.getY();
-			int hitIn;
-			if (f.getX() == x && f.getY() == y) {
-				hitIn = 0;
-			} else if (f.getX() == x) {
-				hitIn = Math.abs(f.getY() - y);
-			} else {
-				hitIn = Math.abs(f.getX() - x);
-			}
+			int hitIn = (f.getX() - x) + (f.getY() - y);
 
 			int bits = b.getHits();
-			bits = bits ^ (1 << hitIn);
-
+			bits |= (1 << hitIn);
+		
 			b.setHits(bits);
-			return true;
+			
+			int sunk = 0;
+			for (int i = 0; i < b.getType().getNumber(); ++i) {
+				sunk |= (1 << i);
+			}
+
+			if (sunk == bits) {
+				return 2;
+			} else {
+				return 1;
+			}
 		}
-		return false;
+		return 0;
 	}
 
 	/**
@@ -148,7 +151,11 @@ public class Board {
 	public BoatProtos.StatusReport fire(BoatProtos.Fire f) {
 		BoatProtos.StatusReport.Builder msg = BoatProtos.StatusReport
 				.newBuilder();
-		msg.setHit(isHit(f));
+		int status = isHit(f);
+		msg.setHit(status != 0);
+		if (status == 2) {
+			msg.setSunk(true);
+		}
 		return msg.build();
 	}
 

@@ -39,7 +39,7 @@ class Player implements Runnable {
 			msg.hasYourTurn() ||
 			msg.hasEndGame()) {
 			
-			System.out.println("Sending message to: " + this.ident);
+			//System.out.println("Sending message to: " + this.ident);
 			msg.writeDelimitedTo(os);
 			os.flush();
 		}
@@ -86,7 +86,7 @@ class Player implements Runnable {
 			// Send a turn message to begin game.
 			send = BaseMessage.newBuilder();
 			send.setYourTurn(session.myTurn(this));
-			System.out.println("Send: yourturn " + session.myTurn(this) + " to " + this.ident);
+			//System.out.println("Send: yourturn " + session.myTurn(this) + " to " + this.ident);
 			sendMessage(send.build());
 
 			while (true) {
@@ -96,13 +96,13 @@ class Player implements Runnable {
 				// through the session. Which could be made a thread.
 
 				m = BaseMessage.parseDelimitedFrom(is);
-
+/*
 				System.out.println("Got message from " + ident.toString());
 				
 				System.out.println("Fire :" + m.hasFire());
 				System.out.println("Endgame :" + m.hasEndGame());
 				System.out.println("Report :" + m.hasReport());
-				
+	*/			
 				// Clean the basemessagebuilder.
 				send = BaseMessage.newBuilder();
 
@@ -221,7 +221,7 @@ class Session {
 
 		BoatProtos.StatusReport report = board[other].fire(fire); 
 		
-		System.out.println("Player: " + sender.ident + " fires a shot and is was " + (report.getHit() ? "" : "not ") + "a hit");  		
+		//System.out.println("Player: " + sender.ident + " fires a shot and is was " + (report.getHit() ? "" : "not ") + "a hit");  		
 		return report;
 	}
 }

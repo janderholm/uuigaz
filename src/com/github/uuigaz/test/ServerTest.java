@@ -92,9 +92,7 @@ public class ServerTest {
 			
 			List<Direction> dirs = Arrays.asList(
 					Direction.RIGHT,
-					Direction.DOWN,
-					Direction.UP,
-					Direction.LEFT
+					Direction.DOWN
 					);
 			for (BoatType b : boats) {
 				while (true) {
@@ -142,7 +140,7 @@ public class ServerTest {
 
 			if (msg.hasFire()) {
 				Fire f = msg.getFire();
-				if (board.isHit(f)) {
+				if (board.isHit(f) != 0) {
 					status += "Hit taken!\n";
 					taken += 1;
 				}

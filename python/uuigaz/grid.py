@@ -87,8 +87,7 @@ class Grid:
             lines.pop(0)
         self._log = '\n'.join(lines)
         self._log += '\n'
-        print self._log
-        for i, l in enumerate(lines):
+        for i, l in enumerate(reversed(lines)):
             font = pygame.font.Font(None, 28)
             text = font.render(l,  True, (10, 10, 10))
             x, y = self.msg_coords
