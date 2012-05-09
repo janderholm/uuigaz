@@ -178,6 +178,7 @@ def play_game(screen,clock,soc,grid1,grid2):
                 y = msg.fire.y
                 if grid2.grid[x][y] >= 0:
                     grid2.grid[x][y] = 6
+                    grid1.hitsTaken += 1
                 else:
                     grid2.grid[x][y] = 5
 
@@ -197,8 +198,15 @@ def play_game(screen,clock,soc,grid1,grid2):
 
             if msg.HasField("endGame"):
                 # Server has asked us to end the game.
-                pass
+                done = True
             
+            
+            if grid1.hitsGiven == 15:
+                print >> "WIN!"
+                done = True
+            elif grid1.hitsTaken == 15:
+                done = True
+                print "LOSE!"
         except socket.error:
             pass
 
