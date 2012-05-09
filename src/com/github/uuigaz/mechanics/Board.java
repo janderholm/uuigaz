@@ -4,6 +4,7 @@ import com.github.uuigaz.messages.BoatProtos;
 import com.github.uuigaz.messages.BoatProtos.Board.Boat;
 import com.github.uuigaz.messages.BoatProtos.Board.Boat.BoatType;
 import com.github.uuigaz.messages.BoatProtos.Board.Boat.Direction;
+import com.github.uuigaz.messages.BoatProtos.Coordinate;
 
 public class Board {
 
@@ -150,7 +151,6 @@ public class Board {
 		co.setY(f.getY());
 		co.setHit(ret != 0);
 		
-		System.out.println("I AM NOW, I REPEAT, I AM NOW ADDING A COORDINATE TO THE BOARD!!!");
 		boardmsg.addCos(co);
 		return ret;
 	}
@@ -181,6 +181,14 @@ public class Board {
 		for (Boat b : boardmsg.getBoatsList()) {
 			board.setBoat(b.getX(), b.getY(), b.getType(), b.getDirection());
 		}
+		
+		for (Coordinate co : boardmsg.getCosList()) {
+			BoatProtos.Fire.Builder f = BoatProtos.Fire.newBuilder();
+			f.setX(co.getX());
+			f.setY(co.getY());
+			board.isHit(f.build());
+		}
+		
 		return board;
 	}
 

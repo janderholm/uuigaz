@@ -24,7 +24,7 @@ class Placement_grid(grid.Grid):
                 color = s.white
                 nbr = self.grid[row][column]
                 if nbr == 0:
-                    color = s.black
+                    color = s.grey
                 elif nbr == 1:
                     color = s.blue
                 elif nbr == 2:
@@ -33,6 +33,11 @@ class Placement_grid(grid.Grid):
                     color = s.green
                 elif nbr == 4:
                     color = s.gold
+                elif nbr == 5:
+                    color = s.sea
+                elif nbr == 6:
+                    color = s.black
+
                 pygame.draw.rect(self.screen,color,
                     [(self.grid_margin+self.cell_width)*column+self.grid_margin+self.x_offset,
                     (self.grid_margin+self.cell_height)*row+self.grid_margin+self.y_offset,

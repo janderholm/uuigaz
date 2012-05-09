@@ -133,16 +133,17 @@ def set_grid_from_board(screen, grid1, grid2, board, other):
             print "OOPS! Not implemented!"
                
     for co in board.cos:
-        grid1.grid[co.y][co.x] = 0
-        #if grid1.grid[y][x] >= 0:
-        #    grid1.
-        
-    print other.cos
+        if co.hit:
+            grid1.grid[co.y][co.x] = 6
+            grid2.hitsTaken += 1
+        else:
+            grid1.grid[co.y][co.x] = 5 
         
     for co in other.cos:
         print co
         if co.hit:
-            grid2.grid[co.x][co.y] = 0
+            grid2.grid[co.x][co.y] = 6
+            grid2.hitsGiven += 1
         else:
             grid2.grid[co.x][co.y] = 5
             
@@ -175,7 +176,10 @@ def play_game(screen,clock,soc,grid1,grid2):
                 print >> grid1, "Taking fire!"
                 x = msg.fire.x
                 y = msg.fire.y
-                grid2.grid[x][y] = 0
+                if grid2.grid[x][y] >= 0:
+                    grid2.grid[x][y] = 6
+                else:
+                    grid2.grid[x][y] = 5
 
             if msg.HasField("report"):
                 if msg.report.hit:

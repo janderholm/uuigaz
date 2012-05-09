@@ -38,11 +38,13 @@ public class ServerTest {
 	public static void main(String[] args) throws UnknownHostException, IOException, InterruptedException {
 	
 		String arg  = "localhost:30000";
+		String name = "TestClient-" + ManagementFactory.getRuntimeMXBean().getName();
 		
-		if (args.length != 1) {
-			System.out.println("Defaulting to localhost:30000");
+		if (args.length != 2) {
+			System.out.println("Defaulting to localhost:30000 with name " + name);
 		} else {
 			arg = args[0];
+			name = args[1];
 		}
 		
 		String parts[] = arg.split(":", 2);
@@ -56,7 +58,6 @@ public class ServerTest {
 			System.out.println("Defaulting to port 30000");
 		}
 		
-		String name = "TestClient-" + ManagementFactory.getRuntimeMXBean().getName();
 		
 		System.out.println("Client: " + name + " initializing.");
 		
@@ -76,12 +77,13 @@ public class ServerTest {
 		Init.Builder initresponse = Init.newBuilder(); 
 		
 		Board board = null;
-		Board theirBoard = Board.build();
+		Board theirBoard = null;
 		Random rand = new Random();
 		
 		if (init.hasNewGame() && init.getNewGame()) {
-			// TODO: Create board.
+			// The server asks us to create a new game.
 			board = Board.build();
+			theirBoard = Board.build();
 
 			List<BoatType> boats = Arrays.asList(
 					BoatType.BATTLESHIP,
@@ -106,8 +108,9 @@ public class ServerTest {
 			}
 			initresponse.setBoard(board.getMsg()).build().writeDelimitedTo(os);
 		} else if (init.hasBoard()) {
-			// TODO: Get board.
+			// A session was already establised.
 			board = Board.build(init.getBoard());
+			theirBoard = Board.build(init.getOther());
 		} else {
 			System.out.println("Server did not respond with a proper init message.");
 			System.exit(1);

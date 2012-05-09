@@ -30,7 +30,7 @@ class Game_grid(grid.Grid):
                 color = s.white
                 nbr = self.grid[row][column]
                 if nbr == 0:
-                    color = s.black
+                    color = s.grey
                 elif nbr == 1:
                     color = s.blue
                 elif nbr == 2:
@@ -41,6 +41,8 @@ class Game_grid(grid.Grid):
                     color = s.gold
                 elif nbr == 5:
                     color = s.sea
+                elif nbr == 6:
+                    color = s.black
                 pygame.draw.rect(self.screen,color,
                     [(self.grid_margin+self.cell_width)*column+self.grid_margin+self.x_offset,
                     (self.grid_margin+self.cell_height)*row+self.grid_margin+self.y_offset,
@@ -66,7 +68,7 @@ class Game_grid(grid.Grid):
             fire = boat_protos_pb2.Fire()
             fire.x = row
             fire.y = col
-            self.grid[row][col] = 0
+            self.grid[row][col] = 6
             msg = boat_protos_pb2.BaseMessage()
             msg.fire.CopyFrom(fire)
             msg.SerializeToSocket(self.soc)

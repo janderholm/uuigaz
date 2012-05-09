@@ -63,7 +63,10 @@ class Player implements Runnable {
 				this.session.setMeAsOwner(this);
 				init = Init.newBuilder();
 				init.setBoard(session.getBoardMsg(this));
-				init.setOther(session.getOtherBoardMsg(this));
+				BoatProtos.Board.Builder other = session.getOtherBoardMsg(this).toBuilder();
+				// Make sure not to send any boat positions.
+				other.clearBoats();
+				init.setOther(other);
 				init.build().writeDelimitedTo(os);
 				os.flush();
 			} else {
@@ -191,7 +194,7 @@ class Session {
 	public void setMeAsOwner(Player p) {
 		int index = player[0].ident.equals(p.ident) ? 0 : 1;
 		
-		player[0] = p;
+		player[index] = p;
 	}
 
 	public boolean myTurn(Player p) {
@@ -272,16 +275,12 @@ class Controller {
 		Session session = null;
 		while (session == null) {
 			for (Session s : sessions) {
-				System.out.println(s);
 				if (s.belongsTo(p.ident)) {
-					System.out.println("Did find a session.");
 					session = s;
 					return session;
 				}
 			}
-
-			System.out.println("Did not find a session");
-			
+		
 			if (participants.isEmpty()) {
 				// No session and no one to play against means we must
 				// wait for someone.
@@ -295,7 +294,6 @@ class Controller {
 				// Change this to notify() if we don't lock on anything else.
 				notifyAll();
 			}
-			System.out.println("size of session: " + sessions.size());
 		}
 
 		return session;
