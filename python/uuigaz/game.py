@@ -87,6 +87,7 @@ size=(600,600)
 
 def set_grid(screen,clock,grid1):
     click_sound = pygame.mixer.Sound(res("resources/splash.wav"))
+    click_sound = pygame.mixer.Sound("")
     image = pygame.image.load(res("resources/Battleships_start.png"))
     done = False
     while not done:
@@ -138,20 +139,26 @@ def play_game(screen,clock,soc,grid1,grid2):
             soc.setblocking(0)
             msg.ParseFromSocket(soc)
             soc.setblocking(1)
-            print msg
+            
+            #grid1.clear_log()
+            
             if msg.HasField("fire"):
-                pass
+                print >> grid1, "Taking fire"
 
             if msg.HasField("report"):
-                pass
+                if msg.report:
+                    print >> grid1, "HIT"
+                else:
+                    print >> grid1, "MISS"
 
             if msg.HasField("yourTurn") and msg.yourTurn:
+                print >> grid1, "Make your move!"
                 grid1.myturn = True
 
             if msg.HasField("endGame"):
                 # Server has asked us to end the game.
                 pass
-
+            
         except socket.error:
             pass
 

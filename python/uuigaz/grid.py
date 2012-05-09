@@ -1,4 +1,3 @@
-#! /usr/bin/python2.7 -tt
 # -*- coding: utf-8 -*-
 
 import pygame
@@ -77,14 +76,25 @@ class Grid:
 
     def write(self, msg):
         # XXX: IT'S A TRAP!
-        self._log += msg.strip()
+        self._log += msg
 
     def clear_log(self):
         self._log = ''
 
     def draw_log(self):
-        font = pygame.font.Font(None, 28)
-        text = font.render(self._log,  True, (10, 10, 10))
-        x, y = self.msg_coords
-        textpos = text.get_rect(centerx=x, centery=y)
-        self.screen.blit(text, textpos)
+        lines = self._log.splitlines()
+        while len(lines) > 8:
+            lines.pop(0)
+        self._log = '\n'.join(lines)
+        self._log += '\n'
+        print self._log
+        for i, l in enumerate(lines):
+            font = pygame.font.Font(None, 28)
+            text = font.render(l,  True, (10, 10, 10))
+            x, y = self.msg_coords
+            y += i*28
+            if self._centerx:
+                textpos = text.get_rect(centerx=x, centery=y)
+            else:
+                textpos = text.get_rect(x=x, centery=y)
+            self.screen.blit(text, textpos)

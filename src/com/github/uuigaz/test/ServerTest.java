@@ -184,7 +184,7 @@ public class ServerTest {
 				run = false;
 			}
 
-			if (msg.hasYourTurn() && msg.hasYourTurn()) {
+			if (msg.hasYourTurn() && msg.getYourTurn()) {
 				Fire.Builder fb = Fire.newBuilder();
 				Pair move = moves.poll();
 				fb.setX(move.fst);
@@ -195,16 +195,17 @@ public class ServerTest {
 				send.setFire(f);
 			}
 			
+			/*
 			if (rand.nextInt(300) == 1) {
 				// Randomly end game
 				send.setEndGame(true);
 				run = false;
 			}
-			
-			/*
+			*/
+
 			if(msg.hasEndGame()) {
 				run = false;
-			}*/
+			}
 			
 			// Don't send empty messages!
 			if (msg.hasFire() || msg.hasReport() || msg.hasYourTurn() || msg.hasEndGame()) {

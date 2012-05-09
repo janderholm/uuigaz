@@ -14,6 +14,7 @@ class Placement_grid(grid.Grid):
         self._boardmsg = boat_protos_pb2.Board()
         x = screen.get_width() / 2
         y = screen.get_width() - (screen.get_width() / 7)
+        self._centerx = True
         self.msg_coords = (x, y)
 
     def draw_grid(self):

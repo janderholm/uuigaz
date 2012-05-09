@@ -8,12 +8,17 @@ class Game_grid(grid.Grid):
     def __init__(self,screen,soc,cell_width,cell_height,grid_margin,x_offset,y_offset):
         grid.Grid.__init__(self, screen,cell_width,cell_height,grid_margin,x_offset,y_offset)
         self.direction = s.HORIZONTAL
-        self.boats = [s.CARRIER, s.BATTLESHIP, s.CRUISER, s.DESTROYER,s.SUBMARINE]
+        self.boats = [s.CARRIER,
+                      s.BATTLESHIP,
+                      s.CRUISER,
+                      s.DESTROYER,
+                      s.SUBMARINE]
         self.current_boat = 0;
         self.soc = soc;
         self.myturn = False
-        x = screen.get_width() / 20
+        x = screen.get_width() / 30
         y = screen.get_width() - (screen.get_width() / 2)
+        self._centerx = False
         self.msg_coords = (x, y)
 
     def draw_grid(self):
@@ -41,6 +46,10 @@ class Game_grid(grid.Grid):
     #abstract method, position validation is done in superclass
     def _event(self,row,col):
         if self.myturn:
+            if self.grid[row][col] == 0:
+                # Already fired
+                print >> self, "Already fired there"
+                return
             self.myturn = False
             fire = boat_protos_pb2.Fire()
             fire.x = row
@@ -50,7 +59,7 @@ class Game_grid(grid.Grid):
             msg.fire.CopyFrom(fire)
             msg.SerializeToSocket(self.soc)
         else:
-            print "not my turn"
+            print >> self, "Not my turn"
 
     def get_msg(self):
         return self._basemsg

@@ -86,6 +86,7 @@ class Player implements Runnable {
 			// Send a turn message to begin game.
 			send = BaseMessage.newBuilder();
 			send.setYourTurn(session.myTurn(this));
+			System.out.println("Send: yourturn " + session.myTurn(this) + " to " + this.ident);
 			sendMessage(send.build());
 
 			while (true) {
