@@ -3,6 +3,8 @@ import pygame
 import pygame.mixer
 import settings as s
 import boat_protos_pb2
+import pkg_resources
+res = lambda x: pkg_resources.resource_stream(__name__, x)
 
 class Game_grid(grid.Grid):
     def __init__(self,screen,soc,cell_width,cell_height,grid_margin,x_offset,y_offset):
@@ -22,6 +24,8 @@ class Game_grid(grid.Grid):
         y = screen.get_width() - (screen.get_width() / 2)
         self._centerx = False
         self.msg_coords = (x, y)
+        self.fire1 = pygame.mixer.Sound(res("resources/mortar.wav"))
+        self.fire1.set_volume(0.8)
 
     def draw_grid(self):
          # Draw the grid
@@ -63,6 +67,7 @@ class Game_grid(grid.Grid):
                 # Already fired
                 print >> self, "Already fired there"
                 return
+            self.fire1.play()
             self.last = (row, col)
             self.myturn = False
             fire = boat_protos_pb2.Fire()
