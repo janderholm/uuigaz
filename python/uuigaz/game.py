@@ -87,7 +87,7 @@ size=(600,600)
 
 def set_grid(screen,clock,grid1):
     click_sound = pygame.mixer.Sound(res("resources/splash.wav"))
-    click_sound = pygame.mixer.Sound("")
+    click_sound.set_volume(0.1)
     image = pygame.image.load(res("resources/Battleships_start.png"))
     done = False
     while not done:
@@ -149,7 +149,10 @@ def set_grid_from_board(screen, grid1, grid2, board, other):
             
 
 def play_game(screen,clock,soc,grid1,grid2):
-    click_sound = pygame.mixer.Sound(res("resources/mortar.wav"))
+    sos_sound = pygame.mixer.Sound(res("resources/sos.wav"))
+    sos_sound.set_volume(0.3)
+    sos_sound.fadeout(1000)
+    print sos_sound.get_length()
     image = pygame.image.load(res('resources/Battleships_Paper_Game.png'))
     image = pygame.transform.scale(image, (size[0]-10,size[1]-10))
     done = False
@@ -159,7 +162,6 @@ def play_game(screen,clock,soc,grid1,grid2):
             if event.type == pygame.QUIT:
                 done=True
             if event.type == pygame.MOUSEBUTTONDOWN:
-                click_sound.play()
                 pos = pygame.mouse.get_pos()
                 grid1.grid_event(pos)
                 #print "Click ", pos, "Grid coordinates: "
@@ -191,6 +193,7 @@ def play_game(screen,clock,soc,grid1,grid2):
                     print >> grid1, "You missed!"
                 if msg.report.sunk:
                     print >> grid1, "Enemy ship sunk!"
+                    sos_sound.play()
 
             if msg.HasField("yourTurn") and msg.yourTurn:
                 print >> grid1, "Make your move!"
