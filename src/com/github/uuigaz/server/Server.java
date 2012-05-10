@@ -52,6 +52,12 @@ class Player implements Runnable {
 
 	public void run() {
 		System.out.println("Connected: " + ident);
+		Init.Builder init;
+		Init iinit;
+
+		BaseMessage m;
+		BaseMessage.Builder send;
+
 		try {
 			this.session = Controller.getInstance().getSession(this);
 
@@ -59,9 +65,6 @@ class Player implements Runnable {
 			// Session was just started here. This means we need to replay all
 			// previous messages if there are any, or initialize a new game if
 			// there weren't.
-
-			Init.Builder init;
-			Init iinit;
 
 			if (session.isInitialized(this)) {
 				// If session already running replay any messages.
@@ -90,15 +93,18 @@ class Player implements Runnable {
 				}
 			}
 
-			BaseMessage m;
-			BaseMessage.Builder send;
-
 			// Send a turn message to begin game.
 			send = BaseMessage.newBuilder();
 			send.setYourTurn(session.myTurn(this));
 			//System.out.println("Send: yourturn " + session.myTurn(this) + " to " + this.ident);
 			sendMessage(send.build());
+		} catch (Exception e) {
+			session.finishSession(this);
+			System.out.println("Disconnected: " + ident);
+			return;
+		}
 
+		try {
 			while (true) {
 				// TODO:
 				// Probably no need for a listening sentry. When a game is
@@ -136,13 +142,8 @@ class Player implements Runnable {
 				}
 				
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 
-		} catch (InterruptedException e) {
-			// TODO:
-			// Here we were interrupted when waiting for someone to connect.
-			// We probably want to kill ourselves now.
-			e.printStackTrace();
 		} finally {
 			System.out.println("Disconnected: " + ident);
 		}
