@@ -155,19 +155,29 @@ def set_grid_from_board(screen, grid1, grid2, board, other):
             grid2.grid[co.x][co.y] = 5
    
 
-def display_outcome(screen,grid1,grid2):
-    done = false
+def draw_message(screen, message):
+    screen.fill(white)
+    fontobject = pygame.font.SysFont('Arial', 30)
+    screen.blit(fontobject.render(message,1,(0,0,0)),
+        ((screen.get_width() / 2) - 90 , (screen.get_height() / 2) - 50))
+    pygame.display.flip()
+
+def display_outcome(screen,grid1):
+    done = False
+    win = grid1.hitsGiven == 15
     while not done:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done=True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 done = True
+            if event.type == pygame.KEYDOWN:
+                done = True
 
-        if grid1.hitsGiven == 15:
-            draw_box(screen,"Victory is mine!")
-        elif grid1.hitsTaken == 15:
-            draw_box(screen,"LOL you suck")
+        if win:
+            draw_message(screen,"Victory is mine!")
+        else: 
+            draw_message(screen,"LOL you suck")
 
 
 
@@ -308,7 +318,7 @@ def main(argv):
     grid1.transform(22,22,1,23,23)
     play_game(screen,clock,soc,grid2,grid1)
 	
-	
+    display_outcome(screen,grid2)	
 	
     pygame.quit()
     return 0
