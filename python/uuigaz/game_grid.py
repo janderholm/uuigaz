@@ -33,16 +33,8 @@ class Game_grid(grid.Grid):
             for column in xrange(10):
                 color = s.white
                 nbr = self.grid[row][column]
-                if nbr == 0:
+                if nbr >= 0 and nbr <= 4:
                     color = s.grey
-                elif nbr == 1:
-                    color = s.blue
-                elif nbr == 2:
-                    color = s.red
-                elif nbr == 3:
-                    color = s.green
-                elif nbr == 4:
-                    color = s.gold
                 elif nbr == 5:
                     color = s.sea
                 elif nbr == 6:
