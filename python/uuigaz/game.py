@@ -8,6 +8,9 @@ import pkg_resources
 import pygame
 import inputbox
 import pygame.mixer
+import pygame.font
+import pygame.event
+import pygame.draw
 
 import boat_protos_pb2
 import placement_grid
@@ -150,7 +153,23 @@ def set_grid_from_board(screen, grid1, grid2, board, other):
             grid2.hitsGiven += 1
         else:
             grid2.grid[co.x][co.y] = 5
-            
+   
+
+def display_outcome(screen,grid1,grid2):
+    done = false
+    while not done:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done=True
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                done = True
+
+        if grid1.hitsGiven == 15:
+            draw_box(screen,"Victory is mine!")
+        elif grid1.hitsTaken == 15:
+            draw_box(screen,"LOL you suck")
+
+
 
 def play_game(screen,clock,soc,grid1,grid2):
     sos_sound = pygame.mixer.Sound(res("resources/sos.wav"))
@@ -288,7 +307,9 @@ def main(argv):
 
     grid1.transform(22,22,1,23,23)
     play_game(screen,clock,soc,grid2,grid1)
-
+	
+	
+	
     pygame.quit()
     return 0
 
