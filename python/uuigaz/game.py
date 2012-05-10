@@ -102,13 +102,17 @@ def set_grid(screen,clock,soc,grid1):
             if event.type == pygame.KEYDOWN:
                 print("KEYDOWN")
                 if event.key == pygame.K_UP:
-                    grid1.set_direction(s.VERTICAL)
+                    grid1.set_direction(s.HORIZONTAL)
+                    print >> grid1, "Orientation: Horizontal"
                 if event.key == pygame.K_DOWN:
                     grid1.set_direction(s.HORIZONTAL)
+                    print >> grid1, "Orientation: Horizontal"
                 if event.key == pygame.K_RIGHT:
-                    grid1.set_direction(s.HORIZONTAL)
+                    grid1.set_direction(s.VERTICAL)
+                    print >> grid1, "Orientation: Vertical"
                 if event.key == pygame.K_LEFT:
                     grid1.set_direction(s.VERTICAL)
+                    print >> grid1, "Orientation: Vertical"
 
         # Set the screen background
         screen.fill(white)
@@ -266,6 +270,7 @@ def main(argv):
 
     screen.fill(white)
     grid1 = placement_grid.Placement_grid(screen,29,29,1,132,160)
+    print >> grid1, "You can use the arrow keys to change ship orientation\nTip of the day:"
     grid2 = game_grid.Game_grid(screen,soc,33,33,1,250,250)
     
     if init.HasField("newGame"):

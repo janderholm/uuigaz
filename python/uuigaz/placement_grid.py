@@ -19,6 +19,7 @@ class Placement_grid(grid.Grid):
 
     def draw_grid(self):
          # Draw the grid
+
         for row in range(10):
             for column in range(10):
                 color = s.white
