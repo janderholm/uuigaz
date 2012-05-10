@@ -85,15 +85,15 @@ green = ( 0, 255, 0)
 red = ( 255, 0, 0)
 size=(600,600)
 
-def set_grid(screen,clock,grid1):
+def set_grid(screen,clock,soc,grid1):
     click_sound = pygame.mixer.Sound(res("resources/splash.wav"))
     click_sound.set_volume(0.1)
     image = pygame.image.load(res("resources/Battleships_start.png"))
     done = False
-    while not done:
+    while not grid1.current_boat == len(grid1.boats):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                done = True
+                sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 click_sound.play()
                 pos = pygame.mouse.get_pos()
@@ -206,8 +206,14 @@ def play_game(screen,clock,soc,grid1,grid2):
             
             if grid1.hitsGiven == 15:
                 print >> grid1, "WIN!"
+                bmsg = boat_protos_pb2.BaseMessage()
+                bmsg.endGame = True
+                bmsg.SerializeToSocket(soc)
                 done = True
             elif grid1.hitsTaken == 15:
+                bmsg = boat_protos_pb2.BaseMessage()
+                bmsg.endGame = True
+                bmsg.SerializeToSocket(soc)
                 done = True
                 print grid2, "LOSE!"
         except socket.error:
@@ -263,12 +269,11 @@ def main(argv):
     grid2 = game_grid.Game_grid(screen,soc,33,33,1,250,250)
     
     if init.HasField("newGame"):
-        set_grid(screen, clock, grid1)
+        set_grid(screen, clock, soc, grid1)
         init.Clear()
         init.board.CopyFrom(grid1.get_msg())
         init.SerializeToSocket(soc)
     elif init.HasField("board"):
-        print "BOARD ALREADY EXIST, PARSE IT INSTEAD."
         set_grid_from_board(screen, grid1, grid2, init.board, init.other)
     else:
         raise Exception("bad message received")
