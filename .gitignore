@@ -17,7 +17,7 @@
 *.pyo
 
 # Other #
-*.svg
-*.png
-*.wav
+#*.svg
+#*.png
+#*.wav
 
