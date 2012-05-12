@@ -17,6 +17,7 @@
 *.pyo
 
 # Other #
+boat_protos_pb2.py
 #*.svg
 #*.png
 #*.wav
