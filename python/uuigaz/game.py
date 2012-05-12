@@ -101,19 +101,17 @@ def set_grid(screen,clock,soc,grid1):
                 click_sound.play()
                 pos = pygame.mouse.get_pos()
                 grid1.grid_event(pos)
-                print("Click ",pos,"Grid coordinates: ")
             if event.type == pygame.KEYDOWN:
-                print("KEYDOWN")
-                if event.key == pygame.K_UP:
-                    grid1.set_direction(s.HORIZONTAL)
-                    print >> grid1, "Orientation: Horizontal"
-                if event.key == pygame.K_DOWN:
-                    grid1.set_direction(s.HORIZONTAL)
-                    print >> grid1, "Orientation: Horizontal"
                 if event.key == pygame.K_RIGHT:
+                    grid1.set_direction(s.HORIZONTAL)
+                    print >> grid1, "Orientation: Horizontal"
+                if event.key == pygame.K_LEFT:
+                    grid1.set_direction(s.HORIZONTAL)
+                    print >> grid1, "Orientation: Horizontal"
+                if event.key == pygame.K_UP:
                     grid1.set_direction(s.VERTICAL)
                     print >> grid1, "Orientation: Vertical"
-                if event.key == pygame.K_LEFT:
+                if event.key == pygame.K_DOWN:
                     grid1.set_direction(s.VERTICAL)
                     print >> grid1, "Orientation: Vertical"
 
@@ -157,14 +155,22 @@ def set_grid_from_board(screen, grid1, grid2, board, other):
 
 def draw_message(screen, message):
     screen.fill(white)
-    fontobject = pygame.font.SysFont('Arial', 30)
-    screen.blit(fontobject.render(message,1,(0,0,0)),
-        ((screen.get_width() / 2) - 90 , (screen.get_height() / 2) - 50))
+    font = pygame.font.SysFont('Arial', 30)
+    text = font.render(message, 1, (0, 0, 0))
+    textpos = text.get_rect(centerx=screen.get_width() / 2,
+                            centery=screen.get_height() /2)
+
+    screen.blit(text, textpos)
     pygame.display.flip()
 
-def display_outcome(screen,grid1):
+def display_outcome(screen, grid1, name):
     done = False
+
+    session_ended = grid1.hitsGiven == 15 or grid1.hitsTaken == 15
+
     win = grid1.hitsGiven == 15
+
+
     while not done:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -174,7 +180,9 @@ def display_outcome(screen,grid1):
             if event.type == pygame.KEYDOWN:
                 done = True
 
-        if win:
+        if not session_ended:
+            draw_message(screen, "Remember your name %s!" % name)
+        elif win:
             draw_message(screen,"Victory is mine!")
         else: 
             draw_message(screen,"LOL you suck")
@@ -248,7 +256,7 @@ def play_game(screen,clock,soc,grid1,grid2):
                 bmsg.endGame = True
                 bmsg.SerializeToSocket(soc)
                 done = True
-                print grid2, "LOSE!"
+                print >> grid1, "LOSE!"
         except socket.error:
             pass
 
@@ -289,7 +297,8 @@ def main(argv):
 
     # Create Ident
     ident = boat_protos_pb2.Ident()
-    ident.name = inputbox.input(screen)
+    name = inputbox.input(screen)
+    ident.name = name
 
     ident.SerializeToSocket(soc)
 
@@ -299,10 +308,11 @@ def main(argv):
 
     screen.fill(white)
     grid1 = placement_grid.Placement_grid(screen,29,29,1,132,160)
-    print >> grid1, "You can use the arrow keys to change ship orientation\nTip of the day:"
     grid2 = game_grid.Game_grid(screen,soc,33,33,1,250,250)
     
     if init.HasField("newGame"):
+        print >> grid1, "You can use the arrow keys to change ship orientation"
+        print >> grid1, "Tip of the day:"
         set_grid(screen, clock, soc, grid1)
         init.Clear()
         init.board.CopyFrom(grid1.get_msg())
@@ -318,7 +328,7 @@ def main(argv):
     grid1.transform(22,22,1,23,23)
     play_game(screen,clock,soc,grid2,grid1)
 	
-    display_outcome(screen,grid2)	
+    display_outcome(screen, grid2, name)
 	
     pygame.quit()
     return 0

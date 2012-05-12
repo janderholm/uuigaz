@@ -47,7 +47,6 @@ class Game_grid(grid.Grid):
 
     def flip_last(self, color):
         """Change last set cell to color"""
-        print "FLIP TO COLOR " + str(color)
         row, col = self.last
         self.grid[row][col] = color
         
