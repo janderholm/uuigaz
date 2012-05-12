@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Uuigaz. by Fulkerson</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Uuigaz.</h1>
+        <p>Battleships inspired game</p>
+        <p class="view"><a href="https://github.com/Fulkerson/uuigaz">View the Project on GitHub <small>Fulkerson/uuigaz</small></a></p>
+        <ul>
+          <li><a href="https://github.com/Fulkerson/uuigaz/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Fulkerson/uuigaz/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Fulkerson/uuigaz">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>uuigaz.</h1>
+
+<p>uuigaz is a turn based game inspired by the guessing game of battleships. It is implemented in Java and Python using <a href="http://code.google.com/p/protobuf/">Protocol Buffers</a> as a cross platform way of serializing protocol data into a compact and extensible format.</p>
+
+<h2>Rules</h2>
+
+<p>The game is played by two players, each trying to sink the enemy ships by guessing what position to fire at.
+Ships are laid out on a grid in secret by each player prior to a game and the first one to sink all enemy ships wins.
+In this variant of the game the following ship types and sizes are used:</p>
+
+<ol>
+<li>Submarine</li>
+<li>Destroyer</li>
+<li>Cruiser</li>
+<li>Battleship</li>
+<li>Carrier</li>
+</ol><p>Ships cannot share location and cannot be placed in a tile adjacent to another ship.</p>
+
+<h2>Client</h2>
+
+<p>The following screenshots display the different parts of the main client:</p>
+
+<ul>
+<li>login screen</li>
+<li>placement screen</li>
+<li>game board</li>
+</ul><h3>Login screen</h3>
+
+<p><img src="https://github.com/Fulkerson/uuigaz/raw/gh-pages/images/login.png" alt="login">
+Upon start each player is presented a login screen which can be used to choose which session to use, although no real authentication is done besides name.</p>
+
+<h3>Placement screen</h3>
+
+<p><img src="https://github.com/Fulkerson/uuigaz/raw/gh-pages/images/placement.png" alt="placement">
+On the placement screen ships are placed onto the board by clicking a grid and the keyboard arrow keys can be used to select orientation.</p>
+
+<h3>Game board</h3>
+
+<p><img src="https://github.com/Fulkerson/uuigaz/raw/gh-pages/images/board.png" alt="board">
+During the actual game phase the players own board are displayed on the top left and the opponent board down to the right. Misses are indicated by the teal color and hits as black. A sunken enemy ship is indicated by a log message as well as a morse SOS signal.</p>
+
+<h3>Test Client</h3>
+
+<p><img src="https://github.com/Fulkerson/uuigaz/raw/gh-pages/images/testai.png" alt="testai">
+There is also a text based test client written in Java that may double as a very stupid AI opponent. The test client will display boards and actions as unicode characters. In the above screenshot two test clients battle each other off, both randomly making moves until there is one winner.</p>
+
+<h2>Server and protocol</h2>
+
+<p>The server is written in Java and will upon broken connections remember the session. This means it is possible to make a move and quit the game while waiting for opponent to make his move. Communication with the server is done through messages that are serialized into the more or less standardized binary wire format which are then sent in a delimited form over TCP.</p>
+
+<p>The messages are defined using an interface description language and are then compiled down to the language of choice, namely Python and Java in this project.
+Languages supported by the official compiler are:</p>
+
+<ul>
+<li>C++</li>
+<li>Python</li>
+<li>Java</li>
+</ul><p>but there exist implementations for many other languages as well. A message could be defined as follows:</p>
+
+<div class="highlight">
+<pre><span class="kd">message</span> <span class="nc">Ident</span> <span class="p">{</span>
+    <span class="k">required</span> <span class="kt">string</span> <span class="na">name</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">optional</span> <span class="kt">bool</span> <span class="na">secure</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<p>and would compiled to Java result in a class with methods such as <code>.getName()</code>, <code>.setName(String)</code>,  <code>.hasSecure()</code> and <code>.getSecure()</code></p>
+
+<p>This has proven to be a very powerful and flexible concept that allow for large modifications even in late development without needing to rethink and reimplement a whole binary protocol. Implementing the protocol in different languages also becomes much easier as it is only the matter of executing a compiler. It is also quite efficient, for example the above definition would result in secure not being transferred at all unless explicitly set by the sender. </p>
+
+<hr><p>The name of the project, uuigaz, comes from runic inscriptions and seem to be old norse for 'warrior'. More on the subject can be found in the book "Texts and Contexts of the Oldest Runic Inscriptions", partly available and searchable on <a href="http://books.google.se/books?id=-edm1fMPbXwC&amp;pg=PA204&amp;dq=uuigaz&amp;hl=en&amp;sa=X&amp;ei=JCmuT-vmD-nO4QSJ3bmfCQ&amp;ved=0CDMQ6AEwAA#v=onepage&amp;q=uuigaz&amp;f=false">Google Books</a>.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Fulkerson">Fulkerson</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
