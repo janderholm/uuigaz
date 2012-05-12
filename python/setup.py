@@ -36,6 +36,7 @@ setup(name='Uuigaz',
       url='http://fulkerson.github.com/uuigaz/',
       install_requires=['pygame', 'protobuf'],
       packages=['uuigaz'],
+      py_modules=["__main__"],
       package_data={'uuigaz': ['resources/*']},
       scripts=['scripts/uuigaz'],
      )
