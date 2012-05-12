@@ -1,3 +1,7 @@
+import pygame
+
+pygame.init()
+
 black = ( 0, 0, 0)
 grey = (125, 125, 125)
 white = ( 255, 255, 255)
@@ -15,3 +19,4 @@ SUBMARINE = (4, 1)
 
 HORIZONTAL = 0
 VERTICAL = 1
+FONT = pygame.font.SysFont('Arial', 18)

@@ -45,7 +45,6 @@ class Placement_grid(grid.Grid):
         self.clear_log()
 
         direction = self.direction
-        print(row," ",col)
 
         if direction == s.HORIZONTAL and col + bt[1] <= 10:
             for i in range(0,bt[1]):

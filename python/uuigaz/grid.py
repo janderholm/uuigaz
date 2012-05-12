@@ -2,6 +2,8 @@
 
 import pygame
 import pygame.font
+from settings import FONT
+
 # Define some colors
 black = ( 0, 0, 0)
 white = ( 255, 255, 255)
@@ -88,8 +90,7 @@ class Grid:
         self._log = '\n'.join(lines)
         self._log += '\n'
         for i, l in enumerate(reversed(lines)):
-            font = pygame.font.Font(None, 28)
-            text = font.render(l,  True, (10, 10, 10))
+            text = FONT.render(l,  True, (10, 10, 10))
             x, y = self.msg_coords
             y += i*28
             if self._centerx:

@@ -2,16 +2,17 @@
 <project name="uuigaz" default="build" basedir=".">
 
   <!-- Shared library dir -->
-  <property name="lib.dir" value="/usr/share/java"/>
+  <property name="lib.dir" value="/usr/share/java/"/>
+  <property name="protobuf.jar" value="protobuf.jar"/>
 
   <!-- Default is to include ants runtime, this we don't want. -->
   <presetdef name="javac">
-    <javac includeantruntime="false"/>
+    <javac target="1.6" source="1.6" includeantruntime="false"/>
   </presetdef>
 
   <!-- Make sure protobuf is available on classpath -->
   <path id="classpath">
-    <fileset dir="${lib.dir}" includes="protobuf.jar"/>
+	  <fileset dir="${lib.dir}" includes="${protobuf.jar}"/>
   </path>
 
   <target name="build_protos">
@@ -38,14 +39,14 @@
         <attribute name="Main-Class" value="com.github.uuigaz.server.Server"/>
       </manifest>
     	<!-- Repack and include protobuf -->
-    	<zipgroupfileset dir="${lib.dir}" includes="protobuf.jar"/>
+	<zipgroupfileset dir="${lib.dir}" includes="${protobuf.jar}"/>
     </jar>
     <jar destfile="jar/ServerTest.jar" basedir="bin">
       <manifest>
         <attribute name="Main-Class" value="com.github.uuigaz.test.ServerTest"/>
       </manifest>
     	<!-- Repack and include protobuf -->
-      <zipgroupfileset dir="${lib.dir}" includes="protobuf.jar"/>
+	<zipgroupfileset dir="${lib.dir}" includes="${protobuf.jar}"/>
     </jar>
   </target>
 

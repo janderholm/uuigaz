@@ -17,6 +17,7 @@ import placement_grid
 import game_grid
 import grid
 import settings as s
+from settings import FONT
 
 from optparse import OptionParser
 
@@ -145,7 +146,6 @@ def set_grid_from_board(screen, grid1, grid2, board, other):
             grid1.grid[co.y][co.x] = 5 
         
     for co in other.cos:
-        print co
         if co.hit:
             grid2.grid[co.x][co.y] = 6
             grid2.hitsGiven += 1
@@ -156,7 +156,7 @@ def set_grid_from_board(screen, grid1, grid2, board, other):
 def draw_message(screen, message):
     screen.fill(white)
     font = pygame.font.SysFont('Arial', 30)
-    text = font.render(message, 1, (0, 0, 0))
+    text = FONT.render(message, 1, (0, 0, 0))
     textpos = text.get_rect(centerx=screen.get_width() / 2,
                             centery=screen.get_height() /2)
 
@@ -193,7 +193,6 @@ def play_game(screen,clock,soc,grid1,grid2):
     sos_sound = pygame.mixer.Sound(res("resources/sos.wav"))
     sos_sound.set_volume(0.3)
     sos_sound.fadeout(1000)
-    print sos_sound.get_length()
     image = pygame.image.load(res('resources/Battleships_Paper_Game.png'))
     image = pygame.transform.scale(image, (size[0]-10,size[1]-10))
     done = False
@@ -212,8 +211,6 @@ def play_game(screen,clock,soc,grid1,grid2):
             soc.setblocking(0)
             msg.ParseFromSocket(soc)
             soc.setblocking(1)
-            
-            #grid1.clear_log()
             
             if msg.HasField("fire"):
                 print >> grid1, "Taking fire!"

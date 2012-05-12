@@ -7,6 +7,7 @@ import pygame, pygame.font, pygame.event, pygame.draw
 from pygame.locals import *
 
 import settings
+from settings import FONT
 import pygame.mixer
 
 
@@ -16,9 +17,8 @@ def draw_box(screen, message):
            ((screen.get_width() / 2) - 100,
             (screen.get_height() / 2) - 10,
             200,20), 0)
-    fontobject=pygame.font.SysFont('Arial', 18)
     if len(message) != 0:
-        screen.blit(fontobject.render(message, 1, (255, 255, 255)),
+        screen.blit(FONT.render(message, 1, (255, 255, 255)),
                 ((screen.get_width() / 2) - 100, (screen.get_height() / 2) - 10))
     pygame.display.flip()
 
@@ -28,8 +28,7 @@ def input(screen):
            ((screen.get_width() / 2) - 100,
             (screen.get_height() / 2) - 10,
             200,20), 0)
-    fontobject=pygame.font.SysFont('Arial', 18)
-    screen.blit(fontobject.render("Write your name", 1, (0, 0, 0)),
+    screen.blit(FONT.render("Write your name", 1, (0, 0, 0)),
                 ((screen.get_width() / 2) - 90, (screen.get_height() / 2) - 50))
     pygame.display.flip()
     done = False
