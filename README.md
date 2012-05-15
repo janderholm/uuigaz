@@ -21,15 +21,17 @@ Downloads
 ---------
 
 The server is available as a jar with all dependencies included here:
-https://github.com/Fulkerson/uuigaz/downloads
-There's also a test server/bot available there.
+https://github.com/Fulkerson/uuigaz/downloads.
+There's also a test server/bot available.
 
 
 
 Build instructions
 ------------------
 
-This project uses [protobuf](https://developers.google.com/protocol-buffers/) in order to serialize messages. It should be available in most repositories (in Debian/Ubuntu as **libprotobuf-java**) or at https://developers.google.com/protocol-buffers/.
+This project uses [protobuf](https://developers.google.com/protocol-buffers/)
+in order to serialize messages. It should be available in most repositories
+(in Debian/Ubuntu as **libprotobuf-java**) or at https://developers.google.com/protocol-buffers/.
 
 ### Server and Bot
 First make sure to point the ant build script to a protobuf jar by
@@ -51,6 +53,4 @@ and **ServerTest.jar** in the **jar/** directory.
 
 
 ### Client
-The client is written in Python.
-
-
+The client is written in Python using PyGame and further instructions are available in the python subdir.
