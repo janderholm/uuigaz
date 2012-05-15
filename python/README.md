@@ -20,7 +20,7 @@ Python can be found here: http://www.python.org/download/
 and PyGame can be found here: http://www.pygame.org/download.shtml
 
 If using Ubuntu or Debian this should do it:
-    apt-get install python python-pygame
+`apt-get install python python-pygame`
 
 then fetch:
 [protobuf-2.4.1-py2.6.egg](http://pypi.python.org/packages/2.6/p/protobuf/protobuf-2.4.1-py2.6.egg#md5=5df1a5abfe927550a8643dd81c0442b7)
