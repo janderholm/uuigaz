@@ -3,6 +3,7 @@ uuigaz
 
 Battleships inspired game.
 
+Website: http://fulkerson.github.com/uuigaz/
 
 Requirements
 ------------
