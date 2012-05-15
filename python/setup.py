@@ -31,7 +31,7 @@ def generate_proto(src, out):
 generate_proto("../proto/boat_protos.proto", "uuigaz")
 
 setup(name='Uuigaz',
-      version='0.1',
+      version='0.2',
       description='Client for Uuigaz, a Battleships inspired game',
       url='http://fulkerson.github.com/uuigaz/',
       install_requires=['pygame', 'protobuf'],
