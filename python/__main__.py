@@ -4,7 +4,7 @@ import sys
 import glob
 
 try:
-    import pkg_resourcessss
+    import pkg_resources
 except ImportError:
     # Incase there is no system level setuptools look
     # for an egg to use in the current directory
